@@ -1,29 +1,39 @@
-class Player extends Phaser.GameObjects.Sprite {
+class Player extends Phaser.Physics.Arcade.Image {
     constructor(scene, x, y, texture, frame) {
         super(scene, x, y, texture, frame);
-        this.moveSpeed = 3;
+        this.velocity = 300;
+        
         scene.add.existing(this);
+        scene.physics.add.existing(this);
+
+        this.body.allowGravity = false;
     }
 
     update() {
         if (keyLeft.isDown)
         {
-            this.x -= this.moveSpeed;
+            this.body.setVelocityX(-this.velocity);
         }
-
-        if (keyRight.isDown)
+        else if (keyRight.isDown)
         {
-            this.x += this.moveSpeed;
+            this.body.setVelocityX(this.velocity);
+        }
+        else
+        {
+            this.body.setVelocityX(0);
         }
 
         if (keyUp.isDown)
         {
-            this.y -= this.moveSpeed;
+            this.body.setVelocityY(-this.velocity);
         }
-
-        if (keyDown.isDown)
+        else if (keyDown.isDown)
         {
-            this.y += this.moveSpeed;
+            this.body.setVelocityY(this.velocity);
+        }
+        else
+        {
+            this.body.setVelocityY(0);
         }
     }
 
