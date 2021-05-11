@@ -25,7 +25,18 @@ class Play extends Phaser.Scene {
             [  0,   1,   0,   1,   0,   1,   0,   1,   0,   1,   0,  1,  0,  1,  0 ],
             [  1,   0,   1,   0,   1,   0,   1,   0,   1,   0,   1,  0,  1,  0,  1 ],
             [  0,   1,   0,   1,   0,   1,   0,   1,   0,   1,   0,  1,  0,  1,  0 ],
+            [  1,   0,   2,   2,   1,   0,   1,   0,   1,   0,   1,  0,  1,  0,  1 ],
+            [  0,   1,   2,   2,   0,   1,   0,   1,   0,   1,   0,  1,  0,  1,  0 ],
+            [  1,   0,   1,   0,   1,   0,   1,   0,   1,   0,   1,  0,  1,  0,  1 ],
+            [  0,   1,   0,   1,   0,   1,   0,   1,   0,   1,   0,  1,  0,  1,  0 ],
+            [  1,   0,   1,   0,   1,   0,   1,   0,   1,   0,   2,  2,  1,  0,  1 ],
+            [  0,   1,   0,   1,   0,   1,   0,   1,   0,   1,   2,  2,  0,  1,  0 ],
+            [  1,   0,   1,   0,   1,   0,   1,   0,   1,   0,   1,  0,  1,  0,  1 ],
+            [  0,   1,   0,   1,   0,   1,   0,   1,   0,   1,   0,  1,  0,  1,  0 ],
+            [  1,   0,   1,   0,   1,   0,   1,   0,   1,   0,   1,  0,  1,  0,  1 ],
+            [  0,   1,   0,   1,   0,   1,   0,   1,   0,   1,   0,  1,  0,  1,  0 ],
           ];
+          
 
         //Keyboard input
         keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
@@ -36,19 +47,28 @@ class Play extends Phaser.Scene {
         this.player = new Player(
             this,
             game.config.width/2,
-            game.config.height/2,
+            game.config.height*1.5,
             'player',
         ).setOrigin(0,0);
 
         this.player.depth = 1;
 
+        //Set up tilemap and world
         const map = this.make.tilemap({ data: level, tileWidth: 64, tileHeight: 64});
         
         const tiles = map.addTilesetImage('tiles');  
         const worldLayer = map.createStaticLayer(0, tiles, 0, 0);      
         worldLayer.setCollision(2);
 
+        this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+
+        //Physics colliders
+        this.player.body.setCollideWorldBounds(true);
         this.physics.add.collider(this.player, worldLayer);
+
+        //Set camera follow
+        this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+        this.cameras.main.startFollow(this.player);
 
         //Debug colliders for the tilemap
         
