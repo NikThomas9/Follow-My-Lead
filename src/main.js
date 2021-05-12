@@ -6,7 +6,7 @@ let config = {
         target: 60,
         forceSetTimeOut: true,
     },
-    scene:  [Play],
+    scene:  [Intro1, Intro2, Intro3, Intro4, Play],
     physics: {
         default: 'arcade',
         arcade: {
