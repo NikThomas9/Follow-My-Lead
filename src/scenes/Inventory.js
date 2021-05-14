@@ -9,11 +9,11 @@ class Inventory extends Phaser.Scene {
 
         var textOffset = 0;
 
-        this.inventoryMenu = this.add.text(game.config.width/2, game.config.height/2, 'Inventory:');
+        this.inventoryMenu = this.add.text(game.config.width/2, game.config.height/5, 'Inventory:');
         inventory.forEach(item => 
             {
                 textOffset += 30;
-                this.add.text(game.config.width/2, game.config.height/2 + textOffset, item);
+                this.add.text(game.config.width/2, game.config.height/5 + textOffset, item);
             });
 
         //keyI.on('down', this.resume, this);

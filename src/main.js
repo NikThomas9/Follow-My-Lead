@@ -2,6 +2,7 @@ let config = {
     type: Phaser.CANVAS,
     width: 960,
     height: 640,
+    roundPixels: true,
     fps: {
         target: 60,
         forceSetTimeOut: true,
@@ -11,7 +12,7 @@ let config = {
         default: 'arcade',
         arcade: {
             gravity: { y: 0 },
-            debug: true,
+            debug: false,
             fps: 60,
         },
     }

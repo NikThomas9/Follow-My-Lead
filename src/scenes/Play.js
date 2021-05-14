@@ -12,11 +12,13 @@ class Play extends Phaser.Scene {
 
         this.load.audio('sfx_pickup', './assets/puzzle_click.wav');
         this.load.audio('sfx_walking', './assets/walking.wav');
+
+        this.load.tilemapTiledJSON('level', 'assets/testmap.json');
     }
 
     create()
     {
-        const level = [
+        /*const level = [
             [  0,   1,   0,   1,   0,   1,   0,   1,   0,   1,   0,  1,  0,  1,  0 ],
             [  1,   0,   2,   2,   1,   0,   1,   0,   1,   0,   1,  0,  1,  0,  1 ],
             [  0,   1,   2,   2,   0,   1,   0,   1,   0,   1,   0,  1,  0,  1,  0 ],
@@ -38,7 +40,7 @@ class Play extends Phaser.Scene {
             [  0,   1,   0,   1,   0,   1,   0,   1,   0,   1,   0,  1,  0,  1,  0 ],
             [  1,   0,   1,   0,   1,   0,   1,   0,   1,   0,   1,  0,  1,  0,  1 ],
             [  0,   1,   0,   1,   0,   1,   0,   1,   0,   1,   0,  1,  0,  1,  0 ],
-          ];
+          ];*/
           
 
         //Keyboard input
@@ -53,8 +55,8 @@ class Play extends Phaser.Scene {
              
         this.player = new Player(
             this,
-            game.config.width/2,
-            game.config.height*1.5,
+            game.config.width,
+            game.config.height*4,
             'player',
         ).setOrigin(0,0);
 
@@ -64,7 +66,7 @@ class Play extends Phaser.Scene {
         pickups = this.physics.add.staticGroup();
 
         var pickup1 = pickups.create(game.config.width/2, game.config.height, 'pickup');
-        var pickup2 = pickups.create(game.config.width/2 + 150, game.config.height + 30, 'pickup');
+        var pickup2 = pickups.create(game.config.width * 2 + 300, game.config.height, 'pickup');
         var pickup3 = pickups.create(game.config.width/2 - 150, game.config.height + 30, 'pickup');
 
         pickup1.name = 'crowbar';
@@ -77,11 +79,12 @@ class Play extends Phaser.Scene {
         pickup3.depth = 1;
 
         //Set up tilemap and world
-        const map = this.make.tilemap({ data: level, tileWidth: 64, tileHeight: 64});
+        //const map = this.make.tilemap({ data: level, tileWidth: 64, tileHeight: 64});
+        const map = this.make.tilemap({ key: 'level'});
         
-        const tiles = map.addTilesetImage('tiles');  
+        const tiles = map.addTilesetImage('tiles', 'tiles');  
         const worldLayer = map.createStaticLayer(0, tiles, 0, 0);      
-        worldLayer.setCollision(2);
+        worldLayer.setCollision(3);
 
         this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
@@ -92,8 +95,10 @@ class Play extends Phaser.Scene {
         this.physics.add.overlap(this.player.radius, pickups, this.handlePickup);
         
         //Set camera follow
+        this.cameraDolly = new Phaser.Geom.Point(this.player.x, this.player.y);
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-        this.cameras.main.startFollow(this.player);
+        //this.cameras.main.startFollow(this.player);
+        this.cameras.main.startFollow(this.cameraDolly);
 
         //Debug colliders for the tilemap
         
@@ -110,6 +115,8 @@ class Play extends Phaser.Scene {
     update()
     {
         this.player.update();
+        this.cameraDolly.x = Math.floor(this.player.x + 3);
+        this.cameraDolly.y = Math.floor(this.player.y + 3);
 
         if (newPickup && this.scene.isActive("inventoryMenu"))
         {
