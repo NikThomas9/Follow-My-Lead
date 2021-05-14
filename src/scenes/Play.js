@@ -42,7 +42,9 @@ class Play extends Phaser.Scene {
         keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);      
         keyUp = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
-        keyDown = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);    
+        keyDown = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);  
+        keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);    
+  
              
         this.player = new Player(
             this,
@@ -51,7 +53,19 @@ class Play extends Phaser.Scene {
             'player',
         ).setOrigin(0,0);
 
+        this.obj = this.add.rectangle(
+            game.config.width/2,
+            game.config.height,
+            50,
+            50,
+            0xFF0000,
+        ).setOrigin(0,0);
+
         this.player.depth = 1;
+        this.obj.depth = 1;
+
+        this.add.existing(this.obj);
+        this.physics.add.existing(this.obj);
 
         //Set up tilemap and world
         const map = this.make.tilemap({ data: level, tileWidth: 64, tileHeight: 64});
@@ -65,6 +79,15 @@ class Play extends Phaser.Scene {
         //Physics colliders
         this.player.body.setCollideWorldBounds(true);
         this.physics.add.collider(this.player, worldLayer);
+        this.physics.add.overlap(this.player, this.obj);
+        this.physics.add.overlap(this.player.radius, this.obj,
+            () => {
+                //this.handleInteraction()
+                if (keySpace.isDown)
+                {
+                    this.obj.destroy();
+                }
+            });
 
         //Set camera follow
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
@@ -83,5 +106,10 @@ class Play extends Phaser.Scene {
     update()
     {
         this.player.update();
+    }
+
+    handleInteraction()
+    {
+
     }
 }

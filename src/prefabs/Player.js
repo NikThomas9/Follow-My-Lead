@@ -7,6 +7,14 @@ class Player extends Phaser.Physics.Arcade.Image {
         scene.physics.add.existing(this);
 
         this.body.allowGravity = false;
+        var offset = 20;
+
+        this.radius = scene.add.rectangle(x, y, this.body.width + offset, this.body.height + offset, 0xFF0000, 0).setOrigin(.1, .1);
+        this.radius.depth = 1;
+
+        scene.add.existing(this.radius);
+        scene.physics.add.existing(this.radius);
+
     }
 
     update() {
@@ -35,6 +43,9 @@ class Player extends Phaser.Physics.Arcade.Image {
         {
             this.body.setVelocityY(0);
         }
+
+        this.radius.x = this.body.x;
+        this.radius.y = this.body.y;
     }
 
     reset() {
