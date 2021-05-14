@@ -8,7 +8,7 @@ class Play extends Phaser.Scene {
         //Load Sprites
         this.load.image('tiles', 'assets/tiles.png');
         this.load.image('player', 'assets/player.png');
-        this.load.image('tree', 'assets/tree.png');
+        this.load.image('obj', 'assets/obj.png');
     }
 
     create()
@@ -61,6 +61,7 @@ class Play extends Phaser.Scene {
             0xFF0000,
         ).setOrigin(0,0);
 
+        this.obj = this.physics.add.staticImage(game.config.width/2, game.config.height, 'obj')
         this.player.depth = 1;
         this.obj.depth = 1;
 
@@ -79,7 +80,7 @@ class Play extends Phaser.Scene {
         //Physics colliders
         this.player.body.setCollideWorldBounds(true);
         this.physics.add.collider(this.player, worldLayer);
-        this.physics.add.overlap(this.player, this.obj);
+        this.physics.add.collider(this.player, this.obj);
         this.physics.add.overlap(this.player.radius, this.obj,
             () => {
                 //this.handleInteraction()
