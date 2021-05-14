@@ -44,7 +44,9 @@ class Play extends Phaser.Scene {
         keyUp = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
         keyDown = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);  
         keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);    
-  
+        keyI = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);    
+
+        this.inventoryEnabled = false;
              
         this.player = new Player(
             this,
@@ -53,6 +55,7 @@ class Play extends Phaser.Scene {
             'player',
         ).setOrigin(0,0);
         
+        //Generate pickups
         pickups = this.physics.add.staticGroup();
 
         var pickup1 = pickups.create(game.config.width/2, game.config.height, 'pickup');
@@ -95,11 +98,19 @@ class Play extends Phaser.Scene {
         collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
         faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
         });*/
+
+        keyI.on('down', this.inventoryToggle, this);
     }
 
     update()
     {
         this.player.update();
+
+        if (newPickup && this.scene.isActive("inventoryMenu"))
+        {
+            this.scene.launch("inventoryMenu");
+            newPickup = false;
+        }
     }
 
     handlePickup(sprite, obj)
@@ -110,7 +121,24 @@ class Play extends Phaser.Scene {
             inventory.push(obj.name);
 
             console.log(inventory);
-            obj.body.enable = false;    
+            obj.body.enable = false;   
+
+            newPickup = true;
+
+        }
+    }
+
+    inventoryToggle()
+    {
+        if(!this.inventoryEnabled)
+        {
+            this.inventoryEnabled = true;
+            this.scene.launch("inventoryMenu");
+        }
+        else 
+        {
+            this.scene.sleep("inventoryMenu");
+            this.inventoryEnabled = false;
         }
     }
 }

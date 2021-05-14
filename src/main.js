@@ -6,7 +6,7 @@ let config = {
         target: 60,
         forceSetTimeOut: true,
     },
-    scene:  [Intro1, Intro2, Intro3, Intro4, Play],
+    scene:  [Intro1, Intro2, Intro3, Intro4, Play, Inventory],
     physics: {
         default: 'arcade',
         arcade: {
@@ -22,9 +22,10 @@ let game = new Phaser.Game(config);
 let borderUISize = game.config.height / 15;
 let borderPadding = borderUISize / 3;
 
-let keyUp, keyDown, keyRight, keyLeft, keySpace;
+let keyUp, keyDown, keyRight, keyLeft, keySpace, keyI;
 
 let pickups;
 let inventory = []; 
+let newPickup = false;
 
 
