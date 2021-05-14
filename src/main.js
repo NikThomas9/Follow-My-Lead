@@ -11,7 +11,7 @@ let config = {
         default: 'arcade',
         arcade: {
             gravity: { y: 0 },
-            debug: false,
+            debug: true,
             fps: 60,
         },
     }
@@ -23,4 +23,8 @@ let borderUISize = game.config.height / 15;
 let borderPadding = borderUISize / 3;
 
 let keyUp, keyDown, keyRight, keyLeft, keySpace;
+
+let pickups;
+let inventory = []; 
+
 

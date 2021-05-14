@@ -8,7 +8,7 @@ class Play extends Phaser.Scene {
         //Load Sprites
         this.load.image('tiles', 'assets/tiles.png');
         this.load.image('player', 'assets/player.png');
-        this.load.image('obj', 'assets/obj.png');
+        this.load.image('pickup', 'assets/obj.png');
     }
 
     create()
@@ -52,21 +52,21 @@ class Play extends Phaser.Scene {
             game.config.height*1.5,
             'player',
         ).setOrigin(0,0);
+        
+        pickups = this.physics.add.staticGroup();
 
-        this.obj = this.add.rectangle(
-            game.config.width/2,
-            game.config.height,
-            50,
-            50,
-            0xFF0000,
-        ).setOrigin(0,0);
+        var pickup1 = pickups.create(game.config.width/2, game.config.height, 'pickup');
+        var pickup2 = pickups.create(game.config.width/2 + 150, game.config.height + 30, 'pickup');
+        var pickup3 = pickups.create(game.config.width/2 - 150, game.config.height + 30, 'pickup');
 
-        this.obj = this.physics.add.staticImage(game.config.width/2, game.config.height, 'obj')
+        pickup1.name = 'crowbar';
+        pickup2.name = 'paper';
+        pickup3.name = 'key';
+
         this.player.depth = 1;
-        this.obj.depth = 1;
-
-        this.add.existing(this.obj);
-        this.physics.add.existing(this.obj);
+        pickup1.depth = 1;
+        pickup2.depth = 1;
+        pickup3.depth = 1;
 
         //Set up tilemap and world
         const map = this.make.tilemap({ data: level, tileWidth: 64, tileHeight: 64});
@@ -80,16 +80,9 @@ class Play extends Phaser.Scene {
         //Physics colliders
         this.player.body.setCollideWorldBounds(true);
         this.physics.add.collider(this.player, worldLayer);
-        this.physics.add.collider(this.player, this.obj);
-        this.physics.add.overlap(this.player.radius, this.obj,
-            () => {
-                //this.handleInteraction()
-                if (keySpace.isDown)
-                {
-                    this.obj.destroy();
-                }
-            });
-
+        this.physics.add.collider(this.player, pickups);
+        this.physics.add.overlap(this.player.radius, pickups, this.handlePickup);
+        
         //Set camera follow
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
         this.cameras.main.startFollow(this.player);
@@ -109,8 +102,15 @@ class Play extends Phaser.Scene {
         this.player.update();
     }
 
-    handleInteraction()
+    handlePickup(sprite, obj)
     {
+        if (keySpace.isDown)
+        {
+            pickups.killAndHide(obj);
+            inventory.push(obj.name);
 
+            console.log(inventory);
+            obj.body.enable = false;    
+        }
     }
 }
