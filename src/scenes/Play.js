@@ -9,6 +9,9 @@ class Play extends Phaser.Scene {
         this.load.image('tiles', 'assets/tiles.png');
         this.load.image('player', 'assets/player.png');
         this.load.image('pickup', 'assets/obj.png');
+
+        this.load.audio('sfx_pickup', './assets/puzzle_click.wav');
+        this.load.audio('sfx_walking', './assets/walking.wav');
     }
 
     create()
@@ -54,6 +57,8 @@ class Play extends Phaser.Scene {
             game.config.height*1.5,
             'player',
         ).setOrigin(0,0);
+
+        this.walkingSFX = this.sound.add("sfx_walking", {loop: true});
         
         //Generate pickups
         pickups = this.physics.add.staticGroup();
@@ -113,7 +118,7 @@ class Play extends Phaser.Scene {
         }
     }
 
-    handlePickup(sprite, obj)
+    handlePickup(sprite, obj, scene)
     {
         if (keySpace.isDown)
         {
@@ -125,6 +130,7 @@ class Play extends Phaser.Scene {
 
             newPickup = true;
 
+            obj.scene.sound.play("sfx_pickup");
         }
     }
 

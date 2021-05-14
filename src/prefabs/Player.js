@@ -14,7 +14,6 @@ class Player extends Phaser.Physics.Arcade.Image {
 
         scene.add.existing(this.radius);
         scene.physics.add.existing(this.radius);
-
     }
 
     update() {
@@ -42,6 +41,17 @@ class Player extends Phaser.Physics.Arcade.Image {
         else
         {
             this.body.setVelocityY(0);
+        }
+
+        this.body.velocity.normalize().scale(this.velocity);
+
+        if ((this.body.velocity.x != 0 || this.body.velocity.y != 0) && !this.scene.walkingSFX.isPlaying)
+        {
+            this.scene.walkingSFX.play();
+        }
+        else if ((this.body.velocity.x == 0 && this.body.velocity.y == 0) && this.scene.walkingSFX.isPlaying)
+        {
+            this.scene.walkingSFX.stop();
         }
 
         this.radius.x = this.body.x;
