@@ -3,6 +3,7 @@ let config = {
     width: 960,
     height: 640,
     roundPixels: true,
+    pixelArt: true,
     fps: {
         target: 60,
         forceSetTimeOut: true,

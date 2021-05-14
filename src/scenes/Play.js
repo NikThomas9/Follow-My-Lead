@@ -95,10 +95,10 @@ class Play extends Phaser.Scene {
         this.physics.add.overlap(this.player.radius, pickups, this.handlePickup);
         
         //Set camera follow
-        this.cameraDolly = new Phaser.Geom.Point(this.player.x, this.player.y);
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-        //this.cameras.main.startFollow(this.player);
-        this.cameras.main.startFollow(this.cameraDolly);
+        this.cameras.main.startFollow(this.player);
+        this.cameras.main.roundPixels = true;
+
 
         //Debug colliders for the tilemap
         
@@ -115,8 +115,6 @@ class Play extends Phaser.Scene {
     update()
     {
         this.player.update();
-        this.cameraDolly.x = Math.floor(this.player.x + 3);
-        this.cameraDolly.y = Math.floor(this.player.y + 3);
 
         if (newPickup && this.scene.isActive("inventoryMenu"))
         {
@@ -125,7 +123,7 @@ class Play extends Phaser.Scene {
         }
     }
 
-    handlePickup(sprite, obj, scene)
+    handlePickup(sprite, obj)
     {
         if (keySpace.isDown)
         {
