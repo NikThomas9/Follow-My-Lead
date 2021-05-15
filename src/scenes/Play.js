@@ -9,9 +9,13 @@ class Play extends Phaser.Scene {
         this.load.image('tiles', 'assets/tiles.png');
         this.load.image('player', 'assets/player.png');
         this.load.image('pickup', 'assets/obj.png');
-        this.load.image('buttonGreen', 'assets/buttonGreen.png');
-        this.load.image('buttonRed', 'assets/buttonRed.png');
-        this.load.image('buttonBlue', 'assets/buttonBlue.png');
+        this.load.image('green', 'assets/buttonGreen.png');
+        this.load.image('red', 'assets/buttonRed.png');
+        this.load.image('blue', 'assets/buttonBlue.png');
+        this.load.image('greenDisabled', 'assets/buttonGreenDisabled.png');
+        this.load.image('redDisabled', 'assets/buttonRedDisabled.png');
+        this.load.image('blueDisabled', 'assets/buttonBlueDisabled.png');
+
         this.load.image('paper', 'assets/paper.png');
         this.load.image('samplePaper', 'assets/samplePaper.png');
 
@@ -47,26 +51,28 @@ class Play extends Phaser.Scene {
         
         //Generate pickups
         pickups = this.physics.add.staticGroup();
-        buttons = this.physics.add.staticGroup();
+        buttons = this.physics.add.group();
 
         var paper = pickups.create(game.config.width/2, game.config.height, 'paper');
-        var buttonRed = buttons.create(game.config.width * 2 + 300, game.config.height, 'buttonRed');
-        var buttonBlue = buttons.create(game.config.width/2 - 150, game.config.height + 30, 'buttonBlue');
-        var buttonGreen = buttons.create(game.config.width + 150, game.config.height /2, 'buttonGreen');
+        this.buttonRed = new Button(this, game.config.width * 2 + 300, game.config.height, 'red', this, 'red').setOrigin(0, 0);
+        this.buttonBlue = new Button(this, game.config.width/2 - 150, game.config.height + 30, 'blue', this, 'blue').setOrigin(0, 0);
+        this.buttonGreen = new Button(this, game.config.width + 150, game.config.height /2, 'green', this, 'green').setOrigin(0, 0);
 
+        buttons.add(this.buttonRed);
+        buttons.add(this.buttonBlue);
+        buttons.add(this.buttonGreen);
+
+        this.buttonRed.setImmovable(true);
+        this.buttonBlue.setImmovable(true);
+        this.buttonGreen.setImmovable(true);
+
+        //var buttonBlue = buttons.create(game.config.width/2 - 150, game.config.height + 30, 'buttonBlue');
+        //var buttonGreen = buttons.create(game.config.width + 150, game.config.height /2, 'buttonGreen');
 
         paper.name = 'paper1';
-        buttonRed.name = 'red';
-        buttonBlue.name = 'blue';
-        buttonGreen.name = 'green';
-
 
         this.player.depth = 1;
-        paper.depth = 1;
-        buttonRed.depth = 1;
-        buttonBlue.depth = 1;
-        buttonGreen.depth = 1;
-        
+        paper.depth = 1;        
 
         //Set up tilemap and world
         //const map = this.make.tilemap({ data: level, tileWidth: 64, tileHeight: 64});
@@ -140,33 +146,41 @@ class Play extends Phaser.Scene {
 
     handleButton(sprite, obj)
     {
-        combination.push(obj.name);
-        console.log(combination);
-        obj.scene.sound.play("sfx_pickup");
-
-        //Evaluate combo
-        if (combination.length == 3)
+        if (!obj.isDisabled)
         {
-            var success = true;
-            var index = 0;
-            combination.forEach(item =>{
-                if (item != code1[index])
-                {
-                    success = false;
-                }
-                index++;
-            });
+            combination.push(obj.color);
+            console.log(combination);
+            obj.scene.sound.play("sfx_pickup");
 
-            if (success)
+            obj.isDisabled = true;
+            obj.setTexture(obj.color+"Disabled")
+        
+
+            //Evaluate combo
+            if (combination.length == 3)
             {
-                console.log("success");
-                obj.scene.sound.play("sfx_slam");
-            }
-            else
-            {
-                console.log("failure");
-                obj.scene.sound.play("sfx_incorrect");
-                combination = [];
+                var success = true;
+                var index = 0;
+                combination.forEach(item =>{
+                    if (item != code1[index])
+                    {
+                        success = false;
+                    }
+                    index++;
+                });
+
+                if (success)
+                {
+                    console.log("success");
+                    obj.scene.sound.play("sfx_slam");
+                }
+                else
+                {
+                    console.log("failure");
+                    obj.scene.sound.play("sfx_incorrect");
+                    combination = [];
+                    obj.scene.resetButtons();
+                }
             }
         }
     }
@@ -191,8 +205,12 @@ class Play extends Phaser.Scene {
         this.buttonHandler.active = true;
     }
 
-    addToUI(scene, sprite)
+    resetButtons()
     {
-        scene.add.image()
+        buttons.getChildren().forEach(item => 
+            {
+                item.setTexture(item.color);
+                item.isDisabled = false;
+            })
     }
 }
