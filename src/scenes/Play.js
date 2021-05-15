@@ -9,40 +9,23 @@ class Play extends Phaser.Scene {
         this.load.image('tiles', 'assets/tiles.png');
         this.load.image('player', 'assets/player.png');
         this.load.image('pickup', 'assets/obj.png');
+        this.load.image('buttonGreen', 'assets/buttonGreen.png');
+        this.load.image('buttonRed', 'assets/buttonRed.png');
+        this.load.image('buttonBlue', 'assets/buttonBlue.png');
+        this.load.image('paper', 'assets/paper.png');
+
 
         this.load.audio('sfx_pickup', './assets/puzzle_click.wav');
         this.load.audio('sfx_walking', './assets/walking.wav');
+        this.load.audio('sfx_slam', './assets/slam.wav');
+        this.load.audio('sfx_incorrect', './assets/wrong.wav');
+
 
         this.load.tilemapTiledJSON('level', 'assets/testmap.json');
     }
 
     create()
     {
-        /*const level = [
-            [  0,   1,   0,   1,   0,   1,   0,   1,   0,   1,   0,  1,  0,  1,  0 ],
-            [  1,   0,   2,   2,   1,   0,   1,   0,   1,   0,   1,  0,  1,  0,  1 ],
-            [  0,   1,   2,   2,   0,   1,   0,   1,   0,   1,   0,  1,  0,  1,  0 ],
-            [  1,   0,   1,   0,   1,   0,   1,   0,   1,   0,   1,  0,  1,  0,  1 ],
-            [  0,   1,   0,   1,   0,   1,   0,   1,   0,   1,   0,  1,  0,  1,  0 ],
-            [  1,   0,   1,   0,   1,   0,   1,   0,   1,   0,   2,  2,  1,  0,  1 ],
-            [  0,   1,   0,   1,   0,   1,   0,   1,   0,   1,   2,  2,  0,  1,  0 ],
-            [  1,   0,   1,   0,   1,   0,   1,   0,   1,   0,   1,  0,  1,  0,  1 ],
-            [  0,   1,   0,   1,   0,   1,   0,   1,   0,   1,   0,  1,  0,  1,  0 ],
-            [  1,   0,   1,   0,   1,   0,   1,   0,   1,   0,   1,  0,  1,  0,  1 ],
-            [  0,   1,   0,   1,   0,   1,   0,   1,   0,   1,   0,  1,  0,  1,  0 ],
-            [  1,   0,   2,   2,   1,   0,   1,   0,   1,   0,   1,  0,  1,  0,  1 ],
-            [  0,   1,   2,   2,   0,   1,   0,   1,   0,   1,   0,  1,  0,  1,  0 ],
-            [  1,   0,   1,   0,   1,   0,   1,   0,   1,   0,   1,  0,  1,  0,  1 ],
-            [  0,   1,   0,   1,   0,   1,   0,   1,   0,   1,   0,  1,  0,  1,  0 ],
-            [  1,   0,   1,   0,   1,   0,   1,   0,   1,   0,   2,  2,  1,  0,  1 ],
-            [  0,   1,   0,   1,   0,   1,   0,   1,   0,   1,   2,  2,  0,  1,  0 ],
-            [  1,   0,   1,   0,   1,   0,   1,   0,   1,   0,   1,  0,  1,  0,  1 ],
-            [  0,   1,   0,   1,   0,   1,   0,   1,   0,   1,   0,  1,  0,  1,  0 ],
-            [  1,   0,   1,   0,   1,   0,   1,   0,   1,   0,   1,  0,  1,  0,  1 ],
-            [  0,   1,   0,   1,   0,   1,   0,   1,   0,   1,   0,  1,  0,  1,  0 ],
-          ];*/
-          
-
         //Keyboard input
         keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);      
@@ -64,19 +47,26 @@ class Play extends Phaser.Scene {
         
         //Generate pickups
         pickups = this.physics.add.staticGroup();
+        buttons = this.physics.add.staticGroup();
 
-        var pickup1 = pickups.create(game.config.width/2, game.config.height, 'pickup');
-        var pickup2 = pickups.create(game.config.width * 2 + 300, game.config.height, 'pickup');
-        var pickup3 = pickups.create(game.config.width/2 - 150, game.config.height + 30, 'pickup');
+        var paper = pickups.create(game.config.width/2, game.config.height, 'paper');
+        var buttonRed = buttons.create(game.config.width * 2 + 300, game.config.height, 'buttonRed');
+        var buttonBlue = buttons.create(game.config.width/2 - 150, game.config.height + 30, 'buttonBlue');
+        var buttonGreen = buttons.create(game.config.width + 150, game.config.height /2, 'buttonGreen');
 
-        pickup1.name = 'crowbar';
-        pickup2.name = 'paper';
-        pickup3.name = 'key';
+
+        paper.name = 'paper';
+        buttonRed.name = 'red';
+        buttonBlue.name = 'blue';
+        buttonGreen.name = 'green';
+
 
         this.player.depth = 1;
-        pickup1.depth = 1;
-        pickup2.depth = 1;
-        pickup3.depth = 1;
+        paper.depth = 1;
+        buttonRed.depth = 1;
+        buttonBlue.depth = 1;
+        buttonGreen.depth = 1;
+        
 
         //Set up tilemap and world
         //const map = this.make.tilemap({ data: level, tileWidth: 64, tileHeight: 64});
@@ -92,12 +82,19 @@ class Play extends Phaser.Scene {
         this.player.body.setCollideWorldBounds(true);
         this.physics.add.collider(this.player, worldLayer);
         this.physics.add.collider(this.player, pickups);
-        this.physics.add.overlap(this.player.radius, pickups, this.handlePickup);
-        
+        this.physics.add.collider(this.player, buttons);
+
+        this.pickupHandler = this.physics.add.overlap(this.player.radius, pickups, this.handlePickup);
+        this.buttonHandler = this.physics.add.overlap(this.player.radius, buttons, this.handleButton);
+
+        this.pickupHandler.active = false;
+        this.buttonHandler.active = false;
+
         //Set camera follow
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
         this.cameras.main.startFollow(this.player);
         this.cameras.main.roundPixels = true;
+
 
 
         //Debug colliders for the tilemap
@@ -110,11 +107,16 @@ class Play extends Phaser.Scene {
         });*/
 
         keyI.on('down', this.inventoryToggle, this);
+        keySpace.on('down', this.interact, this);
+
     }
 
     update()
     {
         this.player.update();
+        this.pickupHandler.active = false;
+        this.buttonHandler.active = false;
+
 
         if (newPickup && this.scene.isActive("inventoryMenu"))
         {
@@ -125,17 +127,47 @@ class Play extends Phaser.Scene {
 
     handlePickup(sprite, obj)
     {
-        if (keySpace.isDown)
+        pickups.killAndHide(obj);
+        inventory.push(obj.name);
+
+        console.log(inventory);
+        obj.body.enable = false;   
+
+        newPickup = true;
+
+        obj.scene.sound.play("sfx_pickup");
+    }
+
+    handleButton(sprite, obj)
+    {
+        combination.push(obj.name);
+        console.log(combination);
+        obj.scene.sound.play("sfx_pickup");
+
+        //Evaluate combo
+        if (combination.length == 3)
         {
-            pickups.killAndHide(obj);
-            inventory.push(obj.name);
+            var success = true;
+            var index = 0;
+            combination.forEach(item =>{
+                if (item != code1[index])
+                {
+                    success = false;
+                }
+                index++;
+            });
 
-            console.log(inventory);
-            obj.body.enable = false;   
-
-            newPickup = true;
-
-            obj.scene.sound.play("sfx_pickup");
+            if (success)
+            {
+                console.log("success");
+                obj.scene.sound.play("sfx_slam");
+            }
+            else
+            {
+                console.log("failure");
+                obj.scene.sound.play("sfx_incorrect");
+                combination = [];
+            }
         }
     }
 
@@ -151,5 +183,11 @@ class Play extends Phaser.Scene {
             this.scene.sleep("inventoryMenu");
             this.inventoryEnabled = false;
         }
+    }
+
+    interact()
+    {
+        this.pickupHandler.active = true;
+        this.buttonHandler.active = true;
     }
 }
