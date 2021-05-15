@@ -29,6 +29,8 @@ class Intro4 extends Phaser.Scene{
             borderPadding, 'Me: Hey whered you go? Oh there you are' , menuConfig).setOrigin(0.5);
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
             borderPadding + 100, 'Me: Why arent you speaking? Okay I guess I will just follow you then' , menuConfig).setOrigin(0.5);
+            this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
+                borderPadding + 200, 'Press -> to keep reading', menuConfig).setOrigin(0.5);
 
         keyRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
 
@@ -36,7 +38,7 @@ class Intro4 extends Phaser.Scene{
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(keyRight)) {
-            this.scene.start('playScene');
+            this.scene.start('ins');
             // music.stop();
         }
     }

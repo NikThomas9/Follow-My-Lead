@@ -1,15 +1,13 @@
-class Intro1 extends Phaser.Scene{
+class Instructions extends Phaser.Scene{
     constructor(){
-        super("intro1");
+        super("ins");
     }
             
     preload(){
-        // this.load.audio('music', 'assets/intro.mp3');
+        
     }
 
     create(){
-        // music = this.sound.add('music');
-        // music.play();
         let menuConfig = {
             fontFamily: 'Courier',
             fontSize: '19px',
@@ -27,18 +25,27 @@ class Intro1 extends Phaser.Scene{
         // this.cover.setDisplaySize(game.config.width, game.config.height);
 
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
-        borderPadding  - 100, 'Friend: Hey! Are you new to the forest?', menuConfig).setOrigin(0.5);
+        borderPadding -150, 'Here is your key to play the game', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
+            borderPadding - 80, 'Press I to open inventories or to view notes', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
+            borderPadding -50, 'Press W to move left', menuConfig).setOrigin(0.5);
+         this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
+             borderPadding - 20, 'Press A to move up', menuConfig).setOrigin(0.5);
+         this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
+             borderPadding + 7, 'Press S to move right', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
+             borderPadding + 35, 'Press D to move down', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
+            borderPadding + 60, 'Press the SpaceBar to interact with the buttons with clues', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
+                borderPadding + 100, 'Press -> to start playing', menuConfig).setOrigin(0.5);
+            
+            
 
-        this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
-            borderPadding , 'Me: Yes!, I am. I am a bit nervous though', menuConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
-        borderPadding + 100, 'Friend: Dont worry I am here', menuConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
-        borderPadding + 200, 'Me: Thank you!', menuConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
-            borderPadding + 300, 'Press -> to keep reading', menuConfig).setOrigin(0.5);
 
 
+        
 
 
         keyRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
@@ -47,7 +54,8 @@ class Intro1 extends Phaser.Scene{
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(keyRight)) {
-            this.scene.start('intro2');
+            this.scene.start('playScene');
+
         }
     }
 }

@@ -26,6 +26,8 @@ class Intro2 extends Phaser.Scene{
 
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
         borderPadding, 'Both you and your friend start walking in the forest', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
+        borderPadding + 50, 'Press -> to keep reading', menuConfig).setOrigin(0.5);
 
        
          keyRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
