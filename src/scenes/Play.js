@@ -66,16 +66,12 @@ class Play extends Phaser.Scene {
         this.buttonBlue.setImmovable(true);
         this.buttonGreen.setImmovable(true);
 
-        //var buttonBlue = buttons.create(game.config.width/2 - 150, game.config.height + 30, 'buttonBlue');
-        //var buttonGreen = buttons.create(game.config.width + 150, game.config.height /2, 'buttonGreen');
-
         paper.name = 'paper1';
 
         this.player.depth = 1;
         paper.depth = 1;        
 
         //Set up tilemap and world
-        //const map = this.make.tilemap({ data: level, tileWidth: 64, tileHeight: 64});
         const map = this.make.tilemap({ key: 'level'});
         
         const tiles = map.addTilesetImage('tiles', 'tiles');  
@@ -112,8 +108,10 @@ class Play extends Phaser.Scene {
         faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
         });*/
 
-        keyI.on('down', this.inventoryToggle, this);
-        keySpace.on('down', this.interact, this);
+        //keyI.on('keydown-I', this.inventoryToggle, this);
+        //keySpace.on('keydown-SPACE', this.interact, this);
+        this.input.keyboard.on('keydown-I', this.inventoryToggle, this);
+        this.input.keyboard.on('keydown-SPACE', this.interact, this);
 
     }
 
