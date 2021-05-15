@@ -13,7 +13,7 @@ class Play extends Phaser.Scene {
         this.load.image('buttonRed', 'assets/buttonRed.png');
         this.load.image('buttonBlue', 'assets/buttonBlue.png');
         this.load.image('paper', 'assets/paper.png');
-
+        this.load.image('samplePaper', 'assets/samplePaper.png');
 
         this.load.audio('sfx_pickup', './assets/puzzle_click.wav');
         this.load.audio('sfx_walking', './assets/walking.wav');
@@ -55,7 +55,7 @@ class Play extends Phaser.Scene {
         var buttonGreen = buttons.create(game.config.width + 150, game.config.height /2, 'buttonGreen');
 
 
-        paper.name = 'paper';
+        paper.name = 'paper1';
         buttonRed.name = 'red';
         buttonBlue.name = 'blue';
         buttonGreen.name = 'green';
@@ -189,5 +189,10 @@ class Play extends Phaser.Scene {
     {
         this.pickupHandler.active = true;
         this.buttonHandler.active = true;
+    }
+
+    addToUI(scene, sprite)
+    {
+        scene.add.image()
     }
 }

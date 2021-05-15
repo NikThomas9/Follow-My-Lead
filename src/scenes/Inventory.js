@@ -9,11 +9,11 @@ class Inventory extends Phaser.Scene {
 
         var textOffset = 0;
 
-        this.inventoryMenu = this.add.text(game.config.width/2, game.config.height/5, 'Inventory:');
+        this.inventoryMenu = this.add.text(game.config.width/2 + 300, game.config.height/5, 'Inventory:');
         inventory.forEach(item => 
             {
                 textOffset += 30;
-                this.add.text(game.config.width/2, game.config.height/5 + textOffset, item);
+                this.add.text(game.config.width/2 + 300, game.config.height/5 + textOffset, item);
             });
 
         //keyI.on('down', this.resume, this);
@@ -21,7 +21,10 @@ class Inventory extends Phaser.Scene {
 
     update()
     {
-        
+        if (inventory.includes("paper1"))
+        {
+            var image = this.add.image(300, 300, 'samplePaper');
+        }
     }
 
     /*resume()
