@@ -31,5 +31,6 @@ let code1 = ["red", "green", "blue"];
 let combination = [];
 let inventory = []; 
 let newPickup = false;
+let selectNumber = 0;
 
 

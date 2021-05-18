@@ -15,6 +15,7 @@ class Play extends Phaser.Scene {
         this.load.image('greenDisabled', 'assets/buttonGreenDisabled.png');
         this.load.image('redDisabled', 'assets/buttonRedDisabled.png');
         this.load.image('blueDisabled', 'assets/buttonBlueDisabled.png');
+        this.load.image('arrow', 'assets/arrow.png');
 
         this.load.image('paper', 'assets/paper.png');
         this.load.image('samplePaper', 'assets/samplePaper.png');
@@ -53,7 +54,10 @@ class Play extends Phaser.Scene {
         pickups = this.physics.add.staticGroup();
         buttons = this.physics.add.group();
 
-        var paper = pickups.create(game.config.width/2, game.config.height, 'paper');
+        var paper1 = pickups.create(game.config.width/2, game.config.height, 'paper');
+        var paper2 = pickups.create(game.config.width/2 + 100, game.config.height, 'paper');
+        var paper3 = pickups.create(game.config.width/2 + 200, game.config.height, 'paper');
+
         this.buttonRed = new Button(this, game.config.width * 2 + 300, game.config.height, 'red', this, 'red').setOrigin(0, 0);
         this.buttonBlue = new Button(this, game.config.width/2 - 150, game.config.height + 30, 'blue', this, 'blue').setOrigin(0, 0);
         this.buttonGreen = new Button(this, game.config.width + 150, game.config.height /2, 'green', this, 'green').setOrigin(0, 0);
@@ -66,10 +70,16 @@ class Play extends Phaser.Scene {
         this.buttonBlue.setImmovable(true);
         this.buttonGreen.setImmovable(true);
 
-        paper.name = 'paper1';
+        paper1.name = 'paper1';
+        paper2.name = 'paper2';
+        paper3.name = 'paper3';
+
 
         this.player.depth = 1;
-        paper.depth = 1;        
+        paper1.depth = 1;     
+        paper2.depth = 1;        
+        paper3.depth = 1;        
+
 
         //Set up tilemap and world
         const map = this.make.tilemap({ key: 'level'});
@@ -185,16 +195,10 @@ class Play extends Phaser.Scene {
 
     inventoryToggle()
     {
-        if(!this.inventoryEnabled)
-        {
-            this.inventoryEnabled = true;
-            this.scene.launch("inventoryMenu");
-        }
-        else 
-        {
-            this.scene.sleep("inventoryMenu");
-            this.inventoryEnabled = false;
-        }
+        this.scene.launch("inventoryMenu");
+        this.scene.pause(this);
+        this.scene.setActive(true, "inventoryMenu");
+        this.scene.setVisible(true, "inventoryMenu");
     }
 
     interact()

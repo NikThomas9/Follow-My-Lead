@@ -1,22 +1,31 @@
 class Inventory extends Phaser.Scene {
     constructor() {
         super("inventoryMenu");
+        this.inventoryWidth = game.config.width/2 + 300;
+        this.inventoryHeight = game.config.height/5;
     }
 
     create()
     {
-        //keyI = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);    
+        selectNumber = 0;
 
         var textOffset = 0;
+        this.arrowOffset = 0;
 
-        this.inventoryMenu = this.add.text(game.config.width/2 + 300, game.config.height/5, 'Inventory:');
+        this.inventoryMenu = this.add.text(this.inventoryWidth, this.inventoryHeight, 'Inventory:');
         inventory.forEach(item => 
             {
                 textOffset += 30;
-                this.add.text(game.config.width/2 + 300, game.config.height/5 + textOffset, item);
+                this.add.text(this.inventoryWidth, this.inventoryHeight + textOffset, item);
             });
 
-        //keyI.on('down', this.resume, this);
+        this.arrow = this.add.image(this.inventoryWidth - 50, this.inventoryHeight + 50 + this.arrowOffset, "arrow");
+
+        this.input.keyboard.on('keydown-SPACE', this.select, this);
+        this.input.keyboard.on('keydown-UP', this.selectorUp, this);
+        this.input.keyboard.on('keydown-DOWN', this.selectorDown, this);
+        this.input.keyboard.on('keydown-I', this.inventoryToggle, this);
+
     }
 
     update()
@@ -25,10 +34,52 @@ class Inventory extends Phaser.Scene {
         {
             var image = this.add.image(300, 300, 'samplePaper');
         }
+
+        this.arrow.y = this.inventoryHeight + 50 + this.arrowOffset;
     }
 
-    /*resume()
+    selectorUp()
     {
-        this.scene.resume("playScene");
-    }*/
+        selectNumber--;
+        if (selectNumber < 0)
+        {
+            selectNumber = inventory.length - 1;
+            this.arrowOffset = 30 * selectNumber;
+        }
+        else
+        {
+            this.arrowOffset -= 30;
+        }
+        console.log(selectNumber);
+    }
+
+    selectorDown()
+    {
+        selectNumber++;
+        if (selectNumber >= inventory.length)
+        {
+            selectNumber = 0;
+            this.arrowOffset = 0;
+        }
+        else
+        {
+            this.arrowOffset += 30;
+        }
+
+        //selectNumber = selectNumber % inventory.length;
+        console.log(selectNumber);
+    }
+
+    select()
+    {
+        console.log("You selected " + inventory[Math.abs(selectNumber)]);
+        //return inventory[selectNumber];
+    }
+
+    inventoryToggle()
+    {
+        this.scene.setActive(false, this);
+        this.scene.setVisible(false, this);
+        this.scene.setActive(true, "playScene");
+    }
 }
