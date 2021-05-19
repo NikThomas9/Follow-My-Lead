@@ -4,12 +4,12 @@ class Intro1 extends Phaser.Scene{
     }
             
     preload(){
-        // this.load.audio('music', 'assets/intro.mp3');
+        this.load.audio('music', 'assets/music.mp3');
     }
 
     create(){
-        // music = this.sound.add('music');
-        // music.play();
+        music = this.sound.add('music');
+        music.play();
         let menuConfig = {
             fontFamily: 'Courier',
             fontSize: '19px',

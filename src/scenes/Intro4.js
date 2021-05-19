@@ -39,7 +39,7 @@ class Intro4 extends Phaser.Scene{
     update() {
         if (Phaser.Input.Keyboard.JustDown(keyRight)) {
             this.scene.start('ins');
-            // music.stop();
+            music.stop();
         }
     }
 }
