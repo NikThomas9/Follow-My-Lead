@@ -104,10 +104,15 @@ class Inventory extends Phaser.Scene {
             console.log("You selected " + inventory[Math.abs(selectNumber)].name);
             selectedItem = inventory[Math.abs(selectNumber)];
         }
-        console.log(selectedItem);
+        
         if (selectedItem instanceof Note)
         {
             this.readNote();
+        }
+
+        if (selectedItem instanceof Tool)
+        {
+            activeTool = selectedItem;
         }
     }
 

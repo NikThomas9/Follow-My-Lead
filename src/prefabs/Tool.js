@@ -1,9 +1,9 @@
-class Note extends Phaser.Physics.Arcade.Image {
-    constructor(scene, x, y, texture, frame, readSprite) {
+class Tool extends Phaser.Physics.Arcade.Image {
+    constructor(scene, x, y, texture, frame, uiSprite) {
         super(scene, x, y, texture, frame);
         
         this.name = texture;
-        this.readSprite = readSprite;
+        this.uiSprite = uiSprite;
 
         scene.add.existing(this);
         scene.physics.add.existing(this);

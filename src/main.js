@@ -27,12 +27,13 @@ let borderPadding = borderUISize / 3;
 
 let keyUp, keyDown, keyRight, keyLeft, keySpace, keyI;
 
-let pickups, buttons;
+let pickups, buttons, obstacles;
 let code1 = ["red", "green", "blue"];
 let combination = [];
 let inventory = []; 
 let newPickup = false;
 let selectNumber = 0;
 let selectedItem = "";
+let activeTool = "";
 
 

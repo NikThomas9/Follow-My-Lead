@@ -5,11 +5,17 @@ class UI extends Phaser.Scene {
 
     create()
     {
-        this.selected = this.add.text(50, 50, "Selected: " + selectedItem.name);
+        this.selected = this.add.text(50, 50, "Selected: ");
+        this.selectedIcon = this.add.image(this.selected.x + 125, this.selected.y, activeTool.uiSprite);
     }
 
     update()
     {
-        this.selected.text = "Selected: " + selectedItem.name;
+        if (selectedItem.uiSprite != null)
+        {
+            this.selectedIcon.setTexture(activeTool.uiSprite);
+        }
+
+        this.selected.text = "Selected: ";
     }
 }

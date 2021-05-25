@@ -16,11 +16,15 @@ class Play extends Phaser.Scene {
         this.load.image('redDisabled', 'assets/buttonRedDisabled.png');
         this.load.image('blueDisabled', 'assets/buttonBlueDisabled.png');
         this.load.image('arrow', 'assets/arrow.png');
+        this.load.image('puddle', 'assets/puddle.png');
 
         this.load.image('paper', 'assets/paper.png');
         this.load.image('samplePaper1', 'assets/samplePaper.png');
         this.load.image('samplePaper2', 'assets/sample2.png');
         this.load.image('samplePaper3', 'assets/sample3.png');
+
+        this.load.image('bucketEmpty', 'assets/emptybucket.png');
+        this.load.image('bucketFull', 'assets/fullbucket.png');
 
         this.load.audio('sfx_pickup', './assets/puzzle_click.wav');
         this.load.audio('sfx_walking', './assets/walking.wav');
@@ -57,14 +61,22 @@ class Play extends Phaser.Scene {
         //Generate pickups
         pickups = this.physics.add.group();
         buttons = this.physics.add.group();
+        obstacles = this.physics.add.group();
 
         this.paper1 = new Note(this, game.config.width/2, game.config.height, 'paper', null, 'samplePaper1').setOrigin(0, 0);
         this.paper2 = new Note(this, game.config.width/2 + 100, game.config.height, 'paper', null, 'samplePaper2').setOrigin(0, 0);
         this.paper3 = new Note(this, game.config.width/2 + 200, game.config.height, 'paper', null, 'samplePaper3').setOrigin(0, 0);
 
+        this.bucket = new Tool(this, game.config.width/2 + 300, game.config.height, 'bucketEmpty', null, 'bucketEmpty').setOrigin(0, 0);
+
+        this.puddle = new Obstacle(this, game.config.width/2 + 500, game.config.height, 'puddle', null, 'puddle').setOrigin(0, 0);
+
+        obstacles.add(this.puddle);
+
         pickups.add(this.paper1);
         pickups.add(this.paper2);
         pickups.add(this.paper3);
+        pickups.add(this.bucket);
 
         this.buttonRed = new Button(this, game.config.width * 2 + 300, game.config.height, 'red', this, 'red').setOrigin(0, 0);
         this.buttonBlue = new Button(this, game.config.width/2 - 150, game.config.height + 30, 'blue', this, 'blue').setOrigin(0, 0);
@@ -81,16 +93,20 @@ class Play extends Phaser.Scene {
         this.paper1.setImmovable(true);
         this.paper2.setImmovable(true);
         this.paper3.setImmovable(true);
-
+        this.bucket.setImmovable(true);
+        this.puddle.setImmovable(true);
 
         this.paper1.name = 'paper1';
         this.paper2.name = 'paper2';
         this.paper3.name = 'paper3';
+        this.bucket.name = 'bucket';
 
         this.player.depth = 1;
         this.paper1.depth = 1;     
         this.paper2.depth = 1;        
-        this.paper3.depth = 1;        
+        this.paper3.depth = 1;    
+        this.bucket.depth = 1;      
+        this.puddle.depth = 1;  
 
 
         //Set up tilemap and world
@@ -107,12 +123,17 @@ class Play extends Phaser.Scene {
         this.physics.add.collider(this.player, worldLayer);
         this.physics.add.collider(this.player, pickups);
         this.physics.add.collider(this.player, buttons);
+        this.physics.add.collider(this.player, obstacles);
 
         this.pickupHandler = this.physics.add.overlap(this.player.radius, pickups, this.handlePickup);
         this.buttonHandler = this.physics.add.overlap(this.player.radius, buttons, this.handleButton);
+        this.obstacleHandler = this.physics.add.overlap(this.player.radius, obstacles, this.handleObstacle);
+
 
         this.pickupHandler.active = false;
         this.buttonHandler.active = false;
+        this.obstacleHandler.active = false;
+
 
         //Set camera follow
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
@@ -143,6 +164,7 @@ class Play extends Phaser.Scene {
         this.player.update();
         this.pickupHandler.active = false;
         this.buttonHandler.active = false;
+        this.obstacleHandler.active = false;
 
 
         if (newPickup && this.scene.isActive("inventoryMenu"))
@@ -206,6 +228,15 @@ class Play extends Phaser.Scene {
         }
     }
 
+    handleObstacle(sprite, obj)
+    {
+        if (obj.name == "puddle" && activeTool.name == "bucket")
+        {
+            obj.destroy();
+            activeTool.uiSprite = "bucketFull";
+        }
+    }
+
     inventoryToggle()
     {
         this.scene.launch("inventoryMenu");
@@ -218,6 +249,7 @@ class Play extends Phaser.Scene {
     {
         this.pickupHandler.active = true;
         this.buttonHandler.active = true;
+        this.obstacleHandler.active = true;
     }
 
     resetButtons()
