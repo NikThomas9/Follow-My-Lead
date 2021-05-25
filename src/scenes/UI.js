@@ -5,12 +5,11 @@ class UI extends Phaser.Scene {
 
     create()
     {
-        console.log("launched");
-        this.selected = this.add.text(50, 50, "Selected: " + selectedItem);
+        this.selected = this.add.text(50, 50, "Selected: " + selectedItem.name);
     }
 
     update()
     {
-        this.selected.text = "Selected: " + selectedItem;
+        this.selected.text = "Selected: " + selectedItem.name;
     }
 }

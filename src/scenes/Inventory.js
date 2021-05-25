@@ -1,8 +1,8 @@
 class Inventory extends Phaser.Scene {
     constructor() {
         super("inventoryMenu");
-        this.inventoryWidth = game.config.width/2 + 300;
-        this.inventoryHeight = game.config.height/5;
+        this.inventoryWidth = game.config.width/2 - 30;
+        this.inventoryHeight = 30;
     }
 
     create()
@@ -12,55 +12,77 @@ class Inventory extends Phaser.Scene {
         var textOffset = 0;
         this.arrowOffset = 0;
 
-        this.bg = this.add.rectangle(500, 10, 500, 500, 0x000000);
+        this.bg = this.add.rectangle(game.config.width/2, game.config.height/2, game.config.width - 30, game.config.height - 30, 0x000000);
 
-        this.inventoryMenu = this.add.text(this.inventoryWidth, this.inventoryHeight, 'Inventory:');
+        let inventoryHeader = {
+            fontFamily: 'Courier',
+            fontSize: '32px',
+            backgroundColor: '#000000',
+            color: '#FFFFFF',
+            align: 'center',
+            fixedWidth: 0
+        }
+
+        let inventoryText = {
+            fontFamily: 'Courier',
+            fontSize: '24px',
+            backgroundColor: '#000000',
+            color: '#FFFFFF',
+            align: 'center',
+            fixedWidth: 0
+        }
+
+        this.inventoryMenu = this.add.text(this.inventoryWidth - 100, this.inventoryHeight, 'Inventory:', inventoryHeader).setOrigin(0, 0);
+
         inventory.forEach(item => 
             {
-                textOffset += 30;
-                this.add.text(this.inventoryWidth, this.inventoryHeight + textOffset, item);
+                textOffset += 50;
+                this.add.text(this.inventoryWidth - 100, this.inventoryHeight + textOffset, item.name, inventoryText);
             });
 
-        this.arrow = this.add.image(this.inventoryWidth - 50, this.inventoryHeight + 50 + this.arrowOffset, "arrow");
+        this.arrow = this.add.image(this.inventoryWidth - 150, this.inventoryHeight + 75 + this.arrowOffset, "arrow");
 
         this.input.keyboard.on('keydown-SPACE', this.select, this);
         this.input.keyboard.on('keydown-UP', this.selectorUp, this);
         this.input.keyboard.on('keydown-DOWN', this.selectorDown, this);
         this.input.keyboard.on('keydown-I', this.inventoryToggle, this);
 
+        this.note = this.add.image(game.config.width/2, game.config.height/2, "");
+        this.note.setVisible(false);
+
+        this.readingNote = false;
     }
 
     update()
     {
-        /*if (inventory.includes("paper1"))
-        {
-            var image = this.add.image(300, 300, 'samplePaper');
-        }*/
+        this.arrow.y = this.inventoryHeight + 75 + this.arrowOffset;
 
-        this.arrow.y = this.inventoryHeight + 50 + this.arrowOffset;
+        if (inventory.length <= 0)
+        {
+            this.arrow.setVisible(false);
+        }
     }
 
     selectorUp()
     {
-        if (inventory.length > 0)
+        if (inventory.length > 0 && !this.readingNote)
         {
             selectNumber--;
             if (selectNumber < 0)
             {
                 selectNumber = inventory.length - 1;
-                this.arrowOffset = 30 * selectNumber;
+                this.arrowOffset = 50 * selectNumber;
             }
             else
             {
-                this.arrowOffset -= 30;
+                this.arrowOffset -= 50;
             }
-            console.log(selectNumber);
         }
     }
 
     selectorDown()
     {
-        if (inventory.length > 0)
+        if (inventory.length > 0 && !this.readingNote)
         {
             selectNumber++;
             if (selectNumber >= inventory.length)
@@ -70,11 +92,8 @@ class Inventory extends Phaser.Scene {
             }
             else
             {
-                this.arrowOffset += 30;
+                this.arrowOffset += 50;
             }
-
-            //selectNumber = selectNumber % inventory.length;
-            console.log(selectNumber);
         }
     }
 
@@ -82,8 +101,13 @@ class Inventory extends Phaser.Scene {
     {
         if (inventory.length > 0)
         {
-            console.log("You selected " + inventory[Math.abs(selectNumber)]);
+            console.log("You selected " + inventory[Math.abs(selectNumber)].name);
             selectedItem = inventory[Math.abs(selectNumber)];
+        }
+        console.log(selectedItem);
+        if (selectedItem instanceof Note)
+        {
+            this.readNote();
         }
     }
 
@@ -93,4 +117,21 @@ class Inventory extends Phaser.Scene {
         this.scene.setVisible(false, this);
         this.scene.setActive(true, "playScene");
     }
+
+    readNote()
+    {
+        if (!this.readingNote)
+        {
+            console.log(selectedItem.readSprite);
+            this.note.setTexture(selectedItem.readSprite);
+            this.note.setVisible(true);
+            this.readingNote = true;
+        }
+        else
+        {
+            this.note.setVisible(false);
+            this.readingNote = false;
+        }
+    }
+
 }

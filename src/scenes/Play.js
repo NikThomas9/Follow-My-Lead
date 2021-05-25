@@ -18,7 +18,9 @@ class Play extends Phaser.Scene {
         this.load.image('arrow', 'assets/arrow.png');
 
         this.load.image('paper', 'assets/paper.png');
-        this.load.image('samplePaper', 'assets/samplePaper.png');
+        this.load.image('samplePaper1', 'assets/samplePaper.png');
+        this.load.image('samplePaper2', 'assets/sample2.png');
+        this.load.image('samplePaper3', 'assets/sample3.png');
 
         this.load.audio('sfx_pickup', './assets/puzzle_click.wav');
         this.load.audio('sfx_walking', './assets/walking.wav');
@@ -53,12 +55,16 @@ class Play extends Phaser.Scene {
         this.walkingSFX = this.sound.add("sfx_walking", {loop: true});
         
         //Generate pickups
-        pickups = this.physics.add.staticGroup();
+        pickups = this.physics.add.group();
         buttons = this.physics.add.group();
 
-        var paper1 = pickups.create(game.config.width/2, game.config.height, 'paper');
-        var paper2 = pickups.create(game.config.width/2 + 100, game.config.height, 'paper');
-        var paper3 = pickups.create(game.config.width/2 + 200, game.config.height, 'paper');
+        this.paper1 = new Note(this, game.config.width/2, game.config.height, 'paper', null, 'samplePaper1').setOrigin(0, 0);
+        this.paper2 = new Note(this, game.config.width/2 + 100, game.config.height, 'paper', null, 'samplePaper2').setOrigin(0, 0);
+        this.paper3 = new Note(this, game.config.width/2 + 200, game.config.height, 'paper', null, 'samplePaper3').setOrigin(0, 0);
+
+        pickups.add(this.paper1);
+        pickups.add(this.paper2);
+        pickups.add(this.paper3);
 
         this.buttonRed = new Button(this, game.config.width * 2 + 300, game.config.height, 'red', this, 'red').setOrigin(0, 0);
         this.buttonBlue = new Button(this, game.config.width/2 - 150, game.config.height + 30, 'blue', this, 'blue').setOrigin(0, 0);
@@ -72,15 +78,19 @@ class Play extends Phaser.Scene {
         this.buttonBlue.setImmovable(true);
         this.buttonGreen.setImmovable(true);
 
-        paper1.name = 'paper1';
-        paper2.name = 'paper2';
-        paper3.name = 'paper3';
+        this.paper1.setImmovable(true);
+        this.paper2.setImmovable(true);
+        this.paper3.setImmovable(true);
 
+
+        this.paper1.name = 'paper1';
+        this.paper2.name = 'paper2';
+        this.paper3.name = 'paper3';
 
         this.player.depth = 1;
-        paper1.depth = 1;     
-        paper2.depth = 1;        
-        paper3.depth = 1;        
+        this.paper1.depth = 1;     
+        this.paper2.depth = 1;        
+        this.paper3.depth = 1;        
 
 
         //Set up tilemap and world
@@ -122,6 +132,7 @@ class Play extends Phaser.Scene {
 
         //keyI.on('keydown-I', this.inventoryToggle, this);
         //keySpace.on('keydown-SPACE', this.interact, this);
+
         this.input.keyboard.on('keydown-I', this.inventoryToggle, this);
         this.input.keyboard.on('keydown-SPACE', this.interact, this);
 
@@ -144,7 +155,7 @@ class Play extends Phaser.Scene {
     handlePickup(sprite, obj)
     {
         pickups.killAndHide(obj);
-        inventory.push(obj.name);
+        inventory.push(obj);
 
         console.log(inventory);
         obj.body.enable = false;   
