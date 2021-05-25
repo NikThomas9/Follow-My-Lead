@@ -110,7 +110,7 @@ class Inventory extends Phaser.Scene {
             this.readNote();
         }
 
-        if (selectedItem instanceof Tool)
+        if (selectedItem instanceof Tool && activeTool != selectedItem)
         {
             activeTool = selectedItem;
         }

@@ -234,6 +234,7 @@ class Play extends Phaser.Scene {
         {
             obj.destroy();
             activeTool.uiSprite = "bucketFull";
+            console.log(activeTool.name);
         }
     }
 
