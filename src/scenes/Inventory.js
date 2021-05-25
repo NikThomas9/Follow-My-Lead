@@ -12,6 +12,8 @@ class Inventory extends Phaser.Scene {
         var textOffset = 0;
         this.arrowOffset = 0;
 
+        this.bg = this.add.rectangle(500, 10, 500, 500, 0x000000);
+
         this.inventoryMenu = this.add.text(this.inventoryWidth, this.inventoryHeight, 'Inventory:');
         inventory.forEach(item => 
             {
@@ -30,50 +32,59 @@ class Inventory extends Phaser.Scene {
 
     update()
     {
-        if (inventory.includes("paper1"))
+        /*if (inventory.includes("paper1"))
         {
             var image = this.add.image(300, 300, 'samplePaper');
-        }
+        }*/
 
         this.arrow.y = this.inventoryHeight + 50 + this.arrowOffset;
     }
 
     selectorUp()
     {
-        selectNumber--;
-        if (selectNumber < 0)
+        if (inventory.length > 0)
         {
-            selectNumber = inventory.length - 1;
-            this.arrowOffset = 30 * selectNumber;
+            selectNumber--;
+            if (selectNumber < 0)
+            {
+                selectNumber = inventory.length - 1;
+                this.arrowOffset = 30 * selectNumber;
+            }
+            else
+            {
+                this.arrowOffset -= 30;
+            }
+            console.log(selectNumber);
         }
-        else
-        {
-            this.arrowOffset -= 30;
-        }
-        console.log(selectNumber);
     }
 
     selectorDown()
     {
-        selectNumber++;
-        if (selectNumber >= inventory.length)
+        if (inventory.length > 0)
         {
-            selectNumber = 0;
-            this.arrowOffset = 0;
-        }
-        else
-        {
-            this.arrowOffset += 30;
-        }
+            selectNumber++;
+            if (selectNumber >= inventory.length)
+            {
+                selectNumber = 0;
+                this.arrowOffset = 0;
+            }
+            else
+            {
+                this.arrowOffset += 30;
+            }
 
-        //selectNumber = selectNumber % inventory.length;
-        console.log(selectNumber);
+            //selectNumber = selectNumber % inventory.length;
+            console.log(selectNumber);
+        }
     }
 
     select()
     {
-        console.log("You selected " + inventory[Math.abs(selectNumber)]);
-        //return inventory[selectNumber];
+        if (inventory.length > 0)
+        {
+            console.log("You selected " + inventory[Math.abs(selectNumber)]);
+            selectedItem = inventory[Math.abs(selectNumber)];
+        }
     }
 
     inventoryToggle()

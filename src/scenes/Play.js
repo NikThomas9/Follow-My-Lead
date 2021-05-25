@@ -31,6 +31,8 @@ class Play extends Phaser.Scene {
 
     create()
     {
+        this.scene.launch("UILayer");
+
         //Keyboard input
         keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);      

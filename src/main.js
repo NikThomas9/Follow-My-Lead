@@ -8,7 +8,7 @@ let config = {
         target: 60,
         forceSetTimeOut: true,
     },
-    scene:  [Intro1, Intro2, Intro3, Intro4, Instructions, Play, Inventory],
+    scene:  [Intro1, Intro2, Intro3, Intro4, Instructions, Play, Inventory, UI],
     physics: {
         default: 'arcade',
         arcade: {
@@ -33,5 +33,6 @@ let combination = [];
 let inventory = []; 
 let newPickup = false;
 let selectNumber = 0;
+let selectedItem = "";
 
 
