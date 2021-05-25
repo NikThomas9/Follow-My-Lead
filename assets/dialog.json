@@ -1,0 +1,66 @@
+[
+	[
+		{
+			"speaker" : "Friend: ",
+            "dialog" : "Hey? Are you new to the forest?",
+            "newSpeaker" : "true"
+        },
+        {
+            "speaker" : "Me: ",
+            "dialog" : "Yes, I am ! I'm a bit nervous thought",
+            "newSpeaker" : "true"
+
+        },
+        {
+            "speaker" : "Friend: ",
+            "dialog" : "Don't worry I am here!",
+            "newSpeaker" : "true"
+
+        },
+        {
+            "speaker" : "Me: ",
+            "dialog" : "Thank you",
+            "newSpeaker" : "true"
+        },
+        {
+            "speaker" : "Me: ",
+            "dialog" : "I've heard that many mysterious events happen in this forest",
+            "newSpeaker" : "true"
+        },
+        {
+            "speaker" : "Friend: ",
+            "dialog" : "Don't worry",
+            "newSpeaker" : "true"
+        },
+        {
+            "speaker" : "Me: ",
+            "dialog" : "That's cool",
+            "newSpeaker" : "true"
+        },
+        {
+            "speaker" : "Friend: ",
+            "dialog" : "*gasps",
+            "newSpeaker" : "true" 
+        },
+        {
+            "speaker" : "Me: ",
+            "dialog" : "Hey where'd you go? Oh there you are! Why aren't you speaking?",
+            "newSpeaker" : "true"
+        },
+        {
+            "speaker" : "Me: ",
+            "dialog" : "Hey where'd you go? Oh there you are! Why aren't you speaking?",
+            "newSpeaker" : "true"
+        },
+        {
+            "speaker" : "Me: ",
+            "dialog" : "Okay I guess I'll just follow you...",
+            "newSpeaker" : "true"
+        }
+
+        
+
+
+
+	]
+]
