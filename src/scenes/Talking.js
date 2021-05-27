@@ -97,6 +97,7 @@ class Talking extends Phaser.Scene {
             this.dialogLine = 0;
             // I increment conversations here, but you could create logic to exit the dialog here
             this.dialogConvo++;
+
         }
         
         // make sure we haven't run out of conversations...
@@ -104,6 +105,7 @@ class Talking extends Phaser.Scene {
             // here I'm simply "exiting" the last speaker and removing the dialog box,
             // but you could build other logic to change game states here
             console.log('End of Conversations');
+            
             // tween out prior speaker's image
             if(this.dialogLastSpeaker) {
                 // this.tweens.add({
