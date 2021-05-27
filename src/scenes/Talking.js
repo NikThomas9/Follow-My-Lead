@@ -1,3 +1,8 @@
+/*
+NOTE:
+This code was modified based on Prof. Altice's dialogue box example
+*/
+
 class Talking extends Phaser.Scene {
     constructor() {
         super("talkingScene");
