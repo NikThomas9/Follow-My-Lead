@@ -8,7 +8,7 @@ let config = {
         target: 60,
         forceSetTimeOut: true,
     },
-    scene:  [Intro1, Intro2, Intro3, Intro4, Instructions, Play, Inventory, UI],
+    scene:  [Title, Talking, Instructions, Play, Inventory, UI],
     physics: {
         default: 'arcade',
         arcade: {
@@ -21,6 +21,9 @@ let config = {
 
 let game = new Phaser.Game(config);
 let music;
+const centerX = game.config.width / 2;
+const centerY = game.config.height / 2;
+let cursors = null;
 
 let borderUISize = game.config.height / 15;
 let borderPadding = borderUISize / 3;

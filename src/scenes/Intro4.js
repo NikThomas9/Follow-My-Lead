@@ -38,8 +38,9 @@ class Intro4 extends Phaser.Scene{
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(keyRight)) {
+            MediaStreamAudioSourceNode.stop();
             this.scene.start('ins');
-            music.stop();
+            
         }
     }
 }
