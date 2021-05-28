@@ -19,7 +19,7 @@ class Play extends Phaser.Scene {
         this.load.image('puddle', 'assets/puddle.png');
 
         this.load.image('paper', 'assets/paper.png');
-        this.load.image('samplePaper1', 'assets/samplePaper.png');
+        this.load.image('note1', 'assets/note1.png');
         this.load.image('samplePaper2', 'assets/sample2.png');
         this.load.image('samplePaper3', 'assets/sample3.png');
 
@@ -41,13 +41,15 @@ class Play extends Phaser.Scene {
         const map = this.make.tilemap({ key: 'level'});
 
         const tiles = map.addTilesetImage('Forest', 'tiles');  
-        const groundLayer = map.createStaticLayer("Ground", tiles, 0, 0);      
-        const treeLayer = map.createStaticLayer("Trees", tiles, 0, 0);
-        treeLayer.setCollisionByProperty({collides: true});  
+        const groundLayer = map.createStaticLayer("Ground", tiles, 0, 0);     
+        const groundLayer2 = map.createStaticLayer("Ground2", tiles, 0, 0);       
+        const obstacleLayer = map.createStaticLayer("Obstacles", tiles, 0, 0);
+        obstacleLayer.setCollisionByProperty({collides: true});  
         groundLayer.setCollisionByProperty({collides: true});  
 
         groundLayer.depth = -2;
-        treeLayer.depth = 1;
+        groundLayer2.depth = -1;
+        obstacleLayer.depth = 1;
 
 
         this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
@@ -63,11 +65,16 @@ class Play extends Phaser.Scene {
         keyI = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);    
 
         this.inventoryEnabled = false;
+
+        const playerSpawn = map.findObject(
+            "Objects",
+            obj => obj.name === "playerSpawn"
+          );
              
         this.player = new Player(
             this,
-            map.widthInPixels/2 + 200,
-            map.heightInPixels - 100,
+            playerSpawn.x,
+            playerSpawn.y,
             'player',
         ).setOrigin(0,0);
 
@@ -78,13 +85,46 @@ class Play extends Phaser.Scene {
         buttons = this.physics.add.group();
         obstacles = this.physics.add.group();
 
-        this.paper1 = new Note(this, game.config.width/2, game.config.height, 'paper', null, 'samplePaper1').setOrigin(0, 0);
+        const button1Spawn = map.findObject(
+            "Objects",
+            obj => obj.name === "button1Spawn"
+            );
+        
+        const button2Spawn = map.findObject(
+            "Objects",
+            obj => obj.name === "button2Spawn"
+            );
+        
+        const button3Spawn = map.findObject(
+            "Objects",
+            obj => obj.name === "button3Spawn"
+            );
+            
+        const bucketSpawn = map.findObject(
+                "Objects",
+                obj => obj.name === "bucketSpawn"
+                );
+
+        const note1Spawn = map.findObject(
+            "Objects",
+            obj => obj.name === "note1Spawn"
+            );
+
+        const puddleSpawn = map.findObject(
+            "Objects",
+            obj => obj.name === "puddleSpawn"
+            );
+    
+
+                
+        this.paper1 = new Note(this, note1Spawn.x, note1Spawn.y, 'paper', null, 'note1').setOrigin(0, 0);
         this.paper2 = new Note(this, game.config.width/2 + 100, game.config.height, 'paper', null, 'samplePaper2').setOrigin(0, 0);
         this.paper3 = new Note(this, game.config.width/2 + 200, game.config.height, 'paper', null, 'samplePaper3').setOrigin(0, 0);
 
-        this.bucket = new Tool(this, game.config.width/2 + 300, game.config.height, 'bucketEmpty', null, 'bucketEmpty').setOrigin(0, 0);
+        this.bucket = new Tool(this, bucketSpawn.x, bucketSpawn.y, 'bucketEmpty', null, 'bucketEmpty').setOrigin(0, 0);
 
-        this.puddle = new Obstacle(this, game.config.width/2 + 500, game.config.height, 'puddle', null, 'puddle').setOrigin(0, 0);
+        this.puddle = new Obstacle(this, puddleSpawn.x, puddleSpawn.y, 'puddle', null, 'puddle').setOrigin(0, 0);
+
 
         obstacles.add(this.puddle);
 
@@ -93,9 +133,9 @@ class Play extends Phaser.Scene {
         pickups.add(this.paper3);
         pickups.add(this.bucket);
 
-        this.buttonRed = new Button(this, game.config.width * 2 + 300, game.config.height, 'red', this, 'red').setOrigin(0, 0);
-        this.buttonBlue = new Button(this, game.config.width/2 - 150, game.config.height + 30, 'blue', this, 'blue').setOrigin(0, 0);
-        this.buttonGreen = new Button(this, game.config.width + 150, game.config.height /2, 'green', this, 'green').setOrigin(0, 0);
+        this.buttonRed = new Button(this, button1Spawn.x, button1Spawn.y, 'red', this, 'red').setOrigin(0, 0);
+        this.buttonBlue = new Button(this, button2Spawn.x, button2Spawn.y, 'blue', this, 'blue').setOrigin(0, 0);
+        this.buttonGreen = new Button(this, button3Spawn.x, button3Spawn.y, 'green', this, 'green').setOrigin(0, 0);
 
         buttons.add(this.buttonRed);
         buttons.add(this.buttonBlue);
@@ -127,8 +167,7 @@ class Play extends Phaser.Scene {
 
         //Physics colliders
         this.player.body.setCollideWorldBounds(true);
-        this.physics.add.collider(this.player, groundLayer);
-        this.physics.add.collider(this.player, treeLayer);
+        this.physics.add.collider(this.player, obstacleLayer);
         this.physics.add.collider(this.player, pickups);
         this.physics.add.collider(this.player, buttons);
         this.physics.add.collider(this.player, obstacles);
@@ -151,12 +190,12 @@ class Play extends Phaser.Scene {
 
 
         //Debug colliders for the tilemap
-        const debugGraphics = this.add.graphics().setAlpha(0.75);
+        /*const debugGraphics = this.add.graphics().setAlpha(0.75);
         groundLayer.renderDebug(debugGraphics, {
         tileColor: null, // Color of non-colliding tiles
         collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
         faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
-        });
+        });*/
 
         this.input.keyboard.on('keydown-I', this.inventoryToggle, this);
         this.input.keyboard.on('keydown-SPACE', this.interact, this);
