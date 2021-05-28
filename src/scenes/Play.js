@@ -6,7 +6,7 @@ class Play extends Phaser.Scene {
     preload()
     {
         //Load Sprites
-        this.load.image('tiles', 'assets/tiles.png');
+        this.load.image('tiles', 'assets/tilemap/Forest.png');
         this.load.image('player', 'assets/player.png');
         this.load.image('pickup', 'assets/obj.png');
         this.load.image('green', 'assets/buttonGreen.png');
@@ -32,11 +32,26 @@ class Play extends Phaser.Scene {
         this.load.audio('sfx_incorrect', './assets/wrong.wav');
 
 
-        this.load.tilemapTiledJSON('level', 'assets/testmap.json');
+        this.load.tilemapTiledJSON('level', 'assets/tilemap/puzzle1.json');
     }
 
     create()
     {
+        //Set up tilemap and world
+        const map = this.make.tilemap({ key: 'level'});
+
+        const tiles = map.addTilesetImage('Forest', 'tiles');  
+        const groundLayer = map.createStaticLayer("Ground", tiles, 0, 0);      
+        const treeLayer = map.createStaticLayer("Trees", tiles, 0, 0);
+        treeLayer.setCollisionByProperty({collides: true});  
+        groundLayer.setCollisionByProperty({collides: true});  
+
+        groundLayer.depth = -2;
+        treeLayer.depth = 1;
+
+
+        this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+        
         this.scene.launch("UILayer");
 
         //Keyboard input
@@ -51,8 +66,8 @@ class Play extends Phaser.Scene {
              
         this.player = new Player(
             this,
-            game.config.width,
-            game.config.height*4,
+            map.widthInPixels/2 + 200,
+            map.heightInPixels - 100,
             'player',
         ).setOrigin(0,0);
 
@@ -101,26 +116,19 @@ class Play extends Phaser.Scene {
         this.paper3.name = 'paper3';
         this.bucket.name = 'bucket';
 
-        this.player.depth = 1;
+        /*this.player.depth = 1;
         this.paper1.depth = 1;     
         this.paper2.depth = 1;        
         this.paper3.depth = 1;    
         this.bucket.depth = 1;      
-        this.puddle.depth = 1;  
+        this.puddle.depth = 1;  */
 
 
-        //Set up tilemap and world
-        const map = this.make.tilemap({ key: 'level'});
-        
-        const tiles = map.addTilesetImage('tiles', 'tiles');  
-        const worldLayer = map.createStaticLayer(0, tiles, 0, 0);      
-        worldLayer.setCollision(3);
-
-        this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
         //Physics colliders
         this.player.body.setCollideWorldBounds(true);
-        this.physics.add.collider(this.player, worldLayer);
+        this.physics.add.collider(this.player, groundLayer);
+        this.physics.add.collider(this.player, treeLayer);
         this.physics.add.collider(this.player, pickups);
         this.physics.add.collider(this.player, buttons);
         this.physics.add.collider(this.player, obstacles);
@@ -143,16 +151,12 @@ class Play extends Phaser.Scene {
 
 
         //Debug colliders for the tilemap
-        
-        /*const debugGraphics = this.add.graphics().setAlpha(0.75);
-        worldLayer.renderDebug(debugGraphics, {
+        const debugGraphics = this.add.graphics().setAlpha(0.75);
+        groundLayer.renderDebug(debugGraphics, {
         tileColor: null, // Color of non-colliding tiles
         collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
         faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
-        });*/
-
-        //keyI.on('keydown-I', this.inventoryToggle, this);
-        //keySpace.on('keydown-SPACE', this.interact, this);
+        });
 
         this.input.keyboard.on('keydown-I', this.inventoryToggle, this);
         this.input.keyboard.on('keydown-SPACE', this.interact, this);
