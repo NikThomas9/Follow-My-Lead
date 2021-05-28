@@ -31,7 +31,7 @@ let borderPadding = borderUISize / 3;
 let keyUp, keyDown, keyRight, keyLeft, keySpace, keyI;
 
 let pickups, buttons, obstacles;
-let code1 = ["red", "green", "blue"];
+let code1 = ["red", "blue", "yellow", "green"];
 let combination = [];
 let inventory = []; 
 let newPickup = false;

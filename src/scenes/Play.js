@@ -12,11 +12,14 @@ class Play extends Phaser.Scene {
         this.load.image('green', 'assets/buttonGreen.png');
         this.load.image('red', 'assets/buttonRed.png');
         this.load.image('blue', 'assets/buttonBlue.png');
+        this.load.image('yellow', 'assets/buttonYellow.png');
         this.load.image('greenDisabled', 'assets/buttonGreenDisabled.png');
         this.load.image('redDisabled', 'assets/buttonRedDisabled.png');
         this.load.image('blueDisabled', 'assets/buttonBlueDisabled.png');
+        this.load.image('yellowDisabled', 'assets/buttonYellowDisabled.png');
         this.load.image('arrow', 'assets/arrow.png');
         this.load.image('puddle', 'assets/puddle.png');
+        this.load.image('door', 'assets/door.png');
 
         this.load.image('paper', 'assets/paper.png');
         this.load.image('note1', 'assets/note1.png');
@@ -99,11 +102,16 @@ class Play extends Phaser.Scene {
             "Objects",
             obj => obj.name === "button3Spawn"
             );
-            
+
+        const button4Spawn = map.findObject(
+            "Objects",
+            obj => obj.name === "button4Spawn"
+            );
+
         const bucketSpawn = map.findObject(
-                "Objects",
-                obj => obj.name === "bucketSpawn"
-                );
+            "Objects",
+            obj => obj.name === "bucketSpawn"
+            );
 
         const note1Spawn = map.findObject(
             "Objects",
@@ -114,6 +122,12 @@ class Play extends Phaser.Scene {
             "Objects",
             obj => obj.name === "puddleSpawn"
             );
+
+        const doorSpawn = map.findObject(
+            "Objects",
+            obj => obj.name === "doorSpawn"
+            );
+    
     
 
                 
@@ -124,9 +138,10 @@ class Play extends Phaser.Scene {
         this.bucket = new Tool(this, bucketSpawn.x, bucketSpawn.y, 'bucketEmpty', null, 'bucketEmpty').setOrigin(0, 0);
 
         this.puddle = new Obstacle(this, puddleSpawn.x, puddleSpawn.y, 'puddle', null, 'puddle').setOrigin(0, 0);
-
+        this.door = new Obstacle(this, doorSpawn.x, doorSpawn.y, 'door', null, 'door').setOrigin(0, 0);
 
         obstacles.add(this.puddle);
+        obstacles.add(this.door);
 
         pickups.add(this.paper1);
         pickups.add(this.paper2);
@@ -136,34 +151,33 @@ class Play extends Phaser.Scene {
         this.buttonRed = new Button(this, button1Spawn.x, button1Spawn.y, 'red', this, 'red').setOrigin(0, 0);
         this.buttonBlue = new Button(this, button2Spawn.x, button2Spawn.y, 'blue', this, 'blue').setOrigin(0, 0);
         this.buttonGreen = new Button(this, button3Spawn.x, button3Spawn.y, 'green', this, 'green').setOrigin(0, 0);
+        this.buttonYellow = new Button(this, button4Spawn.x, button4Spawn.y, 'yellow', this, 'yellow').setOrigin(0, 0);
 
         buttons.add(this.buttonRed);
         buttons.add(this.buttonBlue);
         buttons.add(this.buttonGreen);
+        buttons.add(this.buttonYellow);
 
-        this.buttonRed.setImmovable(true);
+        pickups.getChildren().forEach(item => {item.setImmovable(true)});
+        buttons.getChildren().forEach(item => {item.setImmovable(true)});
+        obstacles.getChildren().forEach(item => {item.setImmovable(true)});
+
+        /*this.buttonRed.setImmovable(true);
         this.buttonBlue.setImmovable(true);
         this.buttonGreen.setImmovable(true);
+        this.buttonYellow.setImmovable(true);
 
         this.paper1.setImmovable(true);
         this.paper2.setImmovable(true);
         this.paper3.setImmovable(true);
         this.bucket.setImmovable(true);
         this.puddle.setImmovable(true);
+        this.door.setImmovable(true);*/
 
-        this.paper1.name = 'paper1';
+        this.paper1.name = 'Note 1';
         this.paper2.name = 'paper2';
         this.paper3.name = 'paper3';
         this.bucket.name = 'bucket';
-
-        /*this.player.depth = 1;
-        this.paper1.depth = 1;     
-        this.paper2.depth = 1;        
-        this.paper3.depth = 1;    
-        this.bucket.depth = 1;      
-        this.puddle.depth = 1;  */
-
-
 
         //Physics colliders
         this.player.body.setCollideWorldBounds(true);
@@ -176,18 +190,14 @@ class Play extends Phaser.Scene {
         this.buttonHandler = this.physics.add.overlap(this.player.radius, buttons, this.handleButton);
         this.obstacleHandler = this.physics.add.overlap(this.player.radius, obstacles, this.handleObstacle);
 
-
         this.pickupHandler.active = false;
         this.buttonHandler.active = false;
         this.obstacleHandler.active = false;
-
 
         //Set camera follow
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
         this.cameras.main.startFollow(this.player);
         this.cameras.main.roundPixels = true;
-
-
 
         //Debug colliders for the tilemap
         /*const debugGraphics = this.add.graphics().setAlpha(0.75);
@@ -199,7 +209,6 @@ class Play extends Phaser.Scene {
 
         this.input.keyboard.on('keydown-I', this.inventoryToggle, this);
         this.input.keyboard.on('keydown-SPACE', this.interact, this);
-
     }
 
     update()
@@ -243,7 +252,7 @@ class Play extends Phaser.Scene {
         
 
             //Evaluate combo
-            if (combination.length == 3)
+            if (combination.length == 4)
             {
                 var success = true;
                 var index = 0;
@@ -259,6 +268,11 @@ class Play extends Phaser.Scene {
                 {
                     console.log("success");
                     obj.scene.sound.play("sfx_slam");
+
+                    if (obj.scene.door != null)
+                    {
+                        obj.scene.door.destroy();
+                    }
                 }
                 else
                 {
