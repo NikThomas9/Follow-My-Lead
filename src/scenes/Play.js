@@ -33,7 +33,9 @@ class Play extends Phaser.Scene {
         this.load.audio('sfx_walking', './assets/walking.wav');
         this.load.audio('sfx_slam', './assets/slam.wav');
         this.load.audio('sfx_incorrect', './assets/wrong.wav');
-
+        
+        this.load.atlas('playerAtlas', 'assets/playerAtlas.png', 'assets/playerAtlas.json');
+        this.textures.addSpriteSheetFromAtlas('playerAtlas', {frameHeight: 64, frameWidth: 43, atlas: "playerAtlas"});
 
         this.load.tilemapTiledJSON('level', 'assets/tilemap/puzzle1.json');
     }
@@ -73,12 +75,118 @@ class Play extends Phaser.Scene {
             "Objects",
             obj => obj.name === "playerSpawn"
           );
-             
-        this.player = new Player(
+
+          this.anims.create({
+              key: "back",
+              frameRate: 7,
+              frames: this.anims.generateFrameNames("playerAtlas", {
+                  prefix: "back",
+                  suffix: ".png",
+                  start: 0,
+                  end: 3,
+                  zeroPad: 1
+              }),
+              repeat: -1
+          });    
+          
+          this.anims.create({
+              key: "left",
+              frameRate: 7,
+              frames: this.anims.generateFrameNames("playerAtlas", {
+                  prefix: "left",
+                  suffix: ".png",
+                  start: 0,
+                  end: 3,
+                  zeroPad: 1
+              }),
+              repeat: -1
+          });   
+  
+          this.anims.create({
+              key: "front",
+              frameRate: 7,
+              frames: this.anims.generateFrameNames("playerAtlas", {
+                  prefix: "front",
+                  suffix: ".png",
+                  start: 0,
+                  end: 3,
+                  zeroPad: 1
+              }),
+              repeat: -1
+          });      
+  
+
+        this.anims.create({
+            key: "right",
+            frameRate: 7,
+            frames: this.anims.generateFrameNames("playerAtlas", {
+                prefix: "right",
+                suffix: ".png",
+                start: 0,
+                end: 3,
+                zeroPad: 1
+            }),
+            repeat: -1
+        });   
+        
+        this.anims.create({
+            key: "backStop",
+            frameRate: 7,
+            frames: this.anims.generateFrameNames("playerAtlas", {
+                prefix: "back",
+                suffix: ".png",
+                start: 0,
+                end: 0,
+                zeroPad: 1
+            }),
+            repeat: -1
+        });    
+        
+        this.anims.create({
+            key: "leftStop",
+            frameRate: 7,
+            frames: this.anims.generateFrameNames("playerAtlas", {
+                prefix: "left",
+                suffix: ".png",
+                start: 0,
+                end: 0,
+                zeroPad: 1
+            }),
+            repeat: -1
+        });   
+
+        this.anims.create({
+            key: "frontStop",
+            frameRate: 7,
+            frames: this.anims.generateFrameNames("playerAtlas", {
+                prefix: "front",
+                suffix: ".png",
+                start: 0,
+                end: 0,
+                zeroPad: 1
+            }),
+            repeat: -1
+        });      
+
+      this.anims.create({
+          key: "rightStop",
+          frameRate: 7,
+          frames: this.anims.generateFrameNames("playerAtlas", {
+              prefix: "right",
+              suffix: ".png",
+              start: 0,
+              end: 0,
+              zeroPad: 1
+          }),
+          repeat: -1
+      });           
+      
+      this.player = new Player(
             this,
             playerSpawn.x,
             playerSpawn.y,
-            'player',
+            'playerAtlas',
+            'back1.png'
         ).setOrigin(0,0);
 
         this.walkingSFX = this.sound.add("sfx_walking", {loop: true});
