@@ -28,11 +28,14 @@ class Talking extends Phaser.Scene {
         this.nextText = null;			// player prompt text to continue typing
 
         // character variables
+        this.me = null;
+        this.friend = null;
      
         this.tweenDuration = 500;
 
         this.OFFSCREEN_X = -500;        // x,y values to place characters offscreen
         this.OFFSCREEN_Y = 1000;
+        
     }
 
     create() {
@@ -50,6 +53,10 @@ class Talking extends Phaser.Scene {
         this.nextText = this.add.bitmapText(this.NEXT_X, this.NEXT_Y, this.DBOX_FONT, '', this.TEXT_SIZE);
 
         // ready the character dialog images offscreen
+    
+        
+        
+       
         // this.homer = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'homer').setOrigin(0, 1);
         // this.minerva = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'minerva').setOrigin(0, 1);
         // this.neptune = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'neptune').setOrigin(0, 1);
@@ -69,6 +76,17 @@ class Talking extends Phaser.Scene {
             // trigger dialog
             this.typeText();
         }
+        if(this.dialogSpeaker == "Me"){
+            this.me = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'Me').setOrigin(-2,0); 
+            }
+        else if(this.dialogSpeaker == "Friend"){
+                this.me = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'Me').setOrigin(0,0);
+                this.friend = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'Friend').setOrigin(-2,0);
+                
+                
+            }
+        
+       
         // if(Phaser.Input.Keyboard.JustDown(cursors.space) && this.dialogText.text == "I...alright, fine. Goodness, I swear, she’s so infuriating at times."){
         //     this.scene.start("playScene");
         // }
@@ -179,6 +197,9 @@ class Talking extends Phaser.Scene {
             // set past speaker
             this.dialogLastSpeaker = this.dialogSpeaker;
         }
+    }
+    destroy(sprite){
+        sprite.destroy();
     }
 
 }
