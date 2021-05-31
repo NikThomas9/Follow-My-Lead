@@ -29,6 +29,8 @@ class Puzzle2 extends Phaser.Scene {
 
     create()
     {
+        currentScene = "puzzle2";
+
         //Set up tilemap and world
         const map = this.make.tilemap({ key: 'level2'});
 
@@ -62,6 +64,16 @@ class Puzzle2 extends Phaser.Scene {
             "Objects",
             obj => obj.name === "playerSpawn"
           );
+
+        const note2Spawn = map.findObject(
+        "Objects",
+        obj => obj.name === "note2Spawn"
+        );
+
+        const note3Spawn = map.findObject(
+        "Objects",
+        obj => obj.name === "note3Spawn"
+        );
 
           this.anims.create({
               key: "back",
@@ -155,26 +167,28 @@ class Puzzle2 extends Phaser.Scene {
             repeat: -1
         });      
 
-      this.anims.create({
-          key: "rightStop",
-          frameRate: 7,
-          frames: this.anims.generateFrameNames("playerAtlas", {
-              prefix: "right",
-              suffix: ".png",
-              start: 0,
-              end: 0,
-              zeroPad: 1
-          }),
-          repeat: -1
-      });           
+        this.anims.create({
+            key: "rightStop",
+            frameRate: 7,
+            frames: this.anims.generateFrameNames("playerAtlas", {
+                prefix: "right",
+                suffix: ".png",
+                start: 0,
+                end: 0,
+                zeroPad: 1
+            }),
+            repeat: -1
+        });           
       
-      this.player = new Player(
+        this.player = new Player(
             this,
             playerSpawn.x,
             playerSpawn.y,
             'playerAtlas',
             'back0.png'
         ).setOrigin(0,0);
+
+        
 
         this.walkingSFX = this.sound.add("sfx_walking", {loop: true});
         
@@ -183,8 +197,8 @@ class Puzzle2 extends Phaser.Scene {
         buttons = this.physics.add.group();
         obstacles = this.physics.add.group();
                 
-        this.paper1 = new Note(this, 0, 0, 'paper', null, 'note1').setOrigin(0, 0);
-        this.paper2 = new Note(this, 0, 0, 'paper', null, 'samplePaper2').setOrigin(0, 0);
+        this.paper2 = new Note(this, note2Spawn.x, note2Spawn.y, 'paper', null, 'samplePaper2').setOrigin(0, 0);
+        this.paper3 = new Note(this, note3Spawn.x, note3Spawn.y, 'paper', null, 'samplePaper3').setOrigin(0, 0);
 
         this.bucket = new Tool(this, 0, 0, 'bucketEmpty', null, 'bucketEmpty').setOrigin(0, 0);
 
@@ -192,8 +206,8 @@ class Puzzle2 extends Phaser.Scene {
 
         obstacles.add(this.puddle);
 
-        pickups.add(this.paper1);
         pickups.add(this.paper2);
+        pickups.add(this.paper3);
         pickups.add(this.bucket);
 
         this.buttonRed = new Button(this, 0, 0, 'red', this, 'red').setOrigin(0, 0);
@@ -204,8 +218,8 @@ class Puzzle2 extends Phaser.Scene {
         buttons.getChildren().forEach(item => {item.setImmovable(true)});
         obstacles.getChildren().forEach(item => {item.setImmovable(true)});
 
-        this.paper1.name = 'Note 1';
-        this.paper2.name = 'paper2';
+        this.paper2.name = 'Note 1';
+        this.paper3.name = 'paper2';
         this.bucket.name = 'bucket';
 
         //Physics colliders

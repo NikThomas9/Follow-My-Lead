@@ -42,6 +42,8 @@ class Play extends Phaser.Scene {
 
     create()
     {
+        currentScene = "playScene";
+        
         //Set up tilemap and world
         const map = this.make.tilemap({ key: 'level'});
 

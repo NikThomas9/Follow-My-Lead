@@ -120,7 +120,7 @@ class Inventory extends Phaser.Scene {
     {
         this.scene.setActive(false, this);
         this.scene.setVisible(false, this);
-        this.scene.setActive(true, "playScene");
+        this.scene.setActive(true, currentScene);
     }
 
     readNote()

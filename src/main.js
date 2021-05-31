@@ -32,11 +32,14 @@ let keyUp, keyDown, keyRight, keyLeft, keySpace, keyI;
 
 let pickups, buttons, obstacles;
 let code1 = ["red", "blue", "yellow", "green"];
+let code2 = [4, 6, 2, 3, 1, 5];
 let combination = [];
 let inventory = []; 
 let newPickup = false;
 let selectNumber = 0;
 let selectedItem = "";
 let activeTool = "";
+let currentScene = "";
+
 
 
