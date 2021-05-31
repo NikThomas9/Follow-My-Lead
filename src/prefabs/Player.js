@@ -2,7 +2,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, texture, frame) {
         super(scene, x, y, texture, frame);
         this.velocity = 300;
-        console.log(this);
 
         scene.add.existing(this);
         scene.physics.add.existing(this);
@@ -13,8 +12,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.radius = scene.add.rectangle(x, y, this.body.width + offset, this.body.height + offset, 0xFF0000, 0).setOrigin(.1, .1);
         this.radius.depth = 1;
 
-        this.isFacing = "up";
-        this.curAnimation = "up";
+        this.isFacing = "back";
+        this.curAnimation = "back";
 
         scene.add.existing(this.radius);
         scene.physics.add.existing(this.radius);

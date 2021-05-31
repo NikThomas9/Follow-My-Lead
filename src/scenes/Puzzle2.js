@@ -1,32 +1,20 @@
-class Play extends Phaser.Scene {
+class Puzzle2 extends Phaser.Scene {
     constructor() {
-        super("playScene");
+        super("puzzle2");
     }
 
     preload()
     {
         //Load Sprites
-        this.load.image('tiles', 'assets/tilemap/Forest.png');
+        this.load.image('tiles_dark', 'assets/tilemap/Forest_Dark.png');
         this.load.image('player', 'assets/player.png');
-        this.load.image('pickup', 'assets/obj.png');
-        this.load.image('green', 'assets/buttonGreen.png');
-        this.load.image('red', 'assets/buttonRed.png');
-        this.load.image('blue', 'assets/buttonBlue.png');
-        this.load.image('yellow', 'assets/buttonYellow.png');
-        this.load.image('greenDisabled', 'assets/buttonGreenDisabled.png');
-        this.load.image('redDisabled', 'assets/buttonRedDisabled.png');
-        this.load.image('blueDisabled', 'assets/buttonBlueDisabled.png');
-        this.load.image('yellowDisabled', 'assets/buttonYellowDisabled.png');
         this.load.image('arrow', 'assets/arrow.png');
-        this.load.image('puddle', 'assets/puddle.png');
-        this.load.image('door', 'assets/door.png');
 
         this.load.image('paper', 'assets/paper.png');
         this.load.image('note1', 'assets/note1.png');
         this.load.image('samplePaper2', 'assets/sample2.png');
         this.load.image('samplePaper3', 'assets/sample3.png');
 
-        this.load.image('bucketEmpty', 'assets/emptybucket.png');
         this.load.image('bucketFull', 'assets/fullbucket.png');
 
         this.load.audio('sfx_pickup', './assets/puzzle_click.wav');
@@ -35,22 +23,21 @@ class Play extends Phaser.Scene {
         this.load.audio('sfx_incorrect', './assets/wrong.wav');
         
         this.load.atlas('playerAtlas', 'assets/playerAtlas.png', 'assets/playerAtlas.json');
-        this.textures.addSpriteSheetFromAtlas('playerAtlas', {frameHeight: 64, frameWidth: 43, atlas: "playerAtlas"});
 
-        this.load.tilemapTiledJSON('level', 'assets/tilemap/puzzle1.json');
+        this.load.tilemapTiledJSON('level2', 'assets/tilemap/puzzle2.json');
     }
 
     create()
     {
         //Set up tilemap and world
-        const map = this.make.tilemap({ key: 'level'});
+        const map = this.make.tilemap({ key: 'level2'});
 
-        const tiles = map.addTilesetImage('Forest', 'tiles');  
+        const tiles = map.addTilesetImage('Forest_Dark', 'tiles_dark');  
         const groundLayer = map.createStaticLayer("Ground", tiles, 0, 0);     
         const groundLayer2 = map.createStaticLayer("Ground2", tiles, 0, 0);       
         const obstacleLayer = map.createStaticLayer("Obstacles", tiles, 0, 0);
-        obstacleLayer.setCollisionByProperty({collides: true});  
         groundLayer.setCollisionByProperty({collides: true});  
+        obstacleLayer.setCollisionByProperty({collides: true});  
 
         groundLayer.depth = -2;
         groundLayer2.depth = -1;
@@ -195,101 +182,37 @@ class Play extends Phaser.Scene {
         pickups = this.physics.add.group();
         buttons = this.physics.add.group();
         obstacles = this.physics.add.group();
-
-        const button1Spawn = map.findObject(
-            "Objects",
-            obj => obj.name === "button1Spawn"
-            );
-        
-        const button2Spawn = map.findObject(
-            "Objects",
-            obj => obj.name === "button2Spawn"
-            );
-        
-        const button3Spawn = map.findObject(
-            "Objects",
-            obj => obj.name === "button3Spawn"
-            );
-
-        const button4Spawn = map.findObject(
-            "Objects",
-            obj => obj.name === "button4Spawn"
-            );
-
-        const bucketSpawn = map.findObject(
-            "Objects",
-            obj => obj.name === "bucketSpawn"
-            );
-
-        const note1Spawn = map.findObject(
-            "Objects",
-            obj => obj.name === "note1Spawn"
-            );
-
-        const puddleSpawn = map.findObject(
-            "Objects",
-            obj => obj.name === "puddleSpawn"
-            );
-
-        const doorSpawn = map.findObject(
-            "Objects",
-            obj => obj.name === "doorSpawn"
-            );
-    
-    
-
                 
-        this.paper1 = new Note(this, note1Spawn.x, note1Spawn.y, 'paper', null, 'note1').setOrigin(0, 0);
-        this.paper2 = new Note(this, game.config.width/2 + 100, game.config.height, 'paper', null, 'samplePaper2').setOrigin(0, 0);
-        this.paper3 = new Note(this, game.config.width/2 + 200, game.config.height, 'paper', null, 'samplePaper3').setOrigin(0, 0);
+        this.paper1 = new Note(this, 0, 0, 'paper', null, 'note1').setOrigin(0, 0);
+        this.paper2 = new Note(this, 0, 0, 'paper', null, 'samplePaper2').setOrigin(0, 0);
 
-        this.bucket = new Tool(this, bucketSpawn.x, bucketSpawn.y, 'bucketEmpty', null, 'bucketEmpty').setOrigin(0, 0);
+        this.bucket = new Tool(this, 0, 0, 'bucketEmpty', null, 'bucketEmpty').setOrigin(0, 0);
 
-        this.puddle = new Obstacle(this, puddleSpawn.x, puddleSpawn.y, 'puddle', null, 'puddle').setOrigin(0, 0);
-        this.door = new Obstacle(this, doorSpawn.x, doorSpawn.y, 'door', null, 'door').setOrigin(0, 0);
+        this.puddle = new Obstacle(this, 0, 0, 'puddle', null, 'puddle').setOrigin(0, 0);
 
         obstacles.add(this.puddle);
-        obstacles.add(this.door);
 
         pickups.add(this.paper1);
         pickups.add(this.paper2);
-        pickups.add(this.paper3);
         pickups.add(this.bucket);
 
-        this.buttonRed = new Button(this, button1Spawn.x, button1Spawn.y, 'red', this, 'red').setOrigin(0, 0);
-        this.buttonBlue = new Button(this, button2Spawn.x, button2Spawn.y, 'blue', this, 'blue').setOrigin(0, 0);
-        this.buttonGreen = new Button(this, button3Spawn.x, button3Spawn.y, 'green', this, 'green').setOrigin(0, 0);
-        this.buttonYellow = new Button(this, button4Spawn.x, button4Spawn.y, 'yellow', this, 'yellow').setOrigin(0, 0);
+        this.buttonRed = new Button(this, 0, 0, 'red', this, 'red').setOrigin(0, 0);
 
         buttons.add(this.buttonRed);
-        buttons.add(this.buttonBlue);
-        buttons.add(this.buttonGreen);
-        buttons.add(this.buttonYellow);
 
         pickups.getChildren().forEach(item => {item.setImmovable(true)});
         buttons.getChildren().forEach(item => {item.setImmovable(true)});
         obstacles.getChildren().forEach(item => {item.setImmovable(true)});
 
-        /*this.buttonRed.setImmovable(true);
-        this.buttonBlue.setImmovable(true);
-        this.buttonGreen.setImmovable(true);
-        this.buttonYellow.setImmovable(true);
-
-        this.paper1.setImmovable(true);
-        this.paper2.setImmovable(true);
-        this.paper3.setImmovable(true);
-        this.bucket.setImmovable(true);
-        this.puddle.setImmovable(true);
-        this.door.setImmovable(true);*/
-
         this.paper1.name = 'Note 1';
         this.paper2.name = 'paper2';
-        this.paper3.name = 'paper3';
         this.bucket.name = 'bucket';
 
         //Physics colliders
         this.player.body.setCollideWorldBounds(true);
         this.physics.add.collider(this.player, obstacleLayer);
+        this.physics.add.collider(this.player, groundLayer);
+
         this.physics.add.collider(this.player, pickups);
         this.physics.add.collider(this.player, buttons);
         this.physics.add.collider(this.player, obstacles);
