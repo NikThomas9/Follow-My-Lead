@@ -43,7 +43,7 @@ class Play extends Phaser.Scene {
     create()
     {
         currentScene = "playScene";
-        
+
         //Set up tilemap and world
         const map = this.make.tilemap({ key: 'level'});
 
@@ -64,10 +64,10 @@ class Play extends Phaser.Scene {
         this.scene.launch("UILayer");
 
         //Keyboard input
-        keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
-        keyRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);      
-        keyUp = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
-        keyDown = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);  
+        keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        keyRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);      
+        keyUp = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        keyDown = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);  
         keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);    
         keyI = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);    
 
