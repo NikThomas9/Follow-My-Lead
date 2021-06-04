@@ -161,18 +161,6 @@
                 }, 
                 {
                  "height":0,
-                 "id":13,
-                 "name":"",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":3475,
-                 "y":2782
-                }, 
-                {
-                 "height":0,
                  "id":14,
                  "name":"pickaxeSpawn",
                  "point":true,
