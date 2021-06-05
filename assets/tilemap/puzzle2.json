@@ -84,8 +84,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":4528,
-                 "y":4094
+                 "x":5588.60606060606,
+                 "y":5242.48484848485
                 }, 
                 {
                  "height":0,
@@ -168,7 +168,7 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":1664,
+                 "x":1685.21212121212,
                  "y":3326.66666666667
                 }, 
                 {
@@ -180,7 +180,7 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":1695.66666666667,
+                 "x":1535.66666666667,
                  "y":3109
                 }, 
                 {
@@ -192,19 +192,19 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":1764.66666666667,
+                 "x":1655.67,
                  "y":3109
                 }, 
                 {
                  "height":0,
                  "id":17,
-                 "name":"die4Spawn",
+                 "name":"die5Spawn",
                  "point":true,
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":1891.33333333333,
+                 "x":2025.67,
                  "y":3109
                 }, 
                 {
@@ -216,19 +216,19 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":1825.33333333333,
+                 "x":1775.67,
                  "y":3109
                 }, 
                 {
                  "height":0,
                  "id":19,
-                 "name":"die5Spawn",
+                 "name":"die4Spawn",
                  "point":true,
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":1954,
+                 "x":1900,
                  "y":3109
                 }, 
                 {
@@ -240,8 +240,20 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":2018.66666666667,
+                 "x":2150.67,
                  "y":3109
+                }, 
+                {
+                 "height":0,
+                 "id":21,
+                 "name":"bucketSpawn",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":5588.66666666667,
+                 "y":5357.0303030303
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -250,7 +262,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":21,
+ "nextobjectid":22,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.6.0",

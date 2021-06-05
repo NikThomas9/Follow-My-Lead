@@ -34,6 +34,7 @@ let pickups, buttons, obstacles;
 let code1 = ["red", "blue", "yellow", "green"];
 let code2 = [4, 6, 2, 3, 1, 5];
 let combination = [];
+let combination2 = [];
 let inventory = []; 
 let newPickup = false;
 let selectNumber = 0;

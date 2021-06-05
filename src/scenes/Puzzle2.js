@@ -19,12 +19,26 @@ class Puzzle2 extends Phaser.Scene {
         this.load.image('orb', 'assets/orb.png');
         this.load.image('boulder', 'assets/boulder.png');
 
+        this.load.image('die1', 'assets/die1.png');
+        this.load.image('die2', 'assets/die2.png');
+        this.load.image('die3', 'assets/die3.png');
+        this.load.image('die4', 'assets/die4.png');
+        this.load.image('die5', 'assets/die5.png');
+        this.load.image('die6', 'assets/die6.png');
+
+        this.load.image('die1Disabled', 'assets/die1Disabled.png');
+        this.load.image('die2Disabled', 'assets/die2Disabled.png');
+        this.load.image('die3Disabled', 'assets/die3Disabled.png');
+        this.load.image('die4Disabled', 'assets/die4Disabled.png');
+        this.load.image('die5Disabled', 'assets/die5Disabled.png');
+        this.load.image('die6Disabled', 'assets/die6Disabled.png');
+
         this.load.image('paper', 'assets/paper.png');
         this.load.image('note1', 'assets/note1.png');
         this.load.image('note2', 'assets/note2.png');
         this.load.image('note3', 'assets/note3.png');
 
-        this.load.image('bucketFull', 'assets/fullbucket.png');
+        this.load.image('bucket', 'assets/fullbucket.png');
 
         this.load.audio('sfx_pickup', './assets/puzzle_click.wav');
         this.load.audio('sfx_walking', './assets/walking.wav');
@@ -193,24 +207,30 @@ class Puzzle2 extends Phaser.Scene {
         buttons = this.physics.add.group();
         obstacles = this.physics.add.group();
               
-        //if (currentScene == "puzzle2")
-        //{
-            this.paper2 = new Note(this, 0, 0, 'paper', null, 'note2', pickups, map, 'note2').setOrigin(0, 0);
-            this.paper3 = new Note(this, 0, 0, 'paper', null, 'note3', pickups, map, 'note3').setOrigin(0, 0);
+        this.paper2 = new Note(this, 0, 0, 'paper', null, 'note2', pickups, map, 'note2').setOrigin(0, 0);
+        this.paper3 = new Note(this, 0, 0, 'paper', null, 'note3', pickups, map, 'note3').setOrigin(0, 0);
 
-            this.pickaxe = new Tool(this, 0, 0, 'pickaxe', null, 'pickaxe', pickups, map).setOrigin(0, 0);       
-            this.torch = new Tool(this, 0, 0, 'torch', null, 'torch', pickups, map).setOrigin(0, 0);
-            this.orb = new Tool(this, 0, 0, 'orb', null, 'orb', pickups, map).setOrigin(0, 0);
+        this.pickaxe = new Tool(this, 0, 0, 'pickaxe', null, 'pickaxe', pickups, map).setOrigin(0, 0);       
+        this.torch = new Tool(this, 0, 0, 'torch', null, 'torch', pickups, map).setOrigin(0, 0);
+        this.orb = new Tool(this, 0, 0, 'orb', null, 'orb', pickups, map).setOrigin(0, 0);
+        this.bucket = new Tool(this, 0, 0, 'bucket', null, 'bucket', pickups, map).setOrigin(0, 0);
 
-            this.boulder = new Obstacle(this, 0, 0, 'boulder', null, obstacles, map).setOrigin(0, 0);
-            this.cauldron = new Obstacle(this, 0, 0, 'cauldron_empty', null, obstacles, map, 'cauldron').setOrigin(0, 0);
-            this.pedestal = new Obstacle(this, 0, 0, 'pedestal', null, obstacles, map).setOrigin(0, 0);
-        //}
+        this.die1 = new Button(this, 0, 0, "die1", null, 1, buttons, map).setOrigin(0, 0);
+        this.die2 = new Button(this, 0, 0, "die2", null, 2, buttons, map).setOrigin(0, 0);
+        this.die3 = new Button(this, 0, 0, "die3", null, 3, buttons, map).setOrigin(0, 0);
+        this.die4 = new Button(this, 0, 0, "die4", null, 4, buttons, map).setOrigin(0, 0);
+        this.die5 = new Button(this, 0, 0, "die5", null, 5, buttons, map).setOrigin(0, 0);
+        this.die6 = new Button(this, 0, 0, "die6", null, 6, buttons, map).setOrigin(0, 0);
 
+        this.orb.body.enable = false;
+        this.orb.setVisible(false);
 
-        this.buttonRed = new Button(this, 0, 0, 'red', this, 'red').setOrigin(0, 0);
+        this.pickaxe.body.enable = false;
+        this.pickaxe.setVisible(false);
 
-        buttons.add(this.buttonRed);
+        this.boulder = new Obstacle(this, 0, 0, 'boulder', null, obstacles, map).setOrigin(0, 0);
+        this.cauldron = new Obstacle(this, 0, 0, 'cauldron_empty', null, obstacles, map, 'cauldron').setOrigin(0, 0);
+        this.pedestal = new Obstacle(this, 0, 0, 'pedestal', null, obstacles, map).setOrigin(0, 0);
 
         //Physics colliders
         this.player.body.setCollideWorldBounds(true);
@@ -278,21 +298,21 @@ class Puzzle2 extends Phaser.Scene {
     {
         if (!obj.isDisabled)
         {
-            combination.push(obj.color);
-            console.log(combination);
+            combination2.push(obj.code);
+            console.log(combination2);
             obj.scene.sound.play("sfx_pickup");
 
             obj.isDisabled = true;
-            obj.setTexture(obj.color+"Disabled")
+            obj.setTexture(obj.name + "Disabled")
         
 
             //Evaluate combo
-            if (combination.length == 6)
+            if (combination2.length == 6)
             {
                 var success = true;
                 var index = 0;
-                combination.forEach(item =>{
-                    if (item != code1[index])
+                combination2.forEach(item =>{
+                    if (item != code2[index])
                     {
                         success = false;
                     }
@@ -303,17 +323,14 @@ class Puzzle2 extends Phaser.Scene {
                 {
                     console.log("success");
                     obj.scene.sound.play("sfx_slam");
-
-                    if (obj.scene.door != null)
-                    {
-                        obj.scene.door.destroy();
-                    }
+                    obj.scene.pickaxe.body.enable = true;
+                    obj.scene.pickaxe.setVisible(true);        
                 }
                 else
                 {
                     console.log("failure");
                     obj.scene.sound.play("sfx_incorrect");
-                    combination = [];
+                    combination2 = [];
                     obj.scene.resetButtons();
                 }
             }
@@ -322,6 +339,11 @@ class Puzzle2 extends Phaser.Scene {
 
     handleObstacle(sprite, obj)
     {
+        if (activeTool == null)
+        {
+            return;
+        }
+
         if (obj.name == "boulder" && activeTool.name == "pickaxe")
         {
             obj.destroy();
@@ -330,9 +352,34 @@ class Puzzle2 extends Phaser.Scene {
         if (obj.name == "cauldron" && (activeTool.name == "torch" || activeTool.name == "bucket"))
         {
             obj.contains.push(activeTool);
-            inventory.pop(activeTool);
+
+            for(var i = 0; i < inventory.length; i++){ 
+                if (inventory[i] == activeTool) { 
+                    inventory.splice(i, 1); 
+                }
+            }    
+
             activeTool = null;
-            console.log(obj.contains);
+
+            if (obj.contains.length >= 2)
+            {
+                obj.setTexture("cauldron_full");
+                obj.scene.orb.body.enable = true;
+                obj.scene.orb.setVisible(true);    
+            }
+        }
+
+        if (obj.name == "pedestal" && (activeTool.name == "orb"))
+        {
+            obj.contains.push(activeTool);
+
+            for(var i = 0; i < inventory.length; i++){ 
+                if (inventory[i] == activeTool) { 
+                    inventory.splice(i, 1); 
+                }
+            }    
+
+            activeTool = null;
         }
     }
 
@@ -355,7 +402,7 @@ class Puzzle2 extends Phaser.Scene {
     {
         buttons.getChildren().forEach(item => 
             {
-                item.setTexture(item.color);
+                item.setTexture(item.name);
                 item.isDisabled = false;
             })
     }
