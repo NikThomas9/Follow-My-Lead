@@ -13,7 +13,7 @@ let config = {
         default: 'arcade',
         arcade: {
             gravity: { y: 0 },
-            debug: false,
+            debug: true,
             fps: 60,
         },
     }
@@ -30,7 +30,7 @@ let borderPadding = borderUISize / 3;
 
 let keyUp, keyDown, keyRight, keyLeft, keySpace, keyI;
 
-let pickups, buttons, obstacles;
+let pickups, buttons, obstacles, tutorials;
 let code1 = ["red", "blue", "yellow", "green"];
 let code2 = [4, 6, 2, 3, 1, 5];
 let combination = [];
@@ -42,5 +42,19 @@ let selectedItem = "";
 let activeTool = "";
 let currentScene = "";
 
+let tutorialActive = false;
+let tutorialText = "";
+let tutorialTimerReset = false;
 
+let tutorial1Message = "Press 'SPACE' to interact with items."
+let tutorial2Message = "Press 'K' to open your inventory."
+let tutorial3Message = "Select an active item to use from your inventory by pressing 'SPACE' from the inventory menu."
+let tutorial4Message = "Interact with obstacles using your active item with 'SPACE'."
+let tutorial5Message = "Select notes and press 'SPACE' from your inventory to read them."
+
+let tutorial1Played = false
+let tutorial2Played = false
+let tutorial3Played = false
+let tutorial4Played = false
+let tutorial5Played = false
 
