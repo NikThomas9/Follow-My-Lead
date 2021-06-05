@@ -1,8 +1,25 @@
 class Tool extends Phaser.Physics.Arcade.Image {
-    constructor(scene, x, y, texture, frame, uiSprite) {
+    constructor(scene, x, y, texture, frame, uiSprite, colliderGroup, map, name) {
         super(scene, x, y, texture, frame);
+
+        this.name = name;
+        colliderGroup.add(this);
         
-        this.name = texture;
+        if (this.name == null)
+        {
+            this.name = texture;  
+        }
+
+        this.spawnString = this.name + "Spawn";
+
+        const spawn = map.findObject(
+            "Objects",
+            obj => obj.name === this.spawnString
+            );
+
+        this.x = spawn.x;
+        this.y = spawn.y;
+
         this.uiSprite = uiSprite;
 
         scene.add.existing(this);
@@ -12,7 +29,7 @@ class Tool extends Phaser.Physics.Arcade.Image {
     }
 
     update() {
-        
+
     }
 
     reset() {

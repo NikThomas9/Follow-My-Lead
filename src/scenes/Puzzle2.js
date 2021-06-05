@@ -10,10 +10,19 @@ class Puzzle2 extends Phaser.Scene {
         this.load.image('player', 'assets/player.png');
         this.load.image('arrow', 'assets/arrow.png');
 
+        this.load.image('cauldron_empty', 'assets/cauldron_empty.png');
+        this.load.image('cauldron_full', 'assets/cauldron_full.png');
+        this.load.image('pedestal', 'assets/pedestal.png');
+        this.load.image('pickaxe', 'assets/pickaxe.png');
+        this.load.image('torch', 'assets/torch.png');
+        this.load.image('portal', 'assets/portal.png');
+        this.load.image('orb', 'assets/orb.png');
+        this.load.image('boulder', 'assets/boulder.png');
+
         this.load.image('paper', 'assets/paper.png');
         this.load.image('note1', 'assets/note1.png');
-        this.load.image('samplePaper2', 'assets/sample2.png');
-        this.load.image('samplePaper3', 'assets/sample3.png');
+        this.load.image('note2', 'assets/note2.png');
+        this.load.image('note3', 'assets/note3.png');
 
         this.load.image('bucketFull', 'assets/fullbucket.png');
 
@@ -45,7 +54,6 @@ class Puzzle2 extends Phaser.Scene {
         groundLayer2.depth = -1;
         obstacleLayer.depth = 1;
 
-
         this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
         
         this.scene.launch("UILayer");
@@ -65,17 +73,7 @@ class Puzzle2 extends Phaser.Scene {
             obj => obj.name === "playerSpawn"
           );
 
-        const note2Spawn = map.findObject(
-        "Objects",
-        obj => obj.name === "note2Spawn"
-        );
-
-        const note3Spawn = map.findObject(
-        "Objects",
-        obj => obj.name === "note3Spawn"
-        );
-
-          this.anims.create({
+        this.anims.create({
               key: "back",
               frameRate: 7,
               frames: this.anims.generateFrameNames("playerAtlas", {
@@ -188,39 +186,31 @@ class Puzzle2 extends Phaser.Scene {
             'back0.png'
         ).setOrigin(0,0);
 
-        
-
         this.walkingSFX = this.sound.add("sfx_walking", {loop: true});
         
         //Generate pickups
         pickups = this.physics.add.group();
         buttons = this.physics.add.group();
         obstacles = this.physics.add.group();
-                
-        this.paper2 = new Note(this, note2Spawn.x, note2Spawn.y, 'paper', null, 'samplePaper2').setOrigin(0, 0);
-        this.paper3 = new Note(this, note3Spawn.x, note3Spawn.y, 'paper', null, 'samplePaper3').setOrigin(0, 0);
+              
+        //if (currentScene == "puzzle2")
+        //{
+            this.paper2 = new Note(this, 0, 0, 'paper', null, 'note2', pickups, map, 'note2').setOrigin(0, 0);
+            this.paper3 = new Note(this, 0, 0, 'paper', null, 'note3', pickups, map, 'note3').setOrigin(0, 0);
 
-        this.bucket = new Tool(this, 0, 0, 'bucketEmpty', null, 'bucketEmpty').setOrigin(0, 0);
+            this.pickaxe = new Tool(this, 0, 0, 'pickaxe', null, 'pickaxe', pickups, map).setOrigin(0, 0);       
+            this.torch = new Tool(this, 0, 0, 'torch', null, 'torch', pickups, map).setOrigin(0, 0);
+            this.orb = new Tool(this, 0, 0, 'orb', null, 'orb', pickups, map).setOrigin(0, 0);
 
-        this.puddle = new Obstacle(this, 0, 0, 'puddle', null, 'puddle').setOrigin(0, 0);
+            this.boulder = new Obstacle(this, 0, 0, 'boulder', null, obstacles, map).setOrigin(0, 0);
+            this.cauldron = new Obstacle(this, 0, 0, 'cauldron_empty', null, obstacles, map, 'cauldron').setOrigin(0, 0);
+            this.pedestal = new Obstacle(this, 0, 0, 'pedestal', null, obstacles, map).setOrigin(0, 0);
+        //}
 
-        obstacles.add(this.puddle);
-
-        pickups.add(this.paper2);
-        pickups.add(this.paper3);
-        pickups.add(this.bucket);
 
         this.buttonRed = new Button(this, 0, 0, 'red', this, 'red').setOrigin(0, 0);
 
         buttons.add(this.buttonRed);
-
-        pickups.getChildren().forEach(item => {item.setImmovable(true)});
-        buttons.getChildren().forEach(item => {item.setImmovable(true)});
-        obstacles.getChildren().forEach(item => {item.setImmovable(true)});
-
-        this.paper2.name = 'Note 1';
-        this.paper3.name = 'paper2';
-        this.bucket.name = 'bucket';
 
         //Physics colliders
         this.player.body.setCollideWorldBounds(true);
@@ -252,7 +242,7 @@ class Puzzle2 extends Phaser.Scene {
         faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
         });*/
 
-        this.input.keyboard.on('keydown-I', this.inventoryToggle, this);
+        this.input.keyboard.on('keydown-F', this.inventoryToggle, this);
         this.input.keyboard.on('keydown-SPACE', this.interact, this);
     }
 
@@ -297,7 +287,7 @@ class Puzzle2 extends Phaser.Scene {
         
 
             //Evaluate combo
-            if (combination.length == 4)
+            if (combination.length == 6)
             {
                 var success = true;
                 var index = 0;
@@ -332,11 +322,17 @@ class Puzzle2 extends Phaser.Scene {
 
     handleObstacle(sprite, obj)
     {
-        if (obj.name == "puddle" && activeTool.name == "bucket")
+        if (obj.name == "boulder" && activeTool.name == "pickaxe")
         {
             obj.destroy();
-            activeTool.uiSprite = "bucketFull";
-            console.log(activeTool.name);
+        }
+
+        if (obj.name == "cauldron" && (activeTool.name == "torch" || activeTool.name == "bucket"))
+        {
+            obj.contains.push(activeTool);
+            inventory.pop(activeTool);
+            activeTool = null;
+            console.log(obj.contains);
         }
     }
 

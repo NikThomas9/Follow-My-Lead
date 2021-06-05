@@ -11,7 +11,15 @@ class UI extends Phaser.Scene {
 
     update()
     {
-        this.selectedIcon.setTexture(activeTool.uiSprite);
+        if (activeTool != null)
+        {
+            this.selectedIcon.setVisible(true);
+            this.selectedIcon.setTexture(activeTool.uiSprite);
+        }
+        else
+        {
+            this.selectedIcon.setVisible(false);
+        }
 
         this.selected.text = "Selected: ";
     }

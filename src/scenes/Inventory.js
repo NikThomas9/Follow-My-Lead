@@ -43,9 +43,9 @@ class Inventory extends Phaser.Scene {
         this.arrow = this.add.image(this.inventoryWidth - 150, this.inventoryHeight + 75 + this.arrowOffset, "arrow");
 
         this.input.keyboard.on('keydown-SPACE', this.select, this);
-        this.input.keyboard.on('keydown-UP', this.selectorUp, this);
-        this.input.keyboard.on('keydown-DOWN', this.selectorDown, this);
-        this.input.keyboard.on('keydown-I', this.inventoryToggle, this);
+        this.input.keyboard.on('keydown-W', this.selectorUp, this);
+        this.input.keyboard.on('keydown-S', this.selectorDown, this);
+        this.input.keyboard.on('keydown-F', this.inventoryToggle, this);
 
         this.note = this.add.image(game.config.width/2, game.config.height/2, "");
         this.note.setVisible(false);
