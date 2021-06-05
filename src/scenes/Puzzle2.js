@@ -7,8 +7,8 @@ class Puzzle2 extends Phaser.Scene {
     {
         //Load Sprites
         this.load.image('tiles_dark', 'assets/tilemap/Forest_Dark.png');
-        this.load.image('player', 'assets/player.png');
-        this.load.image('arrow', 'assets/arrow.png');
+        //this.load.image('player', 'assets/player.png');
+        //this.load.image('arrow', 'assets/arrow.png');
 
         this.load.image('cauldron_empty', 'assets/cauldron_empty.png');
         this.load.image('cauldron_full', 'assets/cauldron_full.png');
@@ -33,19 +33,19 @@ class Puzzle2 extends Phaser.Scene {
         this.load.image('die5Disabled', 'assets/die5Disabled.png');
         this.load.image('die6Disabled', 'assets/die6Disabled.png');
 
-        this.load.image('paper', 'assets/paper.png');
-        this.load.image('note1', 'assets/note1.png');
+        //this.load.image('paper', 'assets/paper.png');
+        //this.load.image('note1', 'assets/note1.png');
         this.load.image('note2', 'assets/note2.png');
         this.load.image('note3', 'assets/note3.png');
 
-        this.load.image('bucket', 'assets/fullbucket.png');
+        //this.load.image('bucket', 'assets/fullbucket.png');
 
-        this.load.audio('sfx_pickup', './assets/puzzle_click.wav');
-        this.load.audio('sfx_walking', './assets/walking.wav');
-        this.load.audio('sfx_slam', './assets/slam.wav');
-        this.load.audio('sfx_incorrect', './assets/wrong.wav');
+        //this.load.audio('sfx_pickup', './assets/puzzle_click.wav');
+        //this.load.audio('sfx_walking', './assets/walking.wav');
+        //this.load.audio('sfx_slam', './assets/slam.wav');
+        //this.load.audio('sfx_incorrect', './assets/wrong.wav');
         
-        this.load.atlas('playerAtlas', 'assets/playerAtlas.png', 'assets/playerAtlas.json');
+        //this.load.atlas('playerAtlas', 'assets/playerAtlas.png', 'assets/playerAtlas.json');
 
         this.load.tilemapTiledJSON('level2', 'assets/tilemap/puzzle2.json');
     }
@@ -207,8 +207,8 @@ class Puzzle2 extends Phaser.Scene {
         buttons = this.physics.add.group();
         obstacles = this.physics.add.group();
               
-        this.paper2 = new Note(this, 0, 0, 'paper', null, 'note2', pickups, map, 'note2').setOrigin(0, 0);
-        this.paper3 = new Note(this, 0, 0, 'paper', null, 'note3', pickups, map, 'note3').setOrigin(0, 0);
+        this.paper2 = new Note(this, 0, 0, 'paper', null, 'note2', pickups, map, 'Note 2').setOrigin(0, 0);
+        this.paper3 = new Note(this, 0, 0, 'paper', null, 'note3', pickups, map, 'Note 3').setOrigin(0, 0);
 
         this.pickaxe = new Tool(this, 0, 0, 'pickaxe', null, 'pickaxe', pickups, map).setOrigin(0, 0);       
         this.torch = new Tool(this, 0, 0, 'torch', null, 'torch', pickups, map).setOrigin(0, 0);

@@ -119,7 +119,7 @@ class Talking extends Phaser.Scene {
                 //     duration: this.tweenDuration,
                 //     ease: 'Linear'
                 // });
-                this.scene.start("playScene");
+                this.scene.start("puzzle1");
                 music.stop();
             }
             // make text box invisible

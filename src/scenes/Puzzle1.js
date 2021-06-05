@@ -1,6 +1,6 @@
-class Play extends Phaser.Scene {
+class Puzzle1 extends Phaser.Scene {
     constructor() {
-        super("playScene");
+        super("puzzle1");
     }
 
     preload()
@@ -19,12 +19,10 @@ class Play extends Phaser.Scene {
         this.load.image('yellowDisabled', 'assets/buttonYellowDisabled.png');
         this.load.image('arrow', 'assets/arrow.png');
         this.load.image('puddle', 'assets/puddle.png');
-        this.load.image('door', 'assets/door.png');
+        this.load.image('portal', 'assets/portal.png');
 
         this.load.image('paper', 'assets/paper.png');
         this.load.image('note1', 'assets/note1.png');
-        this.load.image('samplePaper2', 'assets/sample2.png');
-        this.load.image('samplePaper3', 'assets/sample3.png');
 
         this.load.image('bucketEmpty', 'assets/emptybucket.png');
         this.load.image('bucketFull', 'assets/fullbucket.png');
@@ -35,14 +33,13 @@ class Play extends Phaser.Scene {
         this.load.audio('sfx_incorrect', './assets/wrong.wav');
         
         this.load.atlas('playerAtlas', 'assets/playerAtlas.png', 'assets/playerAtlas.json');
-        this.textures.addSpriteSheetFromAtlas('playerAtlas', {frameHeight: 64, frameWidth: 43, atlas: "playerAtlas"});
 
         this.load.tilemapTiledJSON('level', 'assets/tilemap/puzzle1.json');
     }
 
     create()
     {
-        currentScene = "playScene";
+        currentScene = "puzzle1";
 
         //Set up tilemap and world
         const map = this.make.tilemap({ key: 'level'});
@@ -197,97 +194,25 @@ class Play extends Phaser.Scene {
         pickups = this.physics.add.group();
         buttons = this.physics.add.group();
         obstacles = this.physics.add.group();
-
-        const button1Spawn = map.findObject(
-            "Objects",
-            obj => obj.name === "button1Spawn"
-            );
-        
-        const button2Spawn = map.findObject(
-            "Objects",
-            obj => obj.name === "button2Spawn"
-            );
-        
-        const button3Spawn = map.findObject(
-            "Objects",
-            obj => obj.name === "button3Spawn"
-            );
-
-        const button4Spawn = map.findObject(
-            "Objects",
-            obj => obj.name === "button4Spawn"
-            );
-
-        const bucketSpawn = map.findObject(
-            "Objects",
-            obj => obj.name === "bucketSpawn"
-            );
-
-        const note1Spawn = map.findObject(
-            "Objects",
-            obj => obj.name === "note1Spawn"
-            );
-
-        const puddleSpawn = map.findObject(
-            "Objects",
-            obj => obj.name === "puddleSpawn"
-            );
-
-        const doorSpawn = map.findObject(
-            "Objects",
-            obj => obj.name === "doorSpawn"
-            );
-    
-    
-
                 
-        this.paper1 = new Note(this, note1Spawn.x, note1Spawn.y, 'paper', null, 'note1').setOrigin(0, 0);
-        this.paper2 = new Note(this, game.config.width/2 + 100, game.config.height, 'paper', null, 'samplePaper2').setOrigin(0, 0);
-        this.paper3 = new Note(this, game.config.width/2 + 200, game.config.height, 'paper', null, 'samplePaper3').setOrigin(0, 0);
+        this.paper1 = new Note(this, 0, 0, 'paper', null, 'note1', pickups, map, 'Note 1').setOrigin(0, 0);
 
-        this.bucket = new Tool(this, bucketSpawn.x, bucketSpawn.y, 'bucketEmpty', null, 'bucketEmpty').setOrigin(0, 0);
+        this.bucket = new Tool(this, 0, 0, 'bucketEmpty', null, 'bucketEmpty', pickups, map, "bucket").setOrigin(0, 0);
 
-        this.puddle = new Obstacle(this, puddleSpawn.x, puddleSpawn.y, 'puddle', null, 'puddle').setOrigin(0, 0);
-        this.door = new Obstacle(this, doorSpawn.x, doorSpawn.y, 'door', null, 'door').setOrigin(0, 0);
+        this.puddle = new Obstacle(this, 0, 0, 'puddle', null, obstacles, map).setOrigin(0, 0);
+        this.portal = new Obstacle(this, 0, 0, 'portal', null, obstacles, map).setOrigin(0, 0);
 
-        obstacles.add(this.puddle);
-        obstacles.add(this.door);
+        this.portal.body.enable = false;
+        this.portal.setVisible(false);
 
-        pickups.add(this.paper1);
-        pickups.add(this.paper2);
-        pickups.add(this.paper3);
-        pickups.add(this.bucket);
-
-        this.buttonRed = new Button(this, button1Spawn.x, button1Spawn.y, 'red', this, 'red').setOrigin(0, 0);
-        this.buttonBlue = new Button(this, button2Spawn.x, button2Spawn.y, 'blue', this, 'blue').setOrigin(0, 0);
-        this.buttonGreen = new Button(this, button3Spawn.x, button3Spawn.y, 'green', this, 'green').setOrigin(0, 0);
-        this.buttonYellow = new Button(this, button4Spawn.x, button4Spawn.y, 'yellow', this, 'yellow').setOrigin(0, 0);
-
-        buttons.add(this.buttonRed);
-        buttons.add(this.buttonBlue);
-        buttons.add(this.buttonGreen);
-        buttons.add(this.buttonYellow);
+        this.buttonRed = new Button(this, 0, 0, 'red', this, 'red', buttons, map, 'button1').setOrigin(0, 0);
+        this.buttonBlue = new Button(this, 0, 0, 'blue', this, 'blue', buttons, map, 'button2').setOrigin(0, 0);
+        this.buttonGreen = new Button(this, 0, 0, 'green', this, 'green', buttons, map, 'button3').setOrigin(0, 0);
+        this.buttonYellow = new Button(this, 0, 0, 'yellow', this, 'yellow', buttons, map, 'button4').setOrigin(0, 0);
 
         pickups.getChildren().forEach(item => {item.setImmovable(true)});
         buttons.getChildren().forEach(item => {item.setImmovable(true)});
         obstacles.getChildren().forEach(item => {item.setImmovable(true)});
-
-        /*this.buttonRed.setImmovable(true);
-        this.buttonBlue.setImmovable(true);
-        this.buttonGreen.setImmovable(true);
-        this.buttonYellow.setImmovable(true);
-
-        this.paper1.setImmovable(true);
-        this.paper2.setImmovable(true);
-        this.paper3.setImmovable(true);
-        this.bucket.setImmovable(true);
-        this.puddle.setImmovable(true);
-        this.door.setImmovable(true);*/
-
-        this.paper1.name = 'Note 1';
-        this.paper2.name = 'paper2';
-        this.paper3.name = 'paper3';
-        this.bucket.name = 'bucket';
 
         //Physics colliders
         this.player.body.setCollideWorldBounds(true);
@@ -317,7 +242,7 @@ class Play extends Phaser.Scene {
         faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
         });*/
 
-        this.input.keyboard.on('keydown-I', this.inventoryToggle, this);
+        this.input.keyboard.on('keydown-F', this.inventoryToggle, this);
         this.input.keyboard.on('keydown-SPACE', this.interact, this);
     }
 
@@ -327,7 +252,6 @@ class Play extends Phaser.Scene {
         this.pickupHandler.active = false;
         this.buttonHandler.active = false;
         this.obstacleHandler.active = false;
-
 
         if (newPickup && this.scene.isActive("inventoryMenu"))
         {
@@ -353,12 +277,12 @@ class Play extends Phaser.Scene {
     {
         if (!obj.isDisabled)
         {
-            combination.push(obj.color);
+            combination.push(obj.code);
             console.log(combination);
             obj.scene.sound.play("sfx_pickup");
 
             obj.isDisabled = true;
-            obj.setTexture(obj.color+"Disabled")
+            obj.setTexture(obj.code+"Disabled")
         
 
             //Evaluate combo
@@ -379,10 +303,8 @@ class Play extends Phaser.Scene {
                     console.log("success");
                     obj.scene.sound.play("sfx_slam");
 
-                    if (obj.scene.door != null)
-                    {
-                        obj.scene.door.destroy();
-                    }
+                    obj.scene.portal.setVisible(true);
+                    obj.scene.portal.body.enable = true;            
                 }
                 else
                 {
@@ -402,6 +324,11 @@ class Play extends Phaser.Scene {
             obj.destroy();
             activeTool.uiSprite = "bucketFull";
             console.log(activeTool.name);
+        }
+
+        if (obj.name =="portal")
+        {
+            obj.scene.loadNextLevel();
         }
     }
 
@@ -424,8 +351,13 @@ class Play extends Phaser.Scene {
     {
         buttons.getChildren().forEach(item => 
             {
-                item.setTexture(item.color);
+                item.setTexture(item.code);
                 item.isDisabled = false;
             })
+    }
+
+    loadNextLevel()
+    {
+        this.scene.start("puzzle2");
     }
 }

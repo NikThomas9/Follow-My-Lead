@@ -43,7 +43,7 @@ class Title extends Phaser.Scene {
 
         //Debug to get to gameplay REMOVE LATER
         if(Phaser.Input.Keyboard.JustDown(cursors.right)) {
-            this.scene.start("playScene");
+            this.scene.start("puzzle1");
         }
 
     }
