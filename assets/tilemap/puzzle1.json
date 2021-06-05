@@ -159,17 +159,6 @@
                  "y":3585.33333333333
                 }, 
                 {
-                 "height":381.818181818181,
-                 "id":27,
-                 "name":"tutorial1",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":660.606060606061,
-                 "x":1706.06060606061,
-                 "y":4957.57575757576
-                }, 
-                {
                  "height":0,
                  "id":28,
                  "name":"",
@@ -182,30 +171,6 @@
                 }, 
                 {
                  "height":0,
-                 "id":32,
-                 "name":"tutorial4",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":3864,
-                 "y":5360
-                }, 
-                {
-                 "height":0,
-                 "id":33,
-                 "name":"tutorial5",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":5394,
-                 "y":5238
-                }, 
-                {
-                 "height":0,
                  "id":35,
                  "name":"tutorial2",
                  "point":true,
@@ -213,20 +178,20 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":2578,
-                 "y":5322
+                 "x":1994,
+                 "y":5168
                 }, 
                 {
                  "height":0,
-                 "id":36,
-                 "name":"tutorial3",
+                 "id":37,
+                 "name":"tutorial1",
                  "point":true,
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":3102,
-                 "y":5332
+                 "x":3422,
+                 "y":6132
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -247,7 +212,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":37,
+ "nextobjectid":38,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.6.0",

@@ -13,7 +13,7 @@ let config = {
         default: 'arcade',
         arcade: {
             gravity: { y: 0 },
-            debug: true,
+            debug: false,
             fps: 60,
         },
     }
@@ -42,19 +42,12 @@ let selectedItem = "";
 let activeTool = "";
 let currentScene = "";
 
+let inventoryOpened = false;
+
 let tutorialActive = false;
 let tutorialText = "";
-let tutorialTimerReset = false;
 
-let tutorial1Message = "Press 'SPACE' to interact with items."
-let tutorial2Message = "Press 'K' to open your inventory."
-let tutorial3Message = "Select an active item to use from your inventory by pressing 'SPACE' from the inventory menu."
-let tutorial4Message = "Interact with obstacles using your active item with 'SPACE'."
-let tutorial5Message = "Select notes and press 'SPACE' from your inventory to read them."
-
-let tutorial1Played = false
-let tutorial2Played = false
-let tutorial3Played = false
-let tutorial4Played = false
-let tutorial5Played = false
+let tutorial1Message = "Use WASD to move."
+let tutorial2Message = "Press 'F' to open your inventory."
+let tutorial3Message = "Use 'SPACE' to select items in your inventory. \nUse the handbook to learn more about the forest."
 

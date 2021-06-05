@@ -29,24 +29,34 @@ class UI extends Phaser.Scene {
         this.selectedIcon = this.add.image(this.selected.x + 125, this.selected.y, activeTool.uiSprite);
         this.tutorialUI = this.add.text(50, game.config.height - 100, tutorialText, tutorialConfig);
         this.tutorialUI.setVisible(false);
+        this.inventoryTutorial = this.add.text(50, game.config.height - 100, tutorial3Message, tutorialConfig);
+        this.inventoryTutorial.setVisible(false);
     }
 
     update()
     {
+        console.log(tutorialActive);
+        if (inventoryOpened)
+        {
+            this.tutorialUI.setVisible(false);
+            this.inventoryTutorial.setVisible(true);
+        }
+        else
+        {
+            if (tutorialActive)
+            {
+                this.tutorialUI.setVisible(true);
+            }
+            this.inventoryTutorial.setVisible(false);
+        }
+
         if (tutorialActive)
         {
             this.tutorialUI.text = tutorialText;
             this.tutorialUI.setVisible(true);
             this.createTimer();
+            tutorialActive = false;
         }
-
-        if(tutorialTimerReset)
-        {
-            console.log("here");
-            tutorialTimerReset = false;
-            this.time.removeEvent(this.tutorialTimer);
-            this.createTimer();
-        }    
 
         if (activeTool != null)
         {
@@ -63,16 +73,19 @@ class UI extends Phaser.Scene {
 
     hideText()
     {
+        console.log("here");
         this.tutorialUI.setVisible(false);
         tutorialActive = false;
+        this.tutorialTimer = null;
     }
 
     createTimer()
     {
         this.tutorialTimer = this.time.addEvent({
-            delay:3000,
+            delay:5000,
             callback: this.hideText,
-            callbackScope: this
+            callbackScope: this,
+            loop: false
         });
     }
 }

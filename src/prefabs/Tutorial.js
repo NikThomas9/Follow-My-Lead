@@ -1,5 +1,5 @@
 class Tutorial extends Phaser.Physics.Arcade.Image {
-    constructor(scene, x, y, texture, frame, message, colliderGroup, map, name) {
+    constructor(scene, x, y, width, height, texture, frame, message, colliderGroup, map, name) {
         super(scene, x, y, texture, frame);
 
         this.name = name;
@@ -14,7 +14,7 @@ class Tutorial extends Phaser.Physics.Arcade.Image {
         this.x = spawn.x;
         this.y = spawn.y;
        
-        this.body.setSize(100, 100);
+        this.body.setSize(width, height);
         this.message = message;
         this.played = false;
         this.setVisible(false);

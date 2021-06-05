@@ -87,6 +87,11 @@ class Puzzle2 extends Phaser.Scene {
             obj => obj.name === "playerSpawn"
           );
 
+        const orbSpriteSpawn = map.findObject(
+            "Objects",
+            obj => obj.name === "orbInPedestalSpawn"
+          );
+
         this.anims.create({
               key: "back",
               frameRate: 7,
@@ -214,6 +219,7 @@ class Puzzle2 extends Phaser.Scene {
         this.torch = new Tool(this, 0, 0, 'torch', null, 'torch', pickups, map).setOrigin(0, 0);
         this.orb = new Tool(this, 0, 0, 'orb', null, 'orb', pickups, map).setOrigin(0, 0);
         this.bucket = new Tool(this, 0, 0, 'bucket', null, 'bucket', pickups, map).setOrigin(0, 0);
+        this.orbInPedestal = this.add.sprite(orbSpriteSpawn.x, orbSpriteSpawn.y, 'orb');
 
         this.die1 = new Button(this, 0, 0, "die1", null, 1, buttons, map).setOrigin(0, 0);
         this.die2 = new Button(this, 0, 0, "die2", null, 2, buttons, map).setOrigin(0, 0);
@@ -222,6 +228,7 @@ class Puzzle2 extends Phaser.Scene {
         this.die5 = new Button(this, 0, 0, "die5", null, 5, buttons, map).setOrigin(0, 0);
         this.die6 = new Button(this, 0, 0, "die6", null, 6, buttons, map).setOrigin(0, 0);
 
+        this.orbInPedestal.setVisible(false);
         this.orb.body.enable = false;
         this.orb.setVisible(false);
 
@@ -231,6 +238,10 @@ class Puzzle2 extends Phaser.Scene {
         this.boulder = new Obstacle(this, 0, 0, 'boulder', null, obstacles, map).setOrigin(0, 0);
         this.cauldron = new Obstacle(this, 0, 0, 'cauldron_empty', null, obstacles, map, 'cauldron').setOrigin(0, 0);
         this.pedestal = new Obstacle(this, 0, 0, 'pedestal', null, obstacles, map).setOrigin(0, 0);
+        this.portal = new Obstacle(this, 0, 0, 'portal', null, obstacles, map).setOrigin(0, 0);
+
+        this.portal.body.enable = false;
+        this.portal.setVisible(false);
 
         //Physics colliders
         this.player.body.setCollideWorldBounds(true);
@@ -378,6 +389,10 @@ class Puzzle2 extends Phaser.Scene {
                     inventory.splice(i, 1); 
                 }
             }    
+            
+            obj.scene.portal.setVisible(true);
+            obj.scene.portal.body.enable = true;   
+            obj.scene.orbInPedestal.setVisible(true);
 
             activeTool = null;
         }

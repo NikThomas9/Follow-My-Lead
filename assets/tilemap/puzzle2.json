@@ -132,8 +132,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":5695,
-                 "y":3561
+                 "x":5716.51515151515,
+                 "y":3583.54545454545
                 }, 
                 {
                  "height":0,
@@ -144,8 +144,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":3359,
-                 "y":2748
+                 "x":3333,
+                 "y":2750
                 }, 
                 {
                  "height":0,
@@ -156,8 +156,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":3362,
-                 "y":2514
+                 "x":3271.33333333333,
+                 "y":2434
                 }, 
                 {
                  "height":0,
@@ -254,6 +254,18 @@
                  "width":0,
                  "x":5588.66666666667,
                  "y":5357.0303030303
+                }, 
+                {
+                 "height":0,
+                 "id":22,
+                 "name":"orbInPedestalSpawn",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":3366,
+                 "y":2733
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -262,7 +274,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":22,
+ "nextobjectid":23,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.6.0",

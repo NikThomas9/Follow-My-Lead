@@ -122,6 +122,7 @@ class Inventory extends Phaser.Scene {
 
     inventoryToggle()
     {
+        inventoryOpened = false;
         this.scene.setActive(false, this);
         this.scene.setVisible(false, this);
         this.scene.setActive(true, currentScene);

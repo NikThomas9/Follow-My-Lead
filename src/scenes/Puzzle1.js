@@ -188,11 +188,6 @@ class Puzzle1 extends Phaser.Scene {
             'back0.png'
         ).setOrigin(0,0);
 
-    const tutorial1Trigger = map.findObject(
-        "Objects",
-        obj => obj.name === "tutorial1"
-        );
-
         this.walkingSFX = this.sound.add("sfx_walking", {loop: true});
         
         //Generate pickups
@@ -201,11 +196,8 @@ class Puzzle1 extends Phaser.Scene {
         obstacles = this.physics.add.group();
         tutorials = this.physics.add.group();
 
-        this.tutorial1 = new Tutorial(this, 0, 0, null, null, tutorial1Message, tutorials, map, "tutorial1");
-        this.tutorial2 = new Tutorial(this, 0, 0, null, null, tutorial2Message, tutorials, map, "tutorial2");
-        this.tutorial3 = new Tutorial(this, 0, 0, null, null, tutorial3Message, tutorials, map, "tutorial3");
-        this.tutorial4 = new Tutorial(this, 0, 0, null, null, tutorial4Message, tutorials, map, "tutorial4");
-        this.tutorial5 = new Tutorial(this, 0, 0, null, null, tutorial5Message, tutorials, map, "tutorial5");
+        this.tutorial1 = new Tutorial(this, 0, 0, 1000, 1000, null, null, tutorial1Message, tutorials, map, "tutorial1");
+        this.tutorial2 = new Tutorial(this, 0, 0, 500, 500, null, null, tutorial2Message, tutorials, map, "tutorial2");
                 
         this.paper1 = new Note(this, 0, 0, 'paper', null, 'note1', pickups, map, 'Note 1').setOrigin(0, 0);
 
@@ -231,7 +223,7 @@ class Puzzle1 extends Phaser.Scene {
         
         this.physics.add.overlap(this.player, tutorials, this.tutorialPopup);
 
-        this.pickupHandler = this.physics.add.overlap(this.player.radius, pickups, this.handlePickup);
+        this.pickupHandler = this.physics.add.overlap(this.player.radius, pickups, this.handlePickup, null, this);
         this.buttonHandler = this.physics.add.overlap(this.player.radius, buttons, this.handleButton);
         this.obstacleHandler = this.physics.add.overlap(this.player.radius, obstacles, this.handleObstacle);
 
@@ -254,6 +246,10 @@ class Puzzle1 extends Phaser.Scene {
 
         this.input.keyboard.on('keydown-F', this.inventoryToggle, this);
         this.input.keyboard.on('keydown-SPACE', this.interact, this);
+
+        //DEBUG
+        this.input.keyboard.on('keydown-P', this.debugSkip, this);
+
     }
 
     update()
@@ -345,6 +341,7 @@ class Puzzle1 extends Phaser.Scene {
     inventoryToggle()
     {
         this.scene.launch("inventoryMenu");
+        inventoryOpened = true;
         this.scene.pause(this);
         this.scene.setActive(true, "inventoryMenu");
         this.scene.setVisible(true, "inventoryMenu");
@@ -373,16 +370,16 @@ class Puzzle1 extends Phaser.Scene {
 
     tutorialPopup(sprite, obj)
     {
-        if (obj.played == false && !tutorialActive)
+        if (!obj.played && !tutorialActive)
         {
             tutorialActive = true;
             tutorialText = obj.message;
             obj.played = true;
         }
-        else if(obj.played == false && tutorialActive)
-        {
-            tutorialActive = false;
-            tutorialTimerReset = true;
-        }
+    }
+
+    debugSkip()
+    {
+        this.scene.start("puzzle2");
     }
 }
