@@ -12,10 +12,18 @@ class Title extends Phaser.Scene {
         this.load.json('dialog', 'dialog.json');
 
         // load images
+<<<<<<< Updated upstream
         // this.load.image('dialogbox', 'img/dialogbox.png');
         this.load.image('Me', 'img/player.png');
         this.load.image('Friend', 'img/friend.png');
        
+=======
+        // this.load.image('dialogbox', 'img/box.png');
+        // this.load.image('Narrative', 'img/Narrative.png');
+        this.load.image('Me', 'img/player.png');
+        this.load.image('Friend', 'img/friend.png');
+        
+>>>>>>> Stashed changes
 
         // load bitmap font
         this.load.bitmapFont('shortstack', 'font/shortStack.png', 'font/shortStack.xml');

@@ -28,9 +28,16 @@ class Talking extends Phaser.Scene {
         this.nextText = null;			// player prompt text to continue typing
 
         // character variables
+<<<<<<< Updated upstream
         this.me = null;
         this.friend = null;
      
+=======
+        // this.Narrative = null;
+        this.Me = null;
+        this.Friend= null;
+        // this.jove = null;
+>>>>>>> Stashed changes
         this.tweenDuration = 500;
 
         this.OFFSCREEN_X = -500;        // x,y values to place characters offscreen
@@ -49,10 +56,11 @@ class Talking extends Phaser.Scene {
         
 
         // initialize dialog text objects (with no text)
-        this.dialogText = this.add.bitmapText(this.TEXT_X, this.TEXT_Y, this.DBOX_FONT, '', this.TEXT_SIZE).setOrigin(0,2);
+        this.dialogText = this.add.bitmapText(this.TEXT_X, this.TEXT_Y, this.DBOX_FONT, '', this.TEXT_SIZE);
         this.nextText = this.add.bitmapText(this.NEXT_X, this.NEXT_Y, this.DBOX_FONT, '', this.TEXT_SIZE);
 
         // ready the character dialog images offscreen
+<<<<<<< Updated upstream
     
         
         
@@ -60,6 +68,12 @@ class Talking extends Phaser.Scene {
         // this.homer = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'homer').setOrigin(0, 1);
         // this.minerva = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'minerva').setOrigin(0, 1);
         // this.neptune = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'neptune').setOrigin(0, 1);
+=======
+        console.log('adding characters');
+        // this.Narrative = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'Narrative').setOrigin(0, 1);
+        this.Me = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'Me').setOrigin(0, 1);
+        this.Friend = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'Friend').setOrigin(0, 1);
+>>>>>>> Stashed changes
         // this.jove = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'jove').setOrigin(0, 1);
 
         // input
