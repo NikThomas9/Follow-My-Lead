@@ -55,7 +55,7 @@
             "newSpeaker" : "true"
         },
         {
-            "speaker" : "Friend: ",
+            "speaker" : "Friend",
             "dialog" : "Are you sure you’re alright…?",
             "newSpeaker" : "true"
         },

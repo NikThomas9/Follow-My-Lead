@@ -418,6 +418,6 @@ class Puzzle2 extends Phaser.Scene {
     }
     loadNextLevel()
     {
-        this.scene.start("title2Scene");
+        this.scene.start("t2Scene");
     }
 }

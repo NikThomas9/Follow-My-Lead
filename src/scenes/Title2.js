@@ -1,6 +1,6 @@
 class Title2 extends Phaser.Scene {
     constructor() {
-        super("title2Scene");
+        super("t2Scene");
     }
 
     preload() {
@@ -9,14 +9,17 @@ class Title2 extends Phaser.Scene {
         this.load.audio('music', 'music.mp3');
 
         // load JSON (dialog)
-        this.load.json('dialog', 'ending.json');
+        this.load.json('dialog2', 'ending.json');
 
-        // load images
+        // load image
+       
+
         // this.load.image('dialogbox', 'img/box.png');
+        // this.load.image('Narrative', 'img/Narrative.png');
         this.load.image('Me', 'img/player.png');
         this.load.image('Friend', 'img/friend.png');
-        // this.load.image('jove', 'img/jove.png');
-        // this.load.image('neptune', 'img/neptune.png');
+        
+
 
         // load bitmap font
         this.load.bitmapFont('shortstack', 'font/shortStack.png', 'font/shortStack.xml');
@@ -26,9 +29,9 @@ class Title2 extends Phaser.Scene {
         // add title text
         music = this.sound.add('music');
         music.play();
-        this.add.bitmapText(centerX, centerY - 32, 'shortstack', 'You have reached the end.', 32).setOrigin(0.5);
+        this.add.bitmapText(centerX, centerY - 32, 'shortstack', 'You made it to the end', 32).setOrigin(0.5);
         this.add.bitmapText(centerX, centerY, 'shortstack', 'Press SPACE to continue', 16).setOrigin(0.5);
-        //this.add.bitmapText(centerX, centerY + 32, 'shortstack', 'Credits to Professor Nathan', 16).setOrigin(0.5);
+      
 
 
         // create input
@@ -40,9 +43,8 @@ class Title2 extends Phaser.Scene {
         if(Phaser.Input.Keyboard.JustDown(cursors.space)) {
             this.scene.start("ending");
         }
-
-        //Debug to get to gameplay REMOVE LATER
-       
-
+        // if(Phaser.Input.Keyboard.JustDown(cursors.right)) {
+        //     this.scene.start("ending");
+        // }
     }
 }
