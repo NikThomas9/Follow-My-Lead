@@ -31,7 +31,6 @@ class Title extends Phaser.Scene {
         music.play();
         this.add.bitmapText(centerX, centerY - 32, 'shortstack', 'FOLLOW MY LEAD', 32).setOrigin(0.5);
         this.add.bitmapText(centerX, centerY, 'shortstack', 'Press SPACE to start', 16).setOrigin(0.5);
-        this.add.bitmapText(centerX, centerY + 32, 'shortstack', 'Credits to Professor Nathan', 16).setOrigin(0.5);
 
 
         // create input
@@ -44,7 +43,8 @@ class Title extends Phaser.Scene {
             this.scene.start("talkingScene");
         }
         if(Phaser.Input.Keyboard.JustDown(cursors.right)) {
-            this.scene.start("t2Scene");
+            music.stop();
+            this.scene.start("puzzle1");
         }
     }
 }

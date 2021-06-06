@@ -42,6 +42,28 @@ class Talking2 extends Phaser.Scene {
         this.OFFSCREEN_Y = 1000;
     }
 
+    preload()
+    {
+        // load assets
+        this.load.path = "./assets/";
+        this.load.audio('music', 'music.mp3');
+
+        // load JSON (dialog)
+        this.load.json('dialog2', 'ending.json');
+
+        // load image
+        
+
+        // this.load.image('dialogbox', 'img/box.png');
+        // this.load.image('Narrative', 'img/Narrative.png');
+        this.load.image('Me', 'img/player.png');
+        this.load.image('Friend', 'img/friend.png');
+
+        // load bitmap font
+        this.load.bitmapFont('shortstack', 'font/shortStack.png', 'font/shortStack.xml');
+    
+    }
+
     create() {
         // parse dialog from JSON file
         this.dialog2 = this.cache.json.get('dialog2');
@@ -67,7 +89,11 @@ class Talking2 extends Phaser.Scene {
         keyRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
 
         // start dialog
-        this.typeText();        
+        this.typeText();      
+        
+        music = this.sound.add('music');
+        music.play();
+
     }
 
     update() {

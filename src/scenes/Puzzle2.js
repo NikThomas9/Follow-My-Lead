@@ -55,6 +55,7 @@ class Puzzle2 extends Phaser.Scene {
     create()
     {
         currentScene = "puzzle2";
+        this.isLoading = false;
 
         //Set up tilemap and world
         const map = this.make.tilemap({ key: 'level2'});
@@ -280,10 +281,13 @@ class Puzzle2 extends Phaser.Scene {
 
     update()
     {
-        this.player.update();
-        this.pickupHandler.active = false;
-        this.buttonHandler.active = false;
-        this.obstacleHandler.active = false;
+        if (!this.isLoading)
+        {
+            this.player.update();
+            this.pickupHandler.active = false;
+            this.buttonHandler.active = false;
+            this.obstacleHandler.active = false;
+        }
 
 
         if (newPickup && this.scene.isActive("inventoryMenu"))
@@ -356,6 +360,12 @@ class Puzzle2 extends Phaser.Scene {
             return;
         }
 
+        if (obj.name =="portal")
+        {
+            obj.scene.sound.play("sfx_door");
+            obj.scene.loadNextLevel();
+        }
+
         if (obj.name == "boulder" && activeTool.name == "Pickaxe")
         {
             obj.scene.sound.play("sfx_rockfall");
@@ -364,14 +374,15 @@ class Puzzle2 extends Phaser.Scene {
 
         if (obj.name == "cauldron" && (activeTool.name == "Torch" || activeTool.name == "Bucket"))
         {
-            if(activeTool.name == "torch"){
-            obj.scene.sound.play("sfx_torch");
+            if(activeTool.name == "Torch"){
+                obj.scene.sound.play("sfx_torch");
             }
-            else if(activeTool.name == "torch"){
-                obj.scene.sound.play('sfx_cauldron');
+
+            if(activeTool.name == "Bucket"){
+                obj.scene.sound.play("sfx_water");
             }
+            
             obj.contains.push(activeTool);
-           
 
             for(var i = 0; i < inventory.length; i++){ 
                 if (inventory[i] == activeTool) { 
@@ -383,6 +394,7 @@ class Puzzle2 extends Phaser.Scene {
 
             if (obj.contains.length >= 2)
             {
+                obj.scene.sound.play('sfx_cauldron');
                 obj.setTexture("cauldron_full");
                 obj.scene.orb.body.enable = true;
                 obj.scene.orb.setVisible(true);    
@@ -406,9 +418,10 @@ class Puzzle2 extends Phaser.Scene {
             activeTool = null;
         }
     }
-a
+
     inventoryToggle()
     {
+        this.walkingSFX.stop();
         this.scene.launch("inventoryMenu");
         this.scene.pause(this);
         this.scene.setActive(true, "inventoryMenu");
@@ -432,6 +445,12 @@ a
     }
     loadNextLevel()
     {
-        this.scene.start("t2Scene");
+        this.isLoading = true;
+        this.walkingSFX.stop();
+        this.scene.setActive(false, "inventoryMenu");
+        this.scene.setActive(false, "UILayer");
+        this.scene.setVisible(false, "inventoryMenu");
+        this.scene.setVisible(false, "UILayer");
+        this.scene.start("ending");
     }
 }

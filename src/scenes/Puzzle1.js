@@ -45,6 +45,7 @@ class Puzzle1 extends Phaser.Scene {
     create()
     {
         currentScene = "puzzle1";
+        this.isLoading = false;
 
         //Set up tilemap and world
         const map = this.make.tilemap({ key: 'level'});
@@ -269,10 +270,13 @@ class Puzzle1 extends Phaser.Scene {
 
     update()
     {
-        this.player.update();
-        this.pickupHandler.active = false;
-        this.buttonHandler.active = false;
-        this.obstacleHandler.active = false;
+        if (!this.isLoading)
+        {
+            this.player.update();
+            this.pickupHandler.active = false;
+            this.buttonHandler.active = false;
+            this.obstacleHandler.active = false;
+        }
 
         if (newPickup && this.scene.isActive("inventoryMenu"))
         {
@@ -354,6 +358,7 @@ class Puzzle1 extends Phaser.Scene {
 
         if (obj.name =="portal")
         {
+            obj.scene.walkingSFX.stop();
             obj.scene.sound.play("sfx_door");
             obj.scene.loadNextLevel();
         }
@@ -361,6 +366,7 @@ class Puzzle1 extends Phaser.Scene {
 
     inventoryToggle()
     {
+        this.walkingSFX.stop();
         this.scene.launch("inventoryMenu");
         inventoryOpened = true;
         this.scene.pause(this);
@@ -386,6 +392,7 @@ class Puzzle1 extends Phaser.Scene {
 
     loadNextLevel()
     {
+        this.isLoading = true;
         this.scene.start("puzzle2");
     }
 
