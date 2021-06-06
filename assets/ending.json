@@ -1,0 +1,84 @@
+[
+	[
+		{
+			"speaker" : "Me",
+            "dialog" : "Hey! Please slow down for a second!",
+            "newSpeaker" : "true"
+        }
+    ],
+    [
+        {
+            "speaker" : "Friend",
+            "dialog" : "Oh hey! See, I told you we’d make it back in t- Huh? Is there something wrong?",
+            "newSpeaker" : "true"
+
+        },
+        {
+            "speaker" : "Me",
+            "dialog" : "What do you mean, “is there something wrong”? That forest was terrifying, how could you leave me all alone like that?!?",
+            "newSpeaker" : "true"
+
+        },
+        {
+            "speaker" : "Friend",
+            "dialog" : "What are you talking about? It was just a sunny little forest path, I made sure I wasn’t too far ahead the entire time",
+            "newSpeaker" : "true"
+        },
+        {
+            "speaker" : "Me",
+            "dialog" : "Let me get this straight...you didn’t see the forest get darker all of a sudden? ",
+            "newSpeaker" : "true"
+        },
+        {
+            "speaker" : "Friend",
+            "dialog" : "Hmmm...nope.",
+            "newSpeaker" : "true"
+        },
+        {
+            "speaker" : "Me",
+            "dialog" : "You didn’t see the portals...? All the strange stuff scattered about? ",
+            "newSpeaker" : "true"
+        },
+        {
+            "speaker" : "Friend",
+            "dialog" : "Uhm...do you want to sit down for a sec? Maybe you should stay back from your studies today.",
+            "newSpeaker" : "true" 
+        },
+        {
+            "speaker" : "Me",
+            "dialog" : "Oh! Right, I suppose that is the reason why we went through that place to begin with. Might as well make this worth it.",
+            "newSpeaker" : "true"
+        },
+        {
+            "speaker" : "Friend",
+            "dialog" : "If you say so...ah, thank you, by the way.",
+            "newSpeaker" : "true"
+        },
+        {
+            "speaker" : "Friend: ",
+            "dialog" : "Are you sure you’re alright…?",
+            "newSpeaker" : "true"
+        },
+        {
+            "speaker" : "Me",
+            "dialog" : "Y..yeah! I’m fine, really, don’t worry about it.",
+            "newSpeaker" : "true" 
+        },
+        {
+            "speaker" : "Friend",
+            "dialog" : "Well, if you say so! I’ll meet up with you after you’re done here! See ya later.!",
+            "newSpeaker" : "true" 
+        },
+        {
+            "speaker" : "Me",
+            "dialog" : "I wonder what that all was...in any case, I won’t be taking any strange shortcuts again after this, I’ll tell you that.",
+            "newSpeaker" : "true"   
+        }
+    ]
+
+        
+
+
+
+	]
+

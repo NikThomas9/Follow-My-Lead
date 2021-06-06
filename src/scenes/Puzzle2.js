@@ -40,11 +40,13 @@ class Puzzle2 extends Phaser.Scene {
 
         //this.load.image('bucket', 'assets/fullbucket.png');
 
-        //this.load.audio('sfx_pickup', './assets/puzzle_click.wav');
-        //this.load.audio('sfx_walking', './assets/walking.wav');
-        //this.load.audio('sfx_slam', './assets/slam.wav');
-        //this.load.audio('sfx_incorrect', './assets/wrong.wav');
-        
+        this.load.audio('sfx_pickup', './assets/puzzle_click.wav');
+        this.load.audio('sfx_walking', './assets/walking.wav');
+        this.load.audio('sfx_slam', './assets/slam.wav');
+        this.load.audio('sfx_incorrect', './assets/wrong.wav');
+        this.load.audio('sfx_rockfall', './assets/smash.wav');
+        this.load.audio('sfx_cauldron', './assets/bubbling-cauldron.wav');
+        this.load.audio('sfx_torch', './assets/torch.wav');
         //this.load.atlas('playerAtlas', 'assets/playerAtlas.png', 'assets/playerAtlas.json');
 
         this.load.tilemapTiledJSON('level2', 'assets/tilemap/puzzle2.json');
@@ -346,12 +348,20 @@ class Puzzle2 extends Phaser.Scene {
 
         if (obj.name == "boulder" && activeTool.name == "pickaxe")
         {
+            obj.scene.sound.play("sfx_rockfall");
             obj.destroy();
         }
 
         if (obj.name == "cauldron" && (activeTool.name == "torch" || activeTool.name == "bucket"))
         {
+            if(activeTool.name == "torch"){
+            obj.scene.sound.play("sfx_torch");
+            }
+            else if(activeTool.name == "torch"){
+                obj.scene.sound.play('sfx_cauldron');
+            }
             obj.contains.push(activeTool);
+           
 
             for(var i = 0; i < inventory.length; i++){ 
                 if (inventory[i] == activeTool) { 
@@ -405,5 +415,9 @@ class Puzzle2 extends Phaser.Scene {
                 item.setTexture(item.name);
                 item.isDisabled = false;
             })
+    }
+    loadNextLevel()
+    {
+        this.scene.start("title2Scene");
     }
 }
