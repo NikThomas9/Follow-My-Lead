@@ -242,8 +242,8 @@ class Puzzle2 extends Phaser.Scene {
         this.pedestal = new Obstacle(this, 0, 0, 'pedestal', null, obstacles, map).setOrigin(0, 0);
         this.portal = new Obstacle(this, 0, 0, 'portal', null, obstacles, map).setOrigin(0, 0);
 
-        this.portal.body.enable = false;
-        this.portal.setVisible(false);
+        //this.portal.body.enable = false;
+        //this.portal.setVisible(false);
 
         //Physics colliders
         this.player.body.setCollideWorldBounds(true);

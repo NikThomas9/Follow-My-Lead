@@ -6,11 +6,17 @@ class Inventory extends Phaser.Scene {
     }
     preload(){
         this.load.audio('sfx_scrawl', './assets/paper_scrawl.wav');
+        this.load.audio('sfx_select', './assets/select.mp3');
+        this.load.audio('sfx_move', './assets/cursor_move.mp3');
 
     }
 
     create()
     {
+        this.scrawl = this.sound.add("sfx_scrawl");
+        this.cursor_select = this.sound.add("sfx_select");
+        this.move = this.sound.add("sfx_move");
+
         selectNumber = 0;
 
         var textOffset = 0;
@@ -71,6 +77,7 @@ class Inventory extends Phaser.Scene {
     {
         if (inventory.length > 0 && !this.readingNote)
         {
+            this.move.play();
             selectNumber--;
             if (selectNumber < 0)
             {
@@ -88,6 +95,7 @@ class Inventory extends Phaser.Scene {
     {
         if (inventory.length > 0 && !this.readingNote)
         {
+            this.move.play();
             selectNumber++;
             if (selectNumber >= inventory.length)
             {
@@ -120,6 +128,7 @@ class Inventory extends Phaser.Scene {
 
         if (selectedItem instanceof Tool && activeTool != selectedItem)
         {
+            this.cursor_select.play();
             activeTool = selectedItem;
         }
     }
@@ -138,7 +147,6 @@ class Inventory extends Phaser.Scene {
         {
             console.log(selectedItem.readSprite);
             this.note.setTexture(selectedItem.readSprite);
-            this.scrawl = this.sound.add("sfx_scrawl");
             this.scrawl.play();
             this.note.setVisible(true);
             this.readingNote = true;
