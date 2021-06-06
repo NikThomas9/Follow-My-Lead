@@ -13,10 +13,10 @@ class Puzzle2 extends Phaser.Scene {
         this.load.image('cauldron_empty', 'assets/cauldron_empty.png');
         this.load.image('cauldron_full', 'assets/cauldron_full.png');
         this.load.image('pedestal', 'assets/pedestal.png');
-        this.load.image('pickaxe', 'assets/pickaxe.png');
-        this.load.image('torch', 'assets/torch.png');
+        this.load.image('Pickaxe', 'assets/pickaxe.png');
+        this.load.image('Torch', 'assets/torch.png');
         this.load.image('portal', 'assets/portal.png');
-        this.load.image('orb', 'assets/orb.png');
+        this.load.image('Orb', 'assets/orb.png');
         this.load.image('boulder', 'assets/boulder.png');
 
         this.load.image('die1', 'assets/die1.png');
@@ -215,11 +215,10 @@ class Puzzle2 extends Phaser.Scene {
         this.paper2 = new Note(this, 0, 0, 'paper', null, 'note2', pickups, map, 'Note 2').setOrigin(0, 0);
         this.paper3 = new Note(this, 0, 0, 'paper', null, 'note3', pickups, map, 'Note 3').setOrigin(0, 0);
 
-        this.pickaxe = new Tool(this, 0, 0, 'pickaxe', null, 'pickaxe', pickups, map).setOrigin(0, 0);       
-        this.torch = new Tool(this, 0, 0, 'torch', null, 'torch', pickups, map).setOrigin(0, 0);
-        this.orb = new Tool(this, 0, 0, 'orb', null, 'orb', pickups, map).setOrigin(0, 0);
-        this.bucket = new Tool(this, 0, 0, 'bucket', null, 'bucket', pickups, map).setOrigin(0, 0);
-        this.orbInPedestal = this.add.sprite(orbSpriteSpawn.x, orbSpriteSpawn.y, 'orb');
+        this.pickaxe = new Tool(this, 0, 0, 'Pickaxe', null, 'Pickaxe', pickups, map).setOrigin(0, 0);       
+        this.torch = new Tool(this, 0, 0, 'Torch', null, 'Torch', pickups, map).setOrigin(0, 0);
+        this.orb = new Tool(this, 0, 0, 'Orb', null, 'Orb', pickups, map).setOrigin(0, 0);
+        this.orbInPedestal = this.add.sprite(orbSpriteSpawn.x, orbSpriteSpawn.y, 'Orb');
 
         this.die1 = new Button(this, 0, 0, "die1", null, 1, buttons, map).setOrigin(0, 0);
         this.die2 = new Button(this, 0, 0, "die2", null, 2, buttons, map).setOrigin(0, 0);
@@ -355,12 +354,12 @@ class Puzzle2 extends Phaser.Scene {
             return;
         }
 
-        if (obj.name == "boulder" && activeTool.name == "pickaxe")
+        if (obj.name == "boulder" && activeTool.name == "Pickaxe")
         {
             obj.destroy();
         }
 
-        if (obj.name == "cauldron" && (activeTool.name == "torch" || activeTool.name == "bucket"))
+        if (obj.name == "cauldron" && (activeTool.name == "Torch" || activeTool.name == "Bucket"))
         {
             obj.contains.push(activeTool);
 
@@ -380,7 +379,7 @@ class Puzzle2 extends Phaser.Scene {
             }
         }
 
-        if (obj.name == "pedestal" && (activeTool.name == "orb"))
+        if (obj.name == "pedestal" && (activeTool.name == "Orb"))
         {
             obj.contains.push(activeTool);
 
@@ -397,7 +396,7 @@ class Puzzle2 extends Phaser.Scene {
             activeTool = null;
         }
     }
-
+a
     inventoryToggle()
     {
         this.scene.launch("inventoryMenu");

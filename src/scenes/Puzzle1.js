@@ -20,10 +20,12 @@ class Puzzle1 extends Phaser.Scene {
         this.load.image('arrow', 'assets/arrow.png');
         this.load.image('puddle', 'assets/puddle.png');
         this.load.image('portal', 'assets/portal.png');
+        this.load.image('door', 'assets/door.png');
 
         this.load.image('paper', 'assets/paper.png');
         this.load.image('note1', 'assets/note1.png');
 
+        this.load.image('Key', 'assets/key.png');
         this.load.image('bucketEmpty', 'assets/emptybucket.png');
         this.load.image('bucketFull', 'assets/fullbucket.png');
 
@@ -201,9 +203,12 @@ class Puzzle1 extends Phaser.Scene {
                 
         this.paper1 = new Note(this, 0, 0, 'paper', null, 'note1', pickups, map, 'Note 1').setOrigin(0, 0);
 
-        this.bucket = new Tool(this, 0, 0, 'bucketEmpty', null, 'bucketEmpty', pickups, map, "bucket").setOrigin(0, 0);
+        this.bucket = new Tool(this, 0, 0, 'bucketEmpty', null, 'bucketEmpty', pickups, map, "Bucket").setOrigin(0, 0);
+        this.bucket = new Tool(this, 0, 0, 'Key', null, 'Key', pickups, map).setOrigin(0, 0);
 
         this.puddle = new Obstacle(this, 0, 0, 'puddle', null, obstacles, map).setOrigin(0, 0);
+        this.door = new Obstacle(this, 0, 0, 'door', null, obstacles, map).setOrigin(0, 0);
+        this.door.depth = 2;
         this.portal = new Obstacle(this, 0, 0, 'portal', null, obstacles, map).setOrigin(0, 0);
 
         this.portal.body.enable = false;
@@ -325,11 +330,15 @@ class Puzzle1 extends Phaser.Scene {
 
     handleObstacle(sprite, obj)
     {
-        if (obj.name == "puddle" && activeTool.name == "bucket")
+        if (obj.name == "puddle" && activeTool.name == "Bucket")
         {
             obj.destroy();
             activeTool.uiSprite = "bucketFull";
-            console.log(activeTool.name);
+        }
+
+        if (obj.name == "door" && activeTool.name == "Key")
+        {
+            obj.destroy();
         }
 
         if (obj.name =="portal")

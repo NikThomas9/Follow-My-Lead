@@ -13,12 +13,14 @@ class UI extends Phaser.Scene {
         let tutorialConfig = {
             fontFamily: 'shortstack',
             fontSize: '19px',
-            backgroundColor: '#000000',
-            color: '#FFFFFF',
+            backgroundColor: '#25412e',
+            color: '#bddbbf',
             align: 'center',
             padding: {
                 top: 5,
                 bottom: 5,
+                left: 5,
+                right: 5
             },
             fixedWidth: 0
         }
@@ -35,7 +37,6 @@ class UI extends Phaser.Scene {
 
     update()
     {
-        console.log(tutorialActive);
         if (inventoryOpened)
         {
             this.tutorialUI.setVisible(false);

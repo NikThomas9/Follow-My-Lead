@@ -14,7 +14,7 @@ class Tool extends Phaser.Physics.Arcade.Image {
 
         const spawn = map.findObject(
             "Objects",
-            obj => obj.name === this.spawnString
+            obj => obj.name.toLowerCase() === this.spawnString.toLowerCase()
             );
 
         this.x = spawn.x;
