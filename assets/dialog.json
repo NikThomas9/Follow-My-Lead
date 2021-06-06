@@ -1,84 +1,81 @@
 [
 	[
 		{
-			"speaker" : "Narrative:",
+			"speaker" : "Narrative",
             "dialog" : "MC and their Friend decided to have a picnic together in a meadow near their village. As they finish up their hangout time, the MC realizes they forgot something important.",
             "newSpeaker" : "true"
         }
     ],
     [
         {
-            "speaker" : "ME: ",
+            "speaker" : "Me",
             "dialog" : "Ugh! I forgot. I have to get back to the village in time for my studies.",
             "newSpeaker" : "true"
 
         },
         {
-            "speaker" : "Friend: ",
+            "speaker" : "Friend",
             "dialog" : "Oh, that is today, huh? Hm...the sun’s already starting to set though, I don’t think we’ll make it back on time. ",
             "newSpeaker" : "true"
 
         },
         {
-            "speaker" : "Me: ",
+            "speaker" : "Me",
             "dialog" : "*sigh* Yes, it looks like you’re right. Well, we might as well start our journey back n-",
             "newSpeaker" : "true"
         },
         {
-            "speaker" : "Friend: ",
+            "speaker" : "Friend",
             "dialog" : "Wait! I know a way that we’ll be able to get there in no time!",
             "newSpeaker" : "true"
         },
         {
-            "speaker" : "Me: ",
+            "speaker" : "Me",
             "dialog" : "Oh? But, it’ll take at least 30 minutes to go around the forest.",
             "newSpeaker" : "true"
         },
         {
-            "speaker" : "Friend: ",
+            "speaker" : "Friend",
             "dialog" : " Exactly! Why don’t we just go through the forest?",
             "newSpeaker" : "true"
         },
         {
-            "speaker" : "Me: ",
+            "speaker" : "Me",
             "dialog" : " I...don’t know if that’s a good idea. Isn’t it dangerous?",
             "newSpeaker" : "true" 
         },
         {
-            "speaker" : "Friend: ",
+            "speaker" : "Friend",
             "dialog" : "Oh please, I’ve taken this shortcut a few times myself already. There’s nothing to worry about, just follow my lead!",
             "newSpeaker" : "true"
         },
         {
-            "speaker" : "Me: ",
+            "speaker" : "Me",
             "dialog" : "If you say so...ah, thank you, by the way.",
             "newSpeaker" : "true"
         },
         {
-            "speaker" : "Friend: ",
+            "speaker" : "Friend",
             "dialog" : "No problem! Here, I’ll take all the picnic stuff and get a head start!",
             "newSpeaker" : "true"
         },
         {
-            "speaker" : "Me: ",
+            "speaker" : "Me",
             "dialog" : "Wait, where are you going?! ",
             "newSpeaker" : "true" 
         },
         {
-            "speaker" : "Friend: ",
+            "speaker" : "Friend",
             "dialog" : " We gotta hurry, remember? I won’t go too far ahead so you can still see where I’m heading, just catch up with me!",
             "newSpeaker" : "true" 
         },
         {
-            "speaker" : "Me: ",
+            "speaker" : "Me",
             "dialog" : " I...alright, fine. Goodness, I swear, she’s so infuriating at times.",
             "newSpeaker" : "true"   
         }
-    ]
-
+    
         
-
-
-
-	]
-
+    ]
+   
+    ]

@@ -4,6 +4,10 @@ class Inventory extends Phaser.Scene {
         this.inventoryWidth = game.config.width/2 - 30;
         this.inventoryHeight = 30;
     }
+    preload(){
+        this.load.audio('sfx_scrawl', './assets/paper_scrawl.wav');
+
+    }
 
     create()
     {
@@ -134,6 +138,8 @@ class Inventory extends Phaser.Scene {
         {
             console.log(selectedItem.readSprite);
             this.note.setTexture(selectedItem.readSprite);
+            this.scrawl = this.sound.add("sfx_scrawl");
+            this.scrawl.play();
             this.note.setVisible(true);
             this.readingNote = true;
         }

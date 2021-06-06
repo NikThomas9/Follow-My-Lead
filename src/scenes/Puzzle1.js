@@ -34,6 +34,8 @@ class Puzzle1 extends Phaser.Scene {
         this.load.audio('sfx_walking', './assets/walking.wav');
         this.load.audio('sfx_slam', './assets/slam.wav');
         this.load.audio('sfx_incorrect', './assets/wrong.wav');
+        this.load.audio('sfx_water', './assets/water_splash.wav');
+        this.load.audio('sfx_door', './assets/door_open.wav');
         
         this.load.atlas('playerAtlas', 'assets/playerAtlas.png', 'assets/playerAtlas.json');
 
@@ -340,6 +342,7 @@ class Puzzle1 extends Phaser.Scene {
     {
         if (obj.name == "puddle" && activeTool.name == "Bucket")
         {
+            obj.scene.sound.play("sfx_water");
             obj.destroy();
             activeTool.uiSprite = "bucketFull";
         }
@@ -351,6 +354,7 @@ class Puzzle1 extends Phaser.Scene {
 
         if (obj.name =="portal")
         {
+            obj.scene.sound.play("sfx_door");
             obj.scene.loadNextLevel();
         }
     }

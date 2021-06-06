@@ -11,12 +11,15 @@ class Title extends Phaser.Scene {
         // load JSON (dialog)
         this.load.json('dialog', 'dialog.json');
 
-        // load images
+        // load image
+       
+
         // this.load.image('dialogbox', 'img/box.png');
-        this.load.image('homer', 'img/homer.png');
-        this.load.image('minerva', 'img/minerva.png');
-        this.load.image('jove', 'img/jove.png');
-        this.load.image('neptune', 'img/neptune.png');
+        // this.load.image('Narrative', 'img/Narrative.png');
+        this.load.image('Me', 'img/player.png');
+        this.load.image('Friend', 'img/friend.png');
+        
+
 
         // load bitmap font
         this.load.bitmapFont('shortstack', 'font/shortStack.png', 'font/shortStack.xml');
@@ -28,7 +31,7 @@ class Title extends Phaser.Scene {
         music.play();
         this.add.bitmapText(centerX, centerY - 32, 'shortstack', 'FOLLOW MY LEAD', 32).setOrigin(0.5);
         this.add.bitmapText(centerX, centerY, 'shortstack', 'Press SPACE to start', 16).setOrigin(0.5);
-        //this.add.bitmapText(centerX, centerY + 32, 'shortstack', 'Credits to Professor Nathan', 16).setOrigin(0.5);
+        this.add.bitmapText(centerX, centerY + 32, 'shortstack', 'Credits to Professor Nathan', 16).setOrigin(0.5);
 
 
         // create input
@@ -40,11 +43,8 @@ class Title extends Phaser.Scene {
         if(Phaser.Input.Keyboard.JustDown(cursors.space)) {
             this.scene.start("talkingScene");
         }
-
-        //Debug to get to gameplay REMOVE LATER
         if(Phaser.Input.Keyboard.JustDown(cursors.right)) {
-            this.scene.start("puzzle1");
+            this.scene.start("t2Scene");
         }
-
     }
 }
