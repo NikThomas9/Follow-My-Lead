@@ -37,7 +37,7 @@ class UI extends Phaser.Scene {
 
     update()
     {
-        if (inventoryOpened)
+        if (inventoryOpened && selectedItem == "")
         {
             this.tutorialUI.setVisible(false);
             this.inventoryTutorial.setVisible(true);

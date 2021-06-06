@@ -24,6 +24,7 @@ class Puzzle1 extends Phaser.Scene {
 
         this.load.image('paper', 'assets/paper.png');
         this.load.image('note1', 'assets/note1.png');
+        this.load.image('handbook', 'assets/handbook.png');
 
         this.load.image('Key', 'assets/key.png');
         this.load.image('bucketEmpty', 'assets/emptybucket.png');
@@ -191,12 +192,19 @@ class Puzzle1 extends Phaser.Scene {
         ).setOrigin(0,0);
 
         this.walkingSFX = this.sound.add("sfx_walking", {loop: true});
-        
+
+
         //Generate pickups
         pickups = this.physics.add.group();
         buttons = this.physics.add.group();
         obstacles = this.physics.add.group();
         tutorials = this.physics.add.group();
+
+        //Add player handbook
+        this.handbook = new Note(this, 0, 0, null, null, 'handbook', pickups, map, 'Handbook').setOrigin(0, 0);
+        inventory.push(this.handbook);
+        this.handbook.setVisible(false);
+        this.handbook.setActive(false);
 
         this.tutorial1 = new Tutorial(this, 0, 0, 1000, 1000, null, null, tutorial1Message, tutorials, map, "tutorial1");
         this.tutorial2 = new Tutorial(this, 0, 0, 500, 500, null, null, tutorial2Message, tutorials, map, "tutorial2");

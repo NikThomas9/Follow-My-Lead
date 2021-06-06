@@ -216,6 +216,18 @@
                  "width":0,
                  "x":5337,
                  "y":5131
+                }, 
+                {
+                 "height":0,
+                 "id":41,
+                 "name":"HandbookSpawn",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":5980,
+                 "y":205
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -236,7 +248,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":41,
+ "nextobjectid":42,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.6.0",
