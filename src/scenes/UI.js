@@ -28,7 +28,10 @@ class UI extends Phaser.Scene {
         this.tutorialTimer = null;
 
         // this.selected = this.add.text(50, 50, "Selected: ");
-        this.selected = this.add.bitmapText(50, 50, 'shortstack', 'Selected: ', 19);
+        this.selected = this.add.bitmapText(50, 50, 'shortstack', 'Selected: ', 19, {backgroundColor: '#25412e'});
+        this.selected.depth = 1;
+        this.selectedBG = this.add.rectangle(40, 20, 200, 80, '#25412e', .5).setOrigin(0,0);
+        this.selected.depth = 1;
         this.selectedIcon = this.add.image(this.selected.x + 125, this.selected.y, activeTool.uiSprite);
         this.tutorialUI = this.add.text(50, game.config.height - 100, tutorialText, tutorialConfig);
         this.tutorialUI.setVisible(false);
@@ -75,7 +78,6 @@ class UI extends Phaser.Scene {
 
     hideText()
     {
-        console.log("here");
         this.tutorialUI.setVisible(false);
         tutorialActive = false;
         this.tutorialTimer = null;

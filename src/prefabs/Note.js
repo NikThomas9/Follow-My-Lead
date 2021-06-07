@@ -17,7 +17,6 @@ class Note extends Phaser.Physics.Arcade.Image {
             obj => obj.name === this.spawnString
             );
 
-        console.log(this.spawnString);
         this.x = spawn.x;
         this.y = spawn.y;
 

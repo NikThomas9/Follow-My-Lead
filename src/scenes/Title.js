@@ -26,6 +26,24 @@ class Title extends Phaser.Scene {
     }
 
     create() {
+        //Reinitialize global vars
+        pickups, buttons, obstacles, tutorials;
+        code1 = ["red", "blue", "yellow", "green"];
+        code2 = [4, 6, 2, 3, 1, 5];
+        combination = [];
+        combination2 = [];
+        inventory = []; 
+        newPickup = false;
+        selectNumber = 0;
+        selectedItem = "";
+        activeTool = "";
+        currentScene = "";
+
+        inventoryOpened = false;
+
+        tutorialActive = false;
+        tutorialText = "";
+
         // add title text
         music = this.sound.add('music');
         music.play();
