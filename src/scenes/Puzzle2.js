@@ -12,6 +12,8 @@ class Puzzle2 extends Phaser.Scene {
 
         this.load.image('cauldron_empty', 'assets/cauldron_empty.png');
         this.load.image('cauldron_full', 'assets/cauldron_full.png');
+        this.load.image('cauldron_water', 'assets/cauldron_water.png');
+        this.load.image('cauldron_fire', 'assets/cauldron_fire.png');
         this.load.image('pedestal', 'assets/pedestal.png');
         this.load.image('Pickaxe', 'assets/pickaxe.png');
         this.load.image('Torch', 'assets/torch.png');
@@ -378,11 +380,13 @@ class Puzzle2 extends Phaser.Scene {
         if (obj.name == "cauldron" && (toolName == "Torch" || toolName == "Bucket"))
         {
             if(activeTool.name == "Torch"){
+                obj.setTexture("cauldron_fire");
                 obj.scene.sound.play("sfx_pickup");
                 obj.scene.sound.play("sfx_torch");
             }
 
             if(activeTool.name == "Bucket"){
+                obj.setTexture("cauldron_water");
                 obj.scene.sound.play("sfx_pickup");
                 obj.scene.sound.play("sfx_water");
             }
