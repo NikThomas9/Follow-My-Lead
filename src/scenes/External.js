@@ -1,6 +1,6 @@
-class Credits extends Phaser.Scene{
+class External extends Phaser.Scene{
     constructor(){
-        super("credits");
+        super("ex1");
     }
             
     preload(){
@@ -26,17 +26,19 @@ class Credits extends Phaser.Scene{
         // this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
         // borderPadding -150, 'Created by: Nik Thomas, Sreevani Suvarna, Stevie Rodriguez', menuConfig).setOrigin(0.5);
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
-            borderPadding - 80, 'Programming: Nik, Sreevani', menuConfig).setOrigin(0.5);
+            borderPadding - 80, 'Cursor Move Sound 1: https://freesound.org/people/ticebilla/sounds/238188/', menuConfig).setOrigin(0.5);
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
-            borderPadding -50, 'Dialogging: Professor Nathan, Sreevani', menuConfig).setOrigin(0.5);
+            borderPadding -50, 'Cursor Move Sound 2: https://freesound.org/people/Breviceps/sounds/445972/', menuConfig).setOrigin(0.5);
          this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
-             borderPadding - 20, 'Art: Stevie', menuConfig).setOrigin(0.5);
+             borderPadding - 20, 'Failure Sound 1: https://freesound.org/people/FunWithSound/sounds/394899', menuConfig).setOrigin(0.5);
          this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
-             borderPadding + 7, 'Tilemap + Puzzles: Nik, Stevie', menuConfig).setOrigin(0.5);
+             borderPadding + 7, 'Failure Sound 2: https://freesound.org/people/FunWithSound/sounds/394900/', menuConfig).setOrigin(0.5);
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
-             borderPadding + 35, 'Sound: Sreevani', menuConfig).setOrigin(0.5);
+             borderPadding + 35, 'Water Sound: https://freesound.org/people/Yin_Yang_Jake007/sounds/406087/', menuConfig).setOrigin(0.5);
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
-                borderPadding + 100, 'Press SPACE to go next and see external resourcess', menuConfig).setOrigin(0.5);
+            borderPadding + 60, 'Picking up Paper: https://freesound.org/people/jomse/sounds/428664/ ', menuConfig).setOrigin(0.5);    
+        this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
+                borderPadding + 100, 'Press SPACE to go next and see more external resourcess', menuConfig).setOrigin(0.5);
             
             
 
@@ -51,7 +53,7 @@ class Credits extends Phaser.Scene{
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(cursors.space)) {
-            this.scene.start('ex1');
+            this.scene.start('ex2');
 
         }
     }

@@ -150,7 +150,7 @@ class Talking2 extends Phaser.Scene {
                 //     duration: this.tweenDuration,
                 //     ease: 'Linear'
                 // });
-                this.scene.start("credit");
+                this.scene.start("crediting");
                 music.stop();
             }
             // make text box invisible

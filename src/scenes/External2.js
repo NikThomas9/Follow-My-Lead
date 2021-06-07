@@ -1,6 +1,6 @@
-class Credits extends Phaser.Scene{
+class External2 extends Phaser.Scene{
     constructor(){
-        super("credits");
+        super("ex2");
     }
             
     preload(){
@@ -26,17 +26,22 @@ class Credits extends Phaser.Scene{
         // this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
         // borderPadding -150, 'Created by: Nik Thomas, Sreevani Suvarna, Stevie Rodriguez', menuConfig).setOrigin(0.5);
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
-            borderPadding - 80, 'Programming: Nik, Sreevani', menuConfig).setOrigin(0.5);
+            borderPadding - 80, 'Paper Scrawl: https://freesound.org/people/jackyyang09/sounds/476840/', menuConfig).setOrigin(0.5);
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
-            borderPadding -50, 'Dialogging: Professor Nathan, Sreevani', menuConfig).setOrigin(0.5);
+            borderPadding -50, 'Boulder Smash: https://freesound.org/people/AlanCat/sounds/381645/', menuConfig).setOrigin(0.5);
          this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
-             borderPadding - 20, 'Art: Stevie', menuConfig).setOrigin(0.5);
+             borderPadding - 20, 'Cauldron Bubble: https://freesound.org/people/Nomfundo_k/sounds/408540/', menuConfig).setOrigin(0.5);
          this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
-             borderPadding + 7, 'Tilemap + Puzzles: Nik, Stevie', menuConfig).setOrigin(0.5);
+             borderPadding + 7, 'Torch light: https://freesound.org/people/theshaggyfreak/sounds/315763/', menuConfig).setOrigin(0.5);
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
-             borderPadding + 35, 'Sound: Sreevani', menuConfig).setOrigin(0.5);
+             borderPadding + 35, 'Portal Open:  https://freesound.org/people/Qat/sounds/107640/', menuConfig).setOrigin(0.5);
+         this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
+                borderPadding + 60, 'Cursor up/down: https://freesound.org/people/plasterbrain/sounds/464903/', menuConfig).setOrigin(0.5);  
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
-                borderPadding + 100, 'Press SPACE to go next and see external resourcess', menuConfig).setOrigin(0.5);
+                    borderPadding + 90, 'Cursor select: https://freesound.org/people/Rickplayer/sounds/530776/', menuConfig).setOrigin(0.5);  
+             
+        this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
+                borderPadding + 110, 'Press SPACE to go back to the beginning', menuConfig).setOrigin(0.5);
             
             
 
@@ -51,7 +56,8 @@ class Credits extends Phaser.Scene{
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(cursors.space)) {
-            this.scene.start('ex1');
+            this.scene.start('titleScene');
+            music.stop();
 
         }
     }

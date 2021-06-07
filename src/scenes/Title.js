@@ -44,7 +44,7 @@ class Title extends Phaser.Scene {
         }
         if(Phaser.Input.Keyboard.JustDown(cursors.right)) {
             music.stop();
-            this.scene.start("puzzle1");
+            this.scene.start("crediting");
         }
     }
 }
