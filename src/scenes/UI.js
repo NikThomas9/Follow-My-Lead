@@ -27,7 +27,8 @@ class UI extends Phaser.Scene {
 
         this.tutorialTimer = null;
 
-        this.selected = this.add.text(50, 50, "Selected: ");
+        // this.selected = this.add.text(50, 50, "Selected: ");
+        this.selected = this.add.bitmapText(50, 50, 'shortstack', 'Selected: ', 19);
         this.selectedIcon = this.add.image(this.selected.x + 125, this.selected.y, activeTool.uiSprite);
         this.tutorialUI = this.add.text(50, game.config.height - 100, tutorialText, tutorialConfig);
         this.tutorialUI.setVisible(false);

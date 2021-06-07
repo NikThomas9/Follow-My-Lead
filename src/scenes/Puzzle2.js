@@ -463,6 +463,6 @@ class Puzzle2 extends Phaser.Scene {
         this.scene.setActive(false, "UILayer");
         this.scene.setVisible(false, "inventoryMenu");
         this.scene.setVisible(false, "UILayer");
-        this.scene.start("ending");
+        this.scene.start("t2Scene");
     }
 }

@@ -8,6 +8,7 @@ class Inventory extends Phaser.Scene {
         this.load.audio('sfx_scrawl', './assets/paper_scrawl.wav');
         this.load.audio('sfx_select', './assets/select.mp3');
         this.load.audio('sfx_move', './assets/cursor_move.mp3');
+        this.load.bitmapFont('shortstack', './font/shortStack.png', './font/shortStack.xml');
 
     }
 
@@ -24,30 +25,31 @@ class Inventory extends Phaser.Scene {
 
         this.bg = this.add.rectangle(game.config.width/2, game.config.height/2, game.config.width - 30, game.config.height - 30, 0x000000);
 
-        let inventoryHeader = {
-            fontFamily: 'Courier',
-            fontSize: '32px',
-            backgroundColor: '#000000',
-            color: '#FFFFFF',
-            align: 'center',
-            fixedWidth: 0
-        }
+        // let inventoryHeader = {
+        //     fontFamily: 'Courier',
+        //     fontSize: '32px',
+        //     backgroundColor: '#000000',
+        //     color: '#FFFFFF',
+        //     align: 'center',
+        //     fixedWidth: 0
+        // }
 
-        let inventoryText = {
-            fontFamily: 'Courier',
-            fontSize: '24px',
-            backgroundColor: '#000000',
-            color: '#FFFFFF',
-            align: 'center',
-            fixedWidth: 0
-        }
+        // let inventoryText = {
+        //     fontFamily: 'Courier',
+        //     fontSize: '24px',
+        //     backgroundColor: '#000000',
+        //     color: '#FFFFFF',
+        //     align: 'center',
+        //     fixedWidth: 0
+        // }
 
-        this.inventoryMenu = this.add.text(this.inventoryWidth - 100, this.inventoryHeight, 'Inventory:', inventoryHeader).setOrigin(0, 0);
-
+        // this.inventoryMenu = this.add.text(this.inventoryWidth - 100, this.inventoryHeight, 'Inventory:', inventoryHeader).setOrigin(0, 0);
+        this.inventoryMenu = this.add.bitmapText(this.inventoryWidth - 100,this.inventoryHeight + textOffset, 'shortstack', 'Inventory').setOrigin(0,0);
         inventory.forEach(item => 
             {
                 textOffset += 50;
-                this.add.text(this.inventoryWidth - 100, this.inventoryHeight + textOffset, item.name, inventoryText);
+                // this.add.text(this.inventoryWidth - 100, this.inventoryHeight + textOffset, item.name, inventoryText);
+                this.add.bitmapText(this.inventoryWidth - 100,this.inventoryHeight + textOffset, 'shortstack', item.name,19).setOrigin(0, -1);
             });
 
         this.arrow = this.add.image(this.inventoryWidth - 150, this.inventoryHeight + 75 + this.arrowOffset, "arrow");

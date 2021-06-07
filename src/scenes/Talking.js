@@ -44,7 +44,7 @@ class Talking extends Phaser.Scene {
 
     create() {
         // parse dialog from JSON file
-        this.dialog = this.cache.json.get('dialog');
+        this.dialog = this.cache.json.get('dialog', 'dialog.json');
         //console.log(this.dialog);
 
 
