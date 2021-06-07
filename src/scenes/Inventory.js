@@ -52,7 +52,7 @@ class Inventory extends Phaser.Scene {
                 this.add.bitmapText(this.inventoryWidth - 100,this.inventoryHeight + textOffset, 'shortstack', item.name,19).setOrigin(0, -1);
             });
 
-        this.arrow = this.add.image(this.inventoryWidth - 150, this.inventoryHeight + 75 + this.arrowOffset, "arrow");
+        this.arrow = this.add.image(this.inventoryWidth - 150, this.inventoryHeight + 85 + this.arrowOffset, "arrow");
 
         this.input.keyboard.on('keydown-SPACE', this.select, this);
         this.input.keyboard.on('keydown-W', this.selectorUp, this);
@@ -67,7 +67,7 @@ class Inventory extends Phaser.Scene {
 
     update()
     {
-        this.arrow.y = this.inventoryHeight + 75 + this.arrowOffset;
+        this.arrow.y = this.inventoryHeight + 85 + this.arrowOffset;
 
         if (inventory.length <= 0)
         {
@@ -115,7 +115,6 @@ class Inventory extends Phaser.Scene {
     {
         if (inventory.length > 0)
         {
-            console.log("You selected " + inventory[Math.abs(selectNumber)].name);
             selectedItem = inventory[Math.abs(selectNumber)];
         }
         else
@@ -147,7 +146,6 @@ class Inventory extends Phaser.Scene {
     {
         if (!this.readingNote)
         {
-            console.log(selectedItem.readSprite);
             this.note.setTexture(selectedItem.readSprite);
             this.scrawl.play();
             this.note.setVisible(true);

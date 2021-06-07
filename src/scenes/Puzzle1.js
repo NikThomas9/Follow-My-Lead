@@ -291,7 +291,6 @@ class Puzzle1 extends Phaser.Scene {
         pickups.killAndHide(obj);
         inventory.push(obj);
 
-        console.log(inventory);
         obj.body.enable = false;   
 
         newPickup = true;
@@ -304,7 +303,6 @@ class Puzzle1 extends Phaser.Scene {
         if (!obj.isDisabled)
         {
             combination.push(obj.code);
-            console.log(combination);
             obj.scene.sound.play("sfx_pickup");
 
             obj.isDisabled = true;
@@ -326,7 +324,6 @@ class Puzzle1 extends Phaser.Scene {
 
                 if (success)
                 {
-                    console.log("success");
                     obj.scene.sound.play("sfx_door");
 
                     obj.scene.portal.setVisible(true);
@@ -334,7 +331,6 @@ class Puzzle1 extends Phaser.Scene {
                 }
                 else
                 {
-                    console.log("failure");
                     obj.scene.sound.play("sfx_incorrect");
                     combination = [];
                     obj.scene.resetButtons();
