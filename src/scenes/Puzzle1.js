@@ -36,6 +36,7 @@ class Puzzle1 extends Phaser.Scene {
         this.load.audio('sfx_incorrect', './assets/wrong.wav');
         this.load.audio('sfx_water', './assets/water_splash.wav');
         this.load.audio('sfx_door', './assets/door_open.wav');
+        this.load.audio('sfx_teleport', './assets/teleport.mp3');
         
         this.load.atlas('playerAtlas', 'assets/playerAtlas.png', 'assets/playerAtlas.json');
 
@@ -326,7 +327,7 @@ class Puzzle1 extends Phaser.Scene {
                 if (success)
                 {
                     console.log("success");
-                    obj.scene.sound.play("sfx_slam");
+                    obj.scene.sound.play("sfx_door");
 
                     obj.scene.portal.setVisible(true);
                     obj.scene.portal.body.enable = true;            
@@ -344,22 +345,30 @@ class Puzzle1 extends Phaser.Scene {
 
     handleObstacle(sprite, obj)
     {
-        if (obj.name == "puddle" && activeTool.name == "Bucket")
+        var toolName = "None";
+
+        if (activeTool != null)
+        {
+            toolName = activeTool.name;
+        }
+
+        if (obj.name == "puddle" && toolName == "Bucket")
         {
             obj.scene.sound.play("sfx_water");
             obj.destroy();
             activeTool.uiSprite = "bucketFull";
         }
 
-        if (obj.name == "door" && activeTool.name == "Key")
+        if (obj.name == "door" && toolName == "Key")
         {
+            obj.scene.sound.play("sfx_slam");
             obj.destroy();
         }
 
         if (obj.name =="portal")
         {
             obj.scene.walkingSFX.stop();
-            obj.scene.sound.play("sfx_door");
+            obj.scene.sound.play("sfx_teleport");
             obj.scene.loadNextLevel();
         }
     }

@@ -47,6 +47,7 @@ class Puzzle2 extends Phaser.Scene {
         this.load.audio('sfx_rockfall', './assets/smash.wav');
         this.load.audio('sfx_cauldron', './assets/bubbling-cauldron.wav');
         this.load.audio('sfx_torch', './assets/torch.wav');
+        this.load.audio('sfx_teleport', './assets/teleport.mp3');
         //this.load.atlas('playerAtlas', 'assets/playerAtlas.png', 'assets/playerAtlas.json');
 
         this.load.tilemapTiledJSON('level2', 'assets/tilemap/puzzle2.json');
@@ -242,8 +243,8 @@ class Puzzle2 extends Phaser.Scene {
         this.pedestal = new Obstacle(this, 0, 0, 'pedestal', null, obstacles, map).setOrigin(0, 0);
         this.portal = new Obstacle(this, 0, 0, 'portal', null, obstacles, map).setOrigin(0, 0);
 
-        //this.portal.body.enable = false;
-        //this.portal.setVisible(false);
+        this.portal.body.enable = false;
+        this.portal.setVisible(false);
 
         //Physics colliders
         this.player.body.setCollideWorldBounds(true);
@@ -355,30 +356,34 @@ class Puzzle2 extends Phaser.Scene {
 
     handleObstacle(sprite, obj)
     {
-        if (activeTool == null)
+        var toolName = "None";
+
+        if (activeTool != null)
         {
-            return;
+            toolName = activeTool.name;
         }
 
-        if (obj.name =="portal")
+        if (obj.name == "portal")
         {
-            obj.scene.sound.play("sfx_door");
+            obj.scene.sound.play("sfx_teleport");
             obj.scene.loadNextLevel();
         }
 
-        if (obj.name == "boulder" && activeTool.name == "Pickaxe")
+        if (obj.name == "boulder" && toolName == "Pickaxe")
         {
             obj.scene.sound.play("sfx_rockfall");
             obj.destroy();
         }
 
-        if (obj.name == "cauldron" && (activeTool.name == "Torch" || activeTool.name == "Bucket"))
+        if (obj.name == "cauldron" && (toolName == "Torch" || toolName == "Bucket"))
         {
             if(activeTool.name == "Torch"){
+                obj.scene.sound.play("sfx_pickup");
                 obj.scene.sound.play("sfx_torch");
             }
 
             if(activeTool.name == "Bucket"){
+                obj.scene.sound.play("sfx_pickup");
                 obj.scene.sound.play("sfx_water");
             }
             
@@ -401,7 +406,7 @@ class Puzzle2 extends Phaser.Scene {
             }
         }
 
-        if (obj.name == "pedestal" && (activeTool.name == "Orb"))
+        if (obj.name == "pedestal" && (toolName == "Orb"))
         {
             obj.contains.push(activeTool);
 
@@ -411,6 +416,9 @@ class Puzzle2 extends Phaser.Scene {
                 }
             }    
             
+            obj.scene.sound.play("sfx_door");
+            obj.scene.sound.play("sfx_pickup");
+
             obj.scene.portal.setVisible(true);
             obj.scene.portal.body.enable = true;   
             obj.scene.orbInPedestal.setVisible(true);
