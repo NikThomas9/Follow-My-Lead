@@ -8,7 +8,7 @@ let config = {
         target: 60,
         forceSetTimeOut: true,
     },
-    scene:  [Title, Talking, Instructions, Puzzle1, Puzzle2, Inventory, UI,Title2, Talking2],
+    scene:  [ Title, Talking, Instructions, Puzzle1, Puzzle2, Inventory, UI,Title2, Talking2, Credits],
     physics: {
         default: 'arcade',
         arcade: {

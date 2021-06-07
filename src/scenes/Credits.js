@@ -3,9 +3,9 @@ NOTE:
 This code was modified based on Prof. Altice's dialogue box example
 */
 
-class Talking2 extends Phaser.Scene {
+class Credits extends Phaser.Scene {
     constructor() {
-        super("ending");
+        super("credit");
 
         // dialog constants
         this.DBOX_X = 0;			    // dialog box x-position
@@ -49,7 +49,7 @@ class Talking2 extends Phaser.Scene {
         this.load.audio('music', 'music.mp3');
 
         // load JSON (dialog)
-        this.load.json('dialog2', 'ending.json');
+        this.load.json('dialog2', 'credits.json');
 
         // load image
         
@@ -150,7 +150,7 @@ class Talking2 extends Phaser.Scene {
                 //     duration: this.tweenDuration,
                 //     ease: 'Linear'
                 // });
-                this.scene.start("credit");
+                this.scene.start("titleScene");
                 music.stop();
             }
             // make text box invisible

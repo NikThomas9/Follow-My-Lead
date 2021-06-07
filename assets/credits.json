@@ -1,0 +1,126 @@
+[
+	[
+        {
+			"speaker" : "Created by",
+            "dialog" : "Nik Thomas , Sreevani Suvarna, Stevie Rodriguez",
+            "newSpeaker" : "true"
+        },
+		{
+			"speaker" : "Programming",
+            "dialog" : "Nik, Sreevani",
+            "newSpeaker" : "true"
+        }
+    ],
+    [
+        {
+            "speaker" : "Dialogging",
+            "dialog" : "Sreevani(Credits to Professor Nathan)",
+            "newSpeaker" : "true"
+
+        },
+        {
+            "speaker" : "Game Play + Puzzles",
+            "dialog" : "Nik , Stevie",
+            "newSpeaker" : "true"
+
+        },
+        {
+            "speaker" : "Tilemap",
+            "dialog" : "Nik, Stevie",
+            "newSpeaker" : "true"
+        },
+        {
+        "speaker" : "Art assets",
+            "dialog" : "Stevie",
+            "newSpeaker" : "true"
+        },
+        {
+            "speaker" : "SFX",
+            "dialog" : "Sreevani",
+            "newSpeaker" : "true"
+        },
+        {
+            "speaker" : "SFX sources",
+            "dialog" : "The following are various SFX's and their sources",
+            "newSpeaker" : "true"
+           
+        },
+        {
+            "speaker" : "Cursor Move",
+            "dialog" : "https://freesound.org/people/plasterbrain/sounds/464903/",
+            "newSpeaker" : "true"
+        },
+        {
+            "speaker" : "Cursor select",
+            "dialog" : "https://freesound.org/people/Rickplayer/sounds/530776/",
+            "newSpeaker" : "true" 
+        },
+        {
+            "speaker" : "Teleport",
+            "dialog" : "https://freesound.org/people/steaq/sounds/560124/",
+            "newSpeaker" : "true"
+        },
+        {
+            "speaker" : "Portal Open",
+            "dialog" : "https://freesound.org/people/Qat/sounds/107640/",
+            "newSpeaker" : "true"
+        },
+        {
+            "speaker" : "Torch Light",
+            "dialog" : "https://freesound.org/people/theshaggyfreak/sounds/315763/",
+            "newSpeaker" : "true"
+        },
+        {
+            "speaker" : "Cauldron Bubble",
+            "dialog" : "https://freesound.org/people/Nomfundo_k/sounds/408540/",
+            "newSpeaker" : "true" 
+        },
+        {
+            "speaker" : "Boulder Smash",
+            "dialog" : "https://freesound.org/people/AlanCat/sounds/381645/",
+            "newSpeaker" : "true" 
+        },
+        {
+            "speaker" : "Paper Scrawl",
+            "dialog" : "https://freesound.org/people/jackyyang09/sounds/476840/",
+            "newSpeaker" : "true"   
+        },
+        {
+            "speaker" : "Picking up Paper",
+            "dialog" : "https://freesound.org/people/jomse/sounds/428664/ ",
+            "newSpeaker" : "true"   
+        },
+        {
+            "speaker" : "Water Pouring/ Water Splash Sound 1",
+            "dialog" : "https://freesound.org/people/wormer2/sounds/417992/  ",
+            "newSpeaker" : "true"   
+        },
+        {
+            "speaker" : "Water Pouring/ Water Splash Sound 2",
+            "dialog" : "https://freesound.org/people/Yin_Yang_Jake007/sounds/406087/ ",
+            "newSpeaker" : "true" 
+
+        },
+        {
+            "speaker" : "Failure Sound 1",
+            "dialog" : "https://freesound.org/people/FunWithSound/sounds/394899",
+            "newSpeaker" : "true" 
+        },
+        {
+            "speaker" : "Failure Sound 2",
+            "dialog" : "https://freesound.org/people/FunWithSound/sounds/394900/ ",
+            "newSpeaker" : "true"
+        }
+
+
+        
+        
+
+    ]
+
+        
+
+
+
+	]
+
