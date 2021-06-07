@@ -6,6 +6,8 @@ class Inventory extends Phaser.Scene {
     }
     preload(){
         this.load.audio('sfx_scrawl', './assets/paper_scrawl.wav');
+        this.load.audio('sfx_scroll', './assets/cursor.wav');
+        this.load.audio('sfx_flac', './assets/select.mp3');
 
     }
 
@@ -79,6 +81,8 @@ class Inventory extends Phaser.Scene {
             }
             else
             {
+                this.scroll = this.sound.add("sfx_scroll");
+                this.scroll.play();
                 this.arrowOffset -= 50;
             }
         }
@@ -86,9 +90,11 @@ class Inventory extends Phaser.Scene {
 
     selectorDown()
     {
+
         if (inventory.length > 0 && !this.readingNote)
         {
             selectNumber++;
+
             if (selectNumber >= inventory.length)
             {
                 selectNumber = 0;
@@ -96,6 +102,9 @@ class Inventory extends Phaser.Scene {
             }
             else
             {
+
+                this.scroll = this.sound.add("sfx_scroll");
+                this.scroll.play();
                 this.arrowOffset += 50;
             }
         }
@@ -105,6 +114,9 @@ class Inventory extends Phaser.Scene {
     {
         if (inventory.length > 0)
         {
+
+            this.flac = this.sound.add("sfx_flac");
+            this.flac.play();
             console.log("You selected " + inventory[Math.abs(selectNumber)].name);
             selectedItem = inventory[Math.abs(selectNumber)];
         }
