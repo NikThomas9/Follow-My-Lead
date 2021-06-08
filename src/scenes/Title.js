@@ -44,9 +44,17 @@ class Title extends Phaser.Scene {
         tutorialActive = false;
         tutorialText = "";
 
+        if (music == null)
+        {
+            music = this.sound.add('music');
+        }
+
+        if (!music.isPlaying)
+        {
+            music.play();
+        }
+
         // add title text
-        music = this.sound.add('music');
-        music.play();
         this.add.bitmapText(centerX, centerY - 32, 'shortstack', 'FOLLOW MY LEAD', 32).setOrigin(0.5);
         this.add.bitmapText(centerX, centerY, 'shortstack', 'Press SPACE to start', 16).setOrigin(0.5);
 
@@ -60,9 +68,9 @@ class Title extends Phaser.Scene {
         if(Phaser.Input.Keyboard.JustDown(cursors.space)) {
             this.scene.start("talkingScene");
         }
-        if(Phaser.Input.Keyboard.JustDown(cursors.right)) {
+        /*if(Phaser.Input.Keyboard.JustDown(cursors.right)) {
             music.stop();
-            this.scene.start("crediting");
-        }
+            this.scene.start("puzzle1");
+        }*/
     }
 }

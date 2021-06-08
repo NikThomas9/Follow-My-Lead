@@ -19,12 +19,11 @@ class External extends Phaser.Scene{
             },
             fixedWidth: 0
         }
-    
-        // this.cover = this.add.image(game.config.width / 2, game.config.height / 2, 'cityscapeDay');
-        // this.cover.setDisplaySize(game.config.width, game.config.height);
-
-        // this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
-        // borderPadding -150, 'Created by: Nik Thomas, Sreevani Suvarna, Stevie Rodriguez', menuConfig).setOrigin(0.5);
+      
+        this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
+            borderPadding - 140, 'Dialogue System inspired by Professor Nathan\'s example.', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
+            borderPadding - 110, 'Tilemap sprites: https://zrghr.itch.io/topdown-plains-pack ', menuConfig).setOrigin(0.5);
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
             borderPadding - 80, 'Cursor Move Sound 1: https://freesound.org/people/ticebilla/sounds/238188/', menuConfig).setOrigin(0.5);
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
@@ -38,7 +37,7 @@ class External extends Phaser.Scene{
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
             borderPadding + 60, 'Picking up Paper: https://freesound.org/people/jomse/sounds/428664/ ', menuConfig).setOrigin(0.5);    
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
-                borderPadding + 100, 'Press SPACE to go next and see more external resourcess', menuConfig).setOrigin(0.5);
+                borderPadding + 100, 'Press SPACE to go to next page.', menuConfig).setOrigin(0.5);
             
             
 

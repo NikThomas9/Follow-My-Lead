@@ -265,7 +265,7 @@ class Puzzle1 extends Phaser.Scene {
         this.input.keyboard.on('keydown-SPACE', this.interact, this);
 
         //DEBUG
-        this.input.keyboard.on('keydown-P', this.debugSkip, this);
+        //this.input.keyboard.on('keydown-P', this.debugSkip, this);
 
     }
 
@@ -411,8 +411,8 @@ class Puzzle1 extends Phaser.Scene {
         }
     }
 
-    debugSkip()
+    /*debugSkip()
     {
         this.scene.start("puzzle2");
-    }
+    }*/
 }

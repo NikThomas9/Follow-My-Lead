@@ -44,13 +44,8 @@ class Talking extends Phaser.Scene {
 
     create() {
         // parse dialog from JSON file
+        this.add.bitmapText(centerX, game.config.height - 10, 'shortstack', '(F to skip)', 16).setOrigin(0.5);
         this.dialog = this.cache.json.get('dialog', 'dialog.json');
-        //console.log(this.dialog);
-
-
-        // add dialog box sprite
-        // this.dialogbox = this.add.sprite(this.DBOX_X, this.DBOX_Y, 'dialogbox').setOrigin(0);
-        
 
         // initialize dialog text objects (with no text)
         this.dialogText = this.add.bitmapText(this.TEXT_X, this.TEXT_Y, this.DBOX_FONT, '', this.TEXT_SIZE);
@@ -59,12 +54,10 @@ class Talking extends Phaser.Scene {
         // ready the character dialog images offscreen
         this.Me = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'Me').setOrigin(0, 1);
         this.Friend = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'Friend').setOrigin(0, 1);
-        // this.neptune = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'neptune').setOrigin(0, 1);
-        // this.jove = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'jove').setOrigin(0, 1);
 
         // input
         cursors = this.input.keyboard.createCursorKeys();
-        keyRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);  
 
         // start dialog
         this.typeText();        
@@ -76,9 +69,11 @@ class Talking extends Phaser.Scene {
             // trigger dialog
             this.typeText();
         }
-        // if(Phaser.Input.Keyboard.JustDown(cursors.space) && this.dialogText.text == "I...alright, fine. Goodness, I swear, she’s so infuriating at times."){
-        //     this.scene.start("playScene");
-        // }
+
+        if(Phaser.Input.Keyboard.JustDown(keyF)) {
+            music.stop();
+            this.scene.start("puzzle1");
+        }
        
     }
 
@@ -90,15 +85,6 @@ class Talking extends Phaser.Scene {
         this.dialogText.text = '';
         this.nextText.text = '';
 
-        /* Note: In my conversation data structure: 
-                - each array within the main JSON array is a "conversation"
-                - each object within a "conversation" is a "line"
-                - each "line" can have 3 properties: 
-                    1. a speaker (required)
-                    2. the dialog text (required)
-                    3. an (optional) flag indicating if this speaker is new
-        */
-
         // make sure there are lines left to read in this convo, otherwise jump to next convo
         if(this.dialogLine > this.dialog[this.dialogConvo].length - 1) {
             this.dialogLine = 0;
@@ -109,18 +95,9 @@ class Talking extends Phaser.Scene {
         
         // make sure we haven't run out of conversations...
         if(this.dialogConvo >= this.dialog.length) {
-            // here I'm simply "exiting" the last speaker and removing the dialog box,
-            // but you could build other logic to change game states here
-            console.log('End of Conversations');
             
             // tween out prior speaker's image
             if(this.dialogLastSpeaker) {
-                // this.tweens.add({
-                //     targets: this[this.dialogLastSpeaker],
-                //     x: this.OFFSCREEN_X,
-                //     duration: this.tweenDuration,
-                //     ease: 'Linear'
-                // });
                 this.scene.start("puzzle1");
                 music.stop();
             }

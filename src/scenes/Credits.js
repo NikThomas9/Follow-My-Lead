@@ -20,15 +20,8 @@ class Credits extends Phaser.Scene{
             fixedWidth: 0
         }
     
-        // this.cover = this.add.image(game.config.width / 2, game.config.height / 2, 'cityscapeDay');
-        // this.cover.setDisplaySize(game.config.width, game.config.height);
-
-        // this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
-        // borderPadding -150, 'Created by: Nik Thomas, Sreevani Suvarna, Stevie Rodriguez', menuConfig).setOrigin(0.5);
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
-            borderPadding - 80, 'Programming: Nik, Sreevani', menuConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
-            borderPadding -50, 'Dialogging: Professor Nathan, Sreevani', menuConfig).setOrigin(0.5);
+            borderPadding - 50, 'Programming: Nik, Sreevani', menuConfig).setOrigin(0.5);
          this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
              borderPadding - 20, 'Art: Stevie', menuConfig).setOrigin(0.5);
          this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
@@ -36,7 +29,7 @@ class Credits extends Phaser.Scene{
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
              borderPadding + 35, 'Sound: Sreevani', menuConfig).setOrigin(0.5);
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
-                borderPadding + 100, 'Press SPACE to go next and see external resourcess', menuConfig).setOrigin(0.5);
+                borderPadding + 100, 'Press SPACE to go to next page.', menuConfig).setOrigin(0.5);
             
             
 

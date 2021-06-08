@@ -20,11 +20,6 @@ class External2 extends Phaser.Scene{
             fixedWidth: 0
         }
     
-        // this.cover = this.add.image(game.config.width / 2, game.config.height / 2, 'cityscapeDay');
-        // this.cover.setDisplaySize(game.config.width, game.config.height);
-
-        // this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
-        // borderPadding -150, 'Created by: Nik Thomas, Sreevani Suvarna, Stevie Rodriguez', menuConfig).setOrigin(0.5);
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
             borderPadding - 80, 'Paper Scrawl: https://freesound.org/people/jackyyang09/sounds/476840/', menuConfig).setOrigin(0.5);
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
@@ -41,7 +36,7 @@ class External2 extends Phaser.Scene{
                     borderPadding + 90, 'Cursor select: https://freesound.org/people/Rickplayer/sounds/530776/', menuConfig).setOrigin(0.5);  
              
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize -
-                borderPadding + 110, 'Press SPACE to go back to the beginning', menuConfig).setOrigin(0.5);
+                borderPadding + 130, 'Press SPACE to restart.', menuConfig).setOrigin(0.5);
             
             
 

@@ -8,7 +8,7 @@ let config = {
         target: 60,
         forceSetTimeOut: true,
     },
-    scene:  [ Title, Talking, Puzzle1, Puzzle2, Inventory, UI,Title2, Talking2, Crediting, Credits, External, External2],
+    scene:  [ Title, Talking, Puzzle1, Puzzle2, Inventory, UI, Talking2, Crediting, Credits, External, External2],
     physics: {
         default: 'arcade',
         arcade: {
@@ -28,7 +28,7 @@ let cursors = null;
 let borderUISize = game.config.height / 15;
 let borderPadding = borderUISize / 3;
 
-let keyUp, keyDown, keyRight, keyLeft, keySpace, keyI;
+let keyUp, keyDown, keyRight, keyLeft, keySpace, keyI, keyF;
 
 let pickups, buttons, obstacles, tutorials;
 let code1 = ["red", "blue", "yellow", "green"];

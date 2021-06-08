@@ -66,6 +66,7 @@ class Talking2 extends Phaser.Scene {
 
     create() {
         // parse dialog from JSON file
+        this.add.bitmapText(centerX, game.config.height - 10, 'shortstack', '(F to skip)', 16).setOrigin(0.5);
         this.dialog2 = this.cache.json.get('dialog2');
         //console.log(this.dialog);
 
@@ -94,6 +95,8 @@ class Talking2 extends Phaser.Scene {
         music = this.sound.add('music');
         music.play();
 
+        keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);  
+
     }
 
     update() {
@@ -102,12 +105,11 @@ class Talking2 extends Phaser.Scene {
             // trigger dialog
             this.typeText();
         }
-        // if(Phaser.Input.Keyboard.JustDown(cursors.space)) {
-        //     this.scene.start("titleScene");
-        // }
-        // if(Phaser.Input.Keyboard.JustDown(cursors.space) && this.dialogText.text == "I...alright, fine. Goodness, I swear, she’s so infuriating at times."){
-        //     this.scene.start("playScene");
-        // }
+
+        if(Phaser.Input.Keyboard.JustDown(keyF)) {
+            music.stop();
+            this.scene.start("crediting");
+        }
        
     }
 

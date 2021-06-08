@@ -34,25 +34,24 @@ class Inventory extends Phaser.Scene {
         //     fixedWidth: 0
         // }
 
-        // let inventoryText = {
-        //     fontFamily: 'Courier',
-        //     fontSize: '24px',
-        //     backgroundColor: '#000000',
-        //     color: '#FFFFFF',
-        //     align: 'center',
-        //     fixedWidth: 0
-        // }
+         let inventoryText = {
+             fontFamily: 'Courier',
+             fontSize: '24px',
+             backgroundColor: '#000000',
+             color: '#FFFFFF',
+             align: 'center',
+             fixedWidth: 0
+        }
 
         // this.inventoryMenu = this.add.text(this.inventoryWidth - 100, this.inventoryHeight, 'Inventory:', inventoryHeader).setOrigin(0, 0);
         this.inventoryMenu = this.add.bitmapText(this.inventoryWidth - 100,this.inventoryHeight + textOffset, 'shortstack', 'Inventory').setOrigin(0,0);
         inventory.forEach(item => 
             {
                 textOffset += 50;
-                // this.add.text(this.inventoryWidth - 100, this.inventoryHeight + textOffset, item.name, inventoryText);
-                this.add.bitmapText(this.inventoryWidth - 100,this.inventoryHeight + textOffset, 'shortstack', item.name,19).setOrigin(0, -1);
+                this.add.text(this.inventoryWidth - 100, this.inventoryHeight + textOffset + 30, item.name, inventoryText);
             });
 
-        this.arrow = this.add.image(this.inventoryWidth - 150, this.inventoryHeight + 85 + this.arrowOffset, "arrow");
+        this.arrow = this.add.image(this.inventoryWidth - 150, this.inventoryHeight + 90 + this.arrowOffset, "arrow");
 
         this.input.keyboard.on('keydown-SPACE', this.select, this);
         this.input.keyboard.on('keydown-W', this.selectorUp, this);
@@ -67,7 +66,7 @@ class Inventory extends Phaser.Scene {
 
     update()
     {
-        this.arrow.y = this.inventoryHeight + 85 + this.arrowOffset;
+        this.arrow.y = this.inventoryHeight + 90 + this.arrowOffset;
 
         if (inventory.length <= 0)
         {
